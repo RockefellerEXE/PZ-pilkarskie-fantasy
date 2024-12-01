@@ -4,7 +4,7 @@ Projekt piłkarskie fantasy realizowany w ramach programowania zespołowego UKW 
 ## Ważne linki
 
 1. [Projekt poglądowy w Figma](https://www.figma.com/design/AwjHfh6r4Grny9PrBePrBO/Projekt-fantasy?node-id=0-1&t=slLytFACYrM4wtpF-1)
-1.
+1. [Tablica Trello](https://trello.com/b/CS30swUS/programowanie-zespo%C5%82owe)
 1.
 
 
