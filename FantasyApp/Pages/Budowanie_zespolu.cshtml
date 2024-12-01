@@ -1,5 +1,42 @@
 ﻿@page
 @model FantasyApp.Pages.Budowanie_zespoluModel
 @{
-    <h1>Budowanie_zespolu</h1>
+    <div> <!-- Dodać ukrwanie na przycisku-->
+        <button>Wybór zespołu</button>
+        <button>Punkty</button>
+        <button>Transfery</button>
+    </div>
+    <div>
+        <h1>Wybierz swój zespół</h1>
+        <h2>...Nazwa Zespołu...</h2> <!-- TODO Wstawić automatycznie nazwę -->
+        <img src="https://tortytorty.pl/18308-medium_default/boisko-wydruk-na-oplatku.jpg" alt="Boisko"/> <!-- Tu będzie można wrzucać członków zespołu-->
+    </div>
+    <div>
+        <h1>Ławka</h1><!-- Foreach z zawodnikami na ławce-->
+        <ol>
+            <li>A</li>
+            <li>B</li>
+            <li>C</li>
+            <li>D</li>
+            <li>E</li>
+        </ol>
+    </div>
+    <div>
+        <h1>Lista zawodników</h1>
+        <select>
+            <option value="wybierz_pozycje" disabled selected hidden>Wybierz pozycję</option>
+            <option value="wszyscy_zawodnicy">Wszyscy zawodnicy</option>
+            <option value="wszyscy_zawodnicy">Watchlista</option>
+            <optgroup label="Pozycja">
+                <option value="bramkarz">Bramkarz</option>
+                <option value="obronca">Obrońca</option>
+                <option value="pomocnik">Pomocnik</option>
+                <option value="napastnik">Napastnik</option>
+            </optgroup>
+            <optgroup label="Kluby"> <!-- Foreach z klubami -->
+                <option value="klub_1">Klub 1</option>
+                <option value="klub_2">klub 2</option>
+            </optgroup>
+        </select>
+    </div>
 }
