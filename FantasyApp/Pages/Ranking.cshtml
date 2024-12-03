@@ -1,5 +1,53 @@
 ﻿@page
 @model FantasyApp.Pages.RankingModel
 @{
-	<h1>Ranking</h1>
+    ViewBag.Title = "Ranking";
 }
+<head>
+    <meta charset="UTF-8">
+    <style>
+        .content {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 id="main-heading">Ranking</h1>
+
+        <select id="select-option" onchange="showContent()">
+            <option value="none" selected hidden disabled>Wybierz opcję</option>
+            <option value="ranking-ogolny">Ranking ogólny</option>
+            <option value="ligi-prywatne">Ligi prywatne</option>
+        </select>
+
+        <div id="ranking-ogolny" class="content">
+            <p>Tu znajdzie się Ranking ogólny.</p>
+        </div>
+        <div id="ligi-prywatne" class="content">
+            <p>Tu znajdzie się ranking lig prywatnych.</p>
+        </div>
+    </div>
+
+    <script>
+        function showContent() {
+            // Ukryj wszystkie pola
+            document.querySelectorAll('.content').forEach(function (div) {
+                div.style.display = 'none';
+            });
+
+            // Pobierz wybraną opcję
+            const selectedValue = document.getElementById('select-option').value;
+
+            // Zmień nagłówek i pokaż odpowiednie pole
+            const mainHeading = document.getElementById('main-heading');
+            if (selectedValue === "ranking-ogolny") {
+                mainHeading.textContent = "Ranking ogólny";
+                document.getElementById('ranking-ogolny').style.display = 'block';
+            } else if (selectedValue === "ligi-prywatne") {
+                mainHeading.textContent = "Ranking lig prywatnych";
+                document.getElementById('ligi-prywatne').style.display = 'block';
+            }
+        }
+    </script>
+</body>
