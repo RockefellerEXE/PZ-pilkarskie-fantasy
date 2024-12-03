@@ -1,5 +1,209 @@
 ﻿@page
 @model FantasyApp.Pages.Zasady_FAQModel
+
 @{
-	<h1>Zasady/FAQ</h1>
+    ViewData["Title"] = "Zasady i FAQ";
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Zasady gry</title>
+        <style>
+            .wrapper {
+                display: flex;
+                align-items: center;
+                height: 100vh;
+                padding-top: 20px;
+                flex-direction: column;
+            }
+
+            .container-zasady,
+            .container-faq {
+                max-width: 80%;
+                max-height: 60%;
+                background-color: #fff;
+                padding: 20px;
+                border: 1px solid black;
+                overflow-y: auto;
+                margin-bottom: 20px;
+            }
+
+            .container-zasady-item {
+                margin-bottom: 25px;
+            }
+
+            .container-faq-item {
+                margin-bottom: 15px;
+            }
+            th, td, tr {
+                border: 1px solid black;
+            }
+            td{
+                text-align: left;
+                vertical-align: middle;
+            }
+                td:nth-child(2) {
+                    text-align: center;
+                }
+        </style>
+    </head>
+    <body>
+        <div class="wrapper">
+            <h1>ZASADY</h1>
+            <!-- Kontener Zasady -->
+            <div class="container-zasady">
+                <div class="container-zasady-item">
+                <h2>Budowa drużyny</h2>
+                <p>Każdy menedżer ma do dyspozycji 100 milionów wirtualnych złotych na zakup 16 piłkarzy. Drużyna musi składać się z:</p>
+                <ul>
+                    <li>dwóch bramkarzy,</li>
+                    <li>pięciu obrońców,</li>
+                    <li>pięciu pomocników,</li>
+                    <li>czterech napastników.</li>
+                </ul>
+                <p>Z jednego klubu można wybrać maksymalnie trzech zawodników.</p>
+            </div>
+                <div class="container-zasady-item">
+                <h2>Wybór składu</h2>
+                <p>Przed każdą kolejką menedżer wybiera 11 zawodników, którzy znajdą się w podstawowym składzie, oraz 5 rezerwowych. Rezerwa musi obejmować:</p>
+                <ul>
+                    <li>jednego bramkarza,</li>
+                    <li>czterech graczy z pola.</li>
+                </ul>
+                <p>W podstawowym składzie zawodnicy mogą być ustawieni w dowolnej formacji spośród dostępnych wariantów.</p>
+            </div>
+                <div class="container-zasady-item">
+                    <h2>Rezerwowi</h2>
+                <p>Jeśli zawodnik z podstawowego składu nie zagra, zastępuje go rezerwowy według ustalonej kolejności:</p>
+                <ul>
+                    <li>Rezerwowy bramkarz wchodzi automatycznie, jeśli podstawowy bramkarz nie wystąpił.</li>
+                    <li>Punkty zawodników rezerwowych (poza bramkarzem i pierwszym rezerwowym) są liczone jako połowa ich zdobytych punktów.</li>
+                </ul>
+                </div>
+                <div class="container-zasady-item">
+                    <h2>Transfery</h2>
+                <p>W każdej kolejce można dokonać dwóch transferów:</p>
+                <ul>
+                    <li>Jeśli transfer nie zostanie wykorzystany, przechodzi na następną kolejkę, ale łączna liczba dostępnych transferów nie może przekroczyć czterech.</li>
+                    <li>Każdy dodatkowy transfer poza dostępny limit skutkuje karą w postaci odjęcia czterech punktów od wyniku drużyny.</li>
+                </ul>
+                </div>
+                <div class="container-zasady-item">
+                    <h2>Bonusy</h2>
+                <p>Każdy bonus można wykorzystać raz w sezonie. W jednej kolejce można użyć tylko jednego bonusu:</p>
+                <ul>
+                    <li><strong>Potrójny kapitan:</strong> punkty kapitana są mnożone przez trzy.</li>
+                    <li><strong>Bench boost:</strong> punkty zdobyte przez wszystkich rezerwowych są wliczane do wyniku drużyny.</li>
+                    <li><strong>Limitless:</strong> w jednej kolejce można wybrać dowolnych zawodników bez ograniczeń budżetowych.</li>
+                    <li><strong>Dzika karta:</strong> umożliwia dokonanie nieograniczonej liczby transferów.</li>
+                </ul>
+                </div>
+                <div class="container-zasady-item">
+                    <h2>Zmiany cen</h2>
+                <p>Po kolejce zawodnikom może zmienić się cena:</p>
+                <ul>
+                    <li>Wzrost o 0.2 jeśli zdobędzie 10+ punktów.</li>
+                    <li>Wzrost o 0.1 za 6-10 punktów.</li>
+                    <li>Spadek o 0.2 za trzy "blanki" z rzędu (0-2 pkt).</li>
+                </ul>
+                </div>
+                <div class="container-zasady-item">
+                    <h2>Punktacja</h2>
+                <div>
+                    <table class="table table-bordered">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Opis</th>
+                                <th>Punkty</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Za rozegranie mniej niż 60 minut</td>
+                                <td>1</td>
+                            </tr>
+                            <tr>
+                                <td>Za zagranie 60 minut lub więcej</td>
+                                <td>2</td>
+                            </tr>
+                            <tr>
+                                <td>Gol napastnika</td>
+                                <td>6</td>
+                            </tr>
+                            <tr>
+                                <td>Gol bramkarza/obrońcy/pomocnika</td>
+                                <td>5</td>
+                            </tr>
+                            <tr>
+                                <td>Asysta pomocnika</td>
+                                <td>5</td>
+                            </tr>
+                            <tr>
+                                <td>Asysta bramkarza/obrońcy/napastnika</td>
+                                <td>4</td>
+                            </tr>
+                            <tr>
+                                <td>Czyste konto obrońcy/bramkarza (musi rozegrać co najmniej 60 minut, czyste konto jest zaliczone zaraz po zejściu piłkarza)</td>
+                                <td>5</td>
+                            </tr>
+                            <tr>
+                                <td>Każde 2 interwencje bramkarza</td>
+                                <td>1</td>
+                            </tr>
+                            <tr>
+                                <td>Obrona karnego</td>
+                                <td>4</td>
+                            </tr>
+                            <tr>
+                                <td>Wywalczony karny (sfaulowany zawodnik)</td>
+                                <td>3</td>
+                            </tr>
+                            <tr>
+                                <td>Pudło z karnego</td>
+                                <td>-3</td>
+                            </tr>
+                            <tr>
+                                <td>Spowodowanie karnego (faul/ręka)</td>
+                                <td>-2</td>
+                            </tr>
+                            <tr>
+                                <td>Za każdego straconego gola po pierwszym (bramkarz/obrona)</td>
+                                <td>-1</td>
+                            </tr>
+                            <tr>
+                                <td>Żółta kartka</td>
+                                <td>-1</td>
+                            </tr>
+                            <tr>
+                                <td>Czerwona kartka</td>
+                                <td>-4</td>
+                            </tr>
+                            <tr>
+                                <td>Gol samobójczy</td>
+                                <td>-3</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                </div>
+            </div>
+            <!-- Kontener FAQ -->
+                <h1>FAQ</h1>
+            <div class="container-faq">
+                <div class="container-faq-item">
+                    <h2>Jakie są zasady dotyczące transferów?</h2>
+                    <p>W każdej kolejce można wykonać dwa transfery. Jeśli nie zostaną one wykorzystane, przechodzą na następną kolejkę, ale limit transferów nie może przekroczyć czterech.</p>
+                </div>
+
+                <div class="container-faq-item">
+                    <h2>Jakie bonusy mogę wykorzystać w trakcie sezonu?</h2>
+                    <p>W trakcie sezonu można wykorzystać następujące bonusy: Potrójny kapitan, Bench Boost, Limitless i Dzika karta. Każdy bonus można wykorzystać raz w sezonie, a w jednej kolejce tylko jeden bonus.</p>
+                </div>
+
+                <div class="container-faq-item">
+                    <h2>Jak zmienia się cena zawodników?</h2>
+                    <p>Po każdej kolejce zawodnikom może zmienić się cena w zależności od ich punktów. Zawodnicy, którzy zdobędą więcej punktów, mogą mieć wzrost ceny, a ci, którzy będą mieli trzy "blanki" z rzędu, mogą mieć spadek ceny.</p>
+                </div>
+            </div>
+        </div>
+    </body>
 }
