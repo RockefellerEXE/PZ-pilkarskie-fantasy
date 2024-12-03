@@ -1,187 +1,105 @@
 ﻿@page
 @model FantasyApp.Pages.StatystykiModel
 @{
-	<!DOCTYPE html>
-<html lang="pl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Statystyki - Fantasy Legends</title>
-    <style>
-        /* Reset & Base */
-        body, html {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            font-family: Arial, sans-serif;
-            display: flex;
-            flex-direction: column;
-        }
+    <!DOCTYPE html>
+    <html lang="pl">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Statystyki - Fantasy Legends</title>
+        <style>
+            /* Reset & Base */
+            body, html {
+                margin: 0;
+                padding: 0;
+                height: 100%;
+                font-family: Arial, sans-serif;
+                display: flex;
+                flex-direction: column;
+            }
 
-        body {
-            background-color: #f3f3f3;
-        }
+            body {
+                background-color: #f3f3f3;
+            }
 
-        /* Header */
-        .header {
-            background-color: #99cc99;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 10px 20px;
-        }
-
-        .header img {
-            height: 50px;
-        }
-
-        .header nav {
-            display: flex;
-            gap: 15px;
-        }
-
-        .header nav a {
-            text-decoration: none;
-            color: #000;
-            padding: 10px;
-        }
-
-        .header nav a.active {
-            background-color: #008000;
-            color: #fff;
-            border-radius: 5px;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-        }
-
-        .logo-image {
-            height: 50px; /* Задайте размер логотипа */
-            width: auto;  /* Автоматически сохраняет пропорции */
-            object-fit: contain; /* Масштабирует изображение, не обрезая его */
-        }
+            /* Header */
 
 
-        /* Main Content */
-        .main-content {
-            flex: 1; /* Заполнение оставшегося пространства */
-            padding: 20px;
-            background-color: #f9f9f9;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 20px;
-        }
+            .logout-btn {
+                background-color: #4CAF50;
+                color: white;
+                border: none;
+                padding: 10px 20px;
+                border-radius: 5px;
+                cursor: pointer;
+            }
 
-        .dropdown {
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            width: 200px;
-        }
+            /* Main Content */
+            .main-content {
+                flex: auto;
+                padding: 20px;
+                background-color: #f9f9f9;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 20px;
+            }
 
-        .display-area {
-            width: 80%;
-            flex-grow: 1; /* Занимает оставшееся пространство */
-            flex-shrink: 1; /* Уменьшается при необходимости */
-            min-height: 150px; /* Минимальная высота */
-            max-height: calc(100vh - 200px); /* Максимальная высота с учетом отступов */
-            background-color: #fff;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            color: #888;
-            font-size: 18px;
-        }
+            .dropdown {
+                padding: 10px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                width: 200px;
+            }
 
-        /* Footer */
-        .footer {
-            background-color: #99cc99;
-            padding: 20px;
-            text-align: center;
-            font-size: 14px;
-        }
+            .display-area {
+                height: 100%;
+                width: 100%;
+                flex-grow: 1; 
+                flex-shrink: 1; 
+                min-height: 150px; 
+                max-height: calc(100vh - 200px); 
+                background-color: #fff;
+                border: 1px solid #ddd;
+                border-radius: 5px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                text-align: center;
+                color: #888;
+                font-size: 18px;
+            }
+        </style>
+    </head>
+    <body>
+        <!-- Header -->
+        <header class="header">
+        </header>
 
-        .footer a {
-            text-decoration: none;
-            color: #000;
-            margin: 0 10px;
-        }
+        <!-- Main Content -->
+        <main class="main-content">
+            <h1>Statystyki</h1>
+            <select class="dropdown">
+                <option>Wszyscy zawodnicy</option>
+                <optgroup label="Pozycje">
+                    <option>Bramkarz</option>
+                    <option>Obrońca</option>
+                    <option>Pomocnik</option>
+                    <option>Napastnik</option>
+                </optgroup>
+                <optgroup label="Kluby">
+                    <option>Lech, Legia itd.</option>
+                </optgroup>
+            </select>
 
-        .footer .contact {
-            margin-top: 10px;
-        }
-
-        .footer .contact span {
-            display: inline-block;
-            margin: 0 5px;
-        }
-
-        .footer .contact a {
-            text-decoration: none;
-            color: #4CAF50;
-        }
-    </style>
-</head>
-<body>
-    <!-- Header -->
-    <header class="header">
-        <img src="png-transparent-soccer-fans.png" alt="Fantasy Legends Logo" class="logo-image">
-
-        <nav>
-            <a href="#">Aktualności</a>
-            <a href="#">Budowanie zespołu</a>
-            <a href="#">Ranking</a>
-            <a href="#" class="active">Statystyki</a>
-            <a href="#">Terminarz</a>
-            <a href="#">Zasady/FAQ</a>
-            <a href="#">Kontakt</a>
-        </nav>
-        <button class="logout-btn">Wyloguj</button>
-    </header>
-
-    <!-- Main Content -->
-    <main class="main-content">
-        <h1>Statystyki</h1>
-        <select class="dropdown">
-            <option>Wszyscy zawodnicy</option>
-            <optgroup label="Pozycje">
-                <option>Bramkarz</option>
-                <option>Obrońca</option>
-                <option>Pomocnik</option>
-                <option>Napastnik</option>
-            </optgroup>
-            <optgroup label="Kluby">
-                <option>Lech, Legia itd.</option>
-            </optgroup>
-        </select>
-
-        <!-- Display Area -->
-        <div class="display-area">
-            <p>Tu będą wyświetlane dane</p>
-        </div>
-    </main>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div>
-            <a href="#">Strona główna</a>
-            <a href="#">O twórcach</a>
-            <a href="#">Kontakt</a>
-        </div>
-        <div class="contact">
-            <span>📧 <a href="mailto:fantasylegends@gmail.com">fantasylegends@gmail.com</a></span>
-            <span> Χ <a href="#">Twitter</a></span>
-        </div>
-        <div>Wszelkie prawa zastrzeżone🧐</div>
-    </footer>
-</body>
-</html>
+            <!-- Display Area -->
+            <div class="display-area">
+                <p>Tu będą wyświetlane dane</p>
+            </div>
+        </main>
+    </body>
+    </html>
 
 }
+
