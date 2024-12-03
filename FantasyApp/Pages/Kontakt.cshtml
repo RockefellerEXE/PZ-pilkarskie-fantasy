@@ -1,5 +1,129 @@
 ﻿@page
 @model FantasyApp.Pages.KontaktModel
 @{
-	<h1>Kontakt</h1>
+    <head>
+        <meta charset="UTF-8">
+        <title>Kontakt</title>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                margin: 0;
+                padding: 0;
+                background-color: #f4f4f4;
+            }
+
+            .container-kontakt {
+                width: 90%;
+                max-width: 800px; 
+                max-height: 80vh;
+                margin: auto;
+                padding: 20px;
+                background-color: #fff;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                border-radius: 8px;
+                overflow-y: auto;
+            }
+
+            h1 {
+                text-align: center;
+                color: #333;
+                font-size: 2rem;
+            }
+
+            .person {
+                margin: 20px 0;
+                padding: 15px;
+                border-bottom: 1px solid #ddd;
+                display: flex;
+                align-items: center;
+                justify-content: space-between; 
+            }
+
+                .person:last-child {
+                    border-bottom: none;
+                }
+
+                .person h2 {
+                    margin: 0;
+                    color: #555;
+                }
+
+            .icon {
+                width: 40px;
+                height: 40px;
+                vertical-align: middle;
+                transition: 0.3s;
+                margin-right: 15px;
+            }
+                .icon:hover {
+                    transform: scale(1.4);
+                }
+
+        </style>
+    </head>
+    <body>
+        <h1>Kontakt</h1>
+        <div class="container-kontakt">
+            <div class="person">
+                <h2>Adam</h2>
+                <div class="links">
+                    <a href="mailto:adam@example.com" title="Wyślij e-mail">
+                        <img class="icon" src="~/icons/envelope-solid.svg" alt="Envelope" />
+                    </a>
+                    <a href="https://x.com/adam" title="Profil na X">
+                        <img class="icon" src="~/icons/x-twitter-brands-solid.svg" alt="X logo">
+                    </a>
+                </div>
+            </div>
+            <div class="person">
+                <h2>Łukasz</h2>
+                <div class="links">
+
+                    <a href="mailto:lukasz@example.com" title="Wyślij e-mail">
+                        <img class="icon" src="~/icons/envelope-solid.svg" alt="Envelope" />
+                    </a>
+                    <a href="https://x.com/lukasz" title="Profil na X">
+                        <img class="icon" src="~/icons/x-twitter-brands-solid.svg" alt="X logo">
+                    </a>
+                </div>
+            </div>
+            <div class="person">
+                <h2>Daniil</h2>
+                <div class="links">
+
+                    <a href="mailto:daniil@example.com" title="Wyślij e-mail">
+                        <img class="icon" src="~/icons/envelope-solid.svg" alt="Envelope" />
+                    </a>
+                    <a href="https://x.com/daniil" title="Profil na X">
+                        <img class="icon" src="~/icons/x-twitter-brands-solid.svg" alt="X logo">
+                    </a>
+                </div>
+            </div>
+            <div class="person">
+                <h2>Mikołaj</h2>
+                <div class="links">
+
+                    <a href="mailto:mikolaj@example.com" title="Wyślij e-mail">
+                        <img class="icon" src="~/icons/envelope-solid.svg" alt="Envelope" />
+                    </a>
+                    <a href="https://x.com/mikolaj" title="Profil na X">
+                        <img class="icon" src="~/icons/x-twitter-brands-solid.svg" alt="X logo">
+                    </a>
+                </div>
+            </div>
+            <div class="person">
+                <h2>Paweł</h2>
+                <div class="links">
+
+                    <a href="mailto:pawel@example.com" title="Wyślij e-mail">
+                        <img class="icon" src="~/icons/envelope-solid.svg" alt="Envelope" />
+                    </a>
+                    <a href="https://x.com/pawel" title="Profil na X">
+                        <img class="icon" src="~/icons/x-twitter-brands-solid.svg" alt="X logo">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </body>
 }
