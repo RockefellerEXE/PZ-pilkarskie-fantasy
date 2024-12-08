@@ -1,63 +1,14 @@
 ﻿@page
 @model FantasyApp.Pages.AktualnosciModel
 @{
-	<h1>Aktualności</h1>
+    ViewData["Title"] = "Aktualności";
 }
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aktualności</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-        }
-        .header {
-            background-color: #89c44a;
-            padding: 10px 20px;
-            color: white;
-            text-align: center;
-        }
-        .container {
-            display: flex;
-            justify-content: space-between;
-            padding: 20px;
-        }
-        .table-section {
-            width: 48%;
-            background-color: white;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            padding: 10px;
-        }
-        .pagination {
-            display: flex;
-            justify-content: center;
-            margin-top: 10px;
-        }
-        .pagination button {
-            background-color: #ddd;
-            border: none;
-            padding: 5px 10px;
-            margin: 0 2px;
-            cursor: pointer;
-        }
-        .pagination button.active {
-            background-color: #89c44a;
-            color: white;
-        }
-        .pagination button:hover {
-            background-color: #ccc;
-        }
-        img {
-            max-width: 100%;
-            border-radius: 5px;
-        }
-    </style>
+    <link href="~/css/aktualnosci.css" rel="stylesheet" />
 </head>
 <body>
     <div class="header">
