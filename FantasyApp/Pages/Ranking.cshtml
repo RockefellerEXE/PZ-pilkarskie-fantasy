@@ -5,14 +5,10 @@
 }
 <head>
     <meta charset="UTF-8">
-    <style>
-        .content {
-            display: none;
-        }
-    </style>
+    <link href="~/css/ranking.css" rel="stylesheet" />
 </head>
 <body>
-    <div class="container">
+    <div>
         <h1 id="main-heading">Ranking</h1>
 
         <select id="select-option" onchange="showContent()">
@@ -22,32 +18,62 @@
         </select>
 
         <div id="ranking-ogolny" class="content">
-            <p>Tu znajdzie się Ranking ogólny.</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Pozycja</th>
+                        <th>Gracz</th>
+                        <th>Punkty</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Jan Kowalski</td>
+                        <td>1200</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Anna Nowak</td>
+                        <td>1150</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>Piotr Wiśniewski</td>
+                        <td>1100</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
+
         <div id="ligi-prywatne" class="content">
-            <p>Tu znajdzie się ranking lig prywatnych.</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Pozycja</th>
+                        <th>Liga</th>
+                        <th>Twoje punkty</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>5</td>
+                        <td>Super Liga</td>
+                        <td>1500</td>
+                    </tr>
+                    <tr>
+                        <td>12</td>
+                        <td>Ekstra Team</td>
+                        <td>1400</td>
+                    </tr>
+                    <tr>
+                        <td>8</td>
+                        <td>Wyzwanie 2024</td>
+                        <td>1450</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
-
-    <script>
-        function showContent() {
-            // Ukryj wszystkie pola
-            document.querySelectorAll('.content').forEach(function (div) {
-                div.style.display = 'none';
-            });
-
-            // Pobierz wybraną opcję
-            const selectedValue = document.getElementById('select-option').value;
-
-            // Zmień nagłówek i pokaż odpowiednie pole
-            const mainHeading = document.getElementById('main-heading');
-            if (selectedValue === "ranking-ogolny") {
-                mainHeading.textContent = "Ranking ogólny";
-                document.getElementById('ranking-ogolny').style.display = 'block';
-            } else if (selectedValue === "ligi-prywatne") {
-                mainHeading.textContent = "Ranking lig prywatnych";
-                document.getElementById('ligi-prywatne').style.display = 'block';
-            }
-        }
-    </script>
+    <script src="~/js/ranking.js"></script>
 </body>
