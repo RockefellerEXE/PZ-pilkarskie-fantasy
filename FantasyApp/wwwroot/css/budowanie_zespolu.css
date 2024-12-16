@@ -1,0 +1,190 @@
+﻿/* Resetowanie styli */
+body, h1, h2, p, ol, li, button, ul, select {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Globalne style */
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background-color: #f3f3f3;
+    color: #333;
+}
+
+.container {
+    width: 90%;
+    margin: 20px auto;
+}
+
+/* Stylowanie przycisków */
+.button-group {
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 20px;
+}
+
+.nav-button {
+    padding: 10px 20px;
+    margin: 0 10px;
+    background-color: #28a745; /* Zielony */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+    .nav-button:hover {
+        background-color: #218838; /* Zielony ciemniejszy */
+    }
+
+    .nav-button.active {
+        background-color: #218838; /* Zielony ciemniejszy */
+        font-weight: bold;
+    }
+
+/* Sekcje zawartości */
+.content-section {
+    display: none;
+}
+
+    .content-section.active {
+        display: block;
+    }
+
+/* Layout: Wybór zespołu / Transfery / Punkty */
+.team-layout, .points-layout, .transfer-layout {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+/* Sekcja Wybór zespołu */
+.team-image {
+    width: 50%;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+}
+
+.bench {
+    width: 45%;
+    text-align: left;
+}
+
+.bench-list, .player-list ul {
+    list-style: none;
+    margin-top: 10px;
+}
+
+    .bench-list li, .player-list li {
+        background-color: #28a745;
+        color: white;
+        padding: 10px 15px;
+        margin: 5px 0;
+        border-radius: 5px;
+    }
+
+.player-list {
+    width: 45%;
+}
+
+.team-info {
+    margin-bottom: 15px;
+    font-size: 18px;
+}
+
+/* Sekcja Punkty */
+.points-layout {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+    .points-layout .team-info {
+        margin-right: 20px;
+    }
+
+    .points-layout .team-image {
+        max-width: 45%;
+        margin-right: 20px;
+    }
+
+    .points-layout .bench {
+        width: 45%;
+    }
+
+/* Sekcja Transfery */
+.transfer-layout {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+    .transfer-layout .player-selection {
+        width: 45%;
+        margin-top: 20px;
+        padding: 10px;
+        background-color: #f8f9fa;
+        border-radius: 5px;
+        border: 1px solid #ddd;
+    }
+
+        .transfer-layout .player-selection select {
+            width: 100%;
+            padding: 8px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            margin-bottom: 10px;
+        }
+
+/* Stylowanie formularza wyboru zawodników */
+.player-selection {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #f8f9fa;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+
+select {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+option {
+    font-size: 16px;
+}
+
+select option:disabled {
+    font-style: italic;
+    color: #888;
+}
+
+/* Ogólne marginesy dla nagłówków */
+h1, h2 {
+    margin-bottom: 10px;
+}
+
+/* Stylowanie dla listy zawodników */
+.bench-list {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap; /* Pozwalamy na zawijanie elementów w nowe linie */
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+    .bench-list li {
+        background-color: #28a745;
+        color: white;
+        padding: 10px 15px;
+        border-radius: 5px;
+        width: 100%;  Ustawiamy szerokość elementu na 45%, aby były dwie kolumny 
+        text-align: center;
+    }
