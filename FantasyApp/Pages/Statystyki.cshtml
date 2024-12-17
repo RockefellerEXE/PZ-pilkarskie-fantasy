@@ -1,5 +1,43 @@
 ﻿@page
 @model FantasyApp.Pages.StatystykiModel
 @{
-	<h1>Statystyki</h1>
+    <!DOCTYPE html>
+    <html lang="pl">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Statystyki - Fantasy Legends</title>
+        <link href="~/css/statystyki.css" rel="stylesheet" />
+        <a href="~/js/statystyki.jsx"></a>
+    </head>
+    <body>
+        <!-- Header -->
+        <header class="header">
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <h1>Statystyki</h1>
+            <select class="dropdown">
+                <option>Wszyscy zawodnicy</option>
+                <optgroup label="Pozycje">
+                    <option>Bramkarz</option>
+                    <option>Obrońca</option>
+                    <option>Pomocnik</option>
+                    <option>Napastnik</option>
+                </optgroup>
+                <optgroup label="Kluby">
+                    <option>Lech, Legia itd.</option>
+                </optgroup>
+            </select>
+
+            <!-- Display Area -->
+            <div class="display-area">
+                <p>Tu będą wyświetlane dane</p>
+            </div>
+        </main>
+    </body>
+    </html>
+
 }
+
