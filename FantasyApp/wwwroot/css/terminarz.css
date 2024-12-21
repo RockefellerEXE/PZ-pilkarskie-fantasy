@@ -1,17 +1,18 @@
-﻿/* Ukryj wszystkie pola na starcie */
-.content {
-    display: none;
+﻿.content {
+    display: block; /* Wyświetlanie zawartości */
+    width: 100%; /* Pełna szerokość */
+    height: auto; /* Dostosowanie do zawartości */
 }
 
 .container {
-    max-width: 1200px;
-    margin: 0 auto;
+    max-width: 1200px; /* Opcjonalne - szerokość kontenera */
+    margin: 0 auto; /* Wyśrodkowanie */
 }
 
-.content img {
-    width: 100%; /* Dopasowuje szerokość obrazka do szerokości kontenera */
-    max-width: 1200px; /* Opcjonalnie maksymalna szerokość dla większych ekranów */
-    height: auto; /* Zachowanie proporcji */
-    display: block; /* Wycentrowanie obrazu */
-    margin: 0 auto; /* Wyśrodkowanie w poziomie */
+iframe {
+    width: 100%; /* Pełna szerokość kontenera */
+    height: 600px; /* Wysokość można dostosować */
+    border: none; /* Usunięcie obramowania */
+    overflow: auto; /* Włącz przewijanie, jeśli zawartość jest większa */
 }
+

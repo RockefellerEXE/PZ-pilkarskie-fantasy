@@ -6,36 +6,40 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="~/css/terminarz.css" rel="stylesheet" />        
-        <title>Terminarz</title>       
+        <link href="~/css/terminarz.css" rel="stylesheet" />
+        <title>Terminarz</title>
     </head>
-        <body>
-            <div class="container">
-                <h1>Terminarz</h1>
-                <select id="select-option" onchange="showContent()">
-                    <option value="none" selected hidden disabled>Wybierz opcję</option>
-                    <option value="cala-runda">Cała runda</option>
-                    <option value="cala-runda-fdr">Cała runda FDR</option>
-                    <option value="kolejki">Poszczególne kolejki</option>
-                </select>
-                <!-- Pola do wyświetlania terminarzy -->
-                <div id="cala-runda" class="content">
-                    <h2>Terminarz całej rundy</h2>
-                    <p>Tu znajdzie się terminarz całej rundy.</p>
-                    <img src="https://pbs.twimg.com/media/FVXCyjLXsAItytI.png:large" alt="Opis obrazu" style="auto; height: auto;">
-                </div>
-                <div id="cala-runda-fdr" class="content">
-                    <h2>Terminarz całej rundy FDR</h2>
-                    <p>Tu znajdzie się terminarz całej rundy z uwzględnieniem FDR.</p>
-                    <img src="https://resources.premierleague.pulselive.com/photo-resources/2024/06/18/30efcb2e-5ed7-4f5a-bde7-a50e76a8cb4e/FDR-part-1.jpg?width=1400&height=800" alt="Opis obrazu" style="width: auto; height: auto;">
-                </div>
-                <div id="kolejki" class="content">
-                    <h2>Terminarz poszczególnych kolejek</h2>
-                    <p>Tu znajdzie się terminarz poszczególnych kolejek.</p>
-                    <img src="https://lechia24.pl/wp-content/uploads/2022/06/ekstraklasa-1.kolejka.png" alt="Opis obrazu" style="width: 300px; height: auto;">
-                </div>
+    <body>
+        <div class="container">
+            <h1>Terminarz</h1>
+            <select id="select-option" onchange="showContent()">
+                <option value="none" selected hidden disabled>Wybierz opcję</option>
+                <option value="cala-runda">Cała runda</option>
+                <option value="cala-runda-fdr">Cała runda FDR</option>
+                <option value="kolejki">Poszczególne kolejki</option>
+            </select>
+            <!-- Pola do wyświetlania terminarzy -->
+            <div id="cala-runda" class="content" >
+                <h2>Terminarz całej rundy</h2>
+                <iframe src="/Pliki_terminarz/terminarz_NO_FDR.htm"  frameborder="0"></iframe>
             </div>
-            <script src="~/js/terminarz.js"></script>
-        </body>  
+            <div id="cala-runda-fdr" class="content" >
+                <h2>Terminarz całej rundy FDR</h2>
+                <iframe src="/Pliki_terminarz/terminarz_FDR.htm"  frameborder="0"></iframe>
+            </div>
+            <div id="kolejki" class="content">
+                <h2>Terminarz poszczególnych kolejek</h2>
+                <select id="select-kolejka" onchange="showKolejkaContent()">
+                    <option value="none" selected hidden disabled>Wybierz kolejkę</option>
+                </select>
+                <div id="fixtures" class="kolejka-content"></div>
+            </div>
+        </div> 
+
+       
+
+
+        <script src="~/js/terminarz.js"></script>
+    </body>
     </html>
 }
