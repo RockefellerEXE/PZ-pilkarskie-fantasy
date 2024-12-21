@@ -18,7 +18,7 @@
     }
 }
 
-
+// zmiana dla brancha
 // TERMINARZ POSZCZEGÓLNE KOLEJKI
 document.addEventListener("DOMContentLoaded", function () {
     const kolejkiSelect = document.getElementById('select-kolejka');
