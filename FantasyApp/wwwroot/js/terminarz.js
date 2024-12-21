@@ -18,52 +18,87 @@
     }
 }
 
-// zmiana dla brancha
-// TERMINARZ POSZCZEGÓLNE KOLEJKI
-document.addEventListener("DOMContentLoaded", function () {
-    const kolejkiSelect = document.getElementById('select-kolejka');
-    for (let i = 1; i <= 10; i++) { // Załaduj 10 kolejek
-        let option = document.createElement('option');
-        option.value = `kolejka-${i}`;
-        option.textContent = `Kolejka ${i}`;
-        kolejkiSelect.appendChild(option);
-    }
-});
-
-// Funkcja do parsowania danych z pliku
+// Funkcja do parsowania pliku i tworzenia obiektu z danymi
 function parseFixtures(data) {
     const fixtures = {};
-    const sections = data.split('---');
+    const sections = data.split(/\n(?=\d+\. kolejka)/);  // Rozdziel kolejki na podstawie numeru kolejki
 
     sections.forEach(section => {
         const lines = section.trim().split('\n');
-        const header = lines.shift();  // Pierwsza linia to nagłówek, np. "1. kolejka"
-        const matchday = header.match(/(\d+)\. kolejka/);  // Wyciągamy numer kolejki
+        const header = lines.shift();  // Pierwsza linia to nagłówek, np. "19. kolejka (1-2 lutego)"
+
+        // Używamy wyrażenia regularnego do wyciągnięcia numeru kolejki
+        const matchday = header.match(/(\d+)\. kolejka/);
         if (matchday) {
-            fixtures[matchday[1]] = lines.join('<br>');
+            const matchdayNumber = matchday[1];
+            fixtures[matchdayNumber] = lines.join('<br>'); // Przypisujemy mecze danej kolejki
         }
     });
 
     return fixtures;
 }
 
-// Funkcja do wypełniania opcji w selekcie
+// Funkcja do uzupełnienia selecta z kolejnymi opcjami
 function populateKolejkaOptions(fixtures) {
     const select = document.getElementById('select-kolejka');
+    // Dodajemy opcję "Wybierz kolejkę"
+    const defaultOption = document.createElement('option');
+    defaultOption.value = 'none';
+    defaultOption.text = 'Wybierz kolejkę';
+    select.appendChild(defaultOption);
+
+    // Dodajemy opcje dla każdej kolejki
     for (const matchday in fixtures) {
         const option = document.createElement('option');
-        option.value = `kolejka-${matchday}`;  // wartość opcji, np. "kolejka-1"
-        option.text = `${matchday}. kolejka`;  // Tekst wyświetlany w opcji, np. "1. kolejka"
+        option.value = `kolejka-${matchday}`;  // wartość opcji, np. "kolejka-19"
+        option.text = `${matchday}. kolejka`;  // Tekst wyświetlany w opcji, np. "19. kolejka"
         select.appendChild(option);
     }
 }
 
-// Funkcja do wyświetlania zawartości dla wybranej kolejki
-function showKolejkaContent() {
-    const fixtures = document.getElementById('fixtures');
-    const selectedKolejka = document.getElementById('select-kolejka').value;
-
-    // Przykład testowy - dynamiczne ładowanie zawartości
-    fixtures.innerHTML = `<p>Wybrano kolejkę: ${selectedKolejka}</p>`;
+// Funkcja do wczytywania danych z pliku i populowania selecta
+function loadFixtures() {
+    fetch('/Pliki_terminarz/terminarz_poszczegolne.txt')
+        .then(response => response.text())  // Odczytaj zawartość pliku
+        .then(data => {
+            const fixtures = parseFixtures(data);  // Parsuj dane
+            populateKolejkaOptions(fixtures);  // Wypełnij opcje w selekcie
+        })
+        .catch(error => {
+            console.error('Błąd wczytywania danych:', error);
+        });
 }
 
+// Funkcja do wyświetlania meczów wybranej kolejki
+function showKolejkaContent() {
+    const selectedKolejka = document.getElementById('select-kolejka').value;
+    const fixturesDiv = document.getElementById('fixtures');
+
+    // Wyczyszczenie starej zawartości
+    fixturesDiv.innerHTML = '';
+
+    if (selectedKolejka !== "none") {
+        const selectedMatchday = selectedKolejka.replace('kolejka-', '');  // Usuń "kolejka-" z wartości
+
+        // Załaduj zawartość z pliku tekstowego
+        fetch('/Pliki_terminarz/terminarz_poszczegolne.txt')
+            .then(response => response.text())  // Odczytaj zawartość pliku
+            .then(data => {
+                const fixtures = parseFixtures(data);  // Parsuj dane
+                const selectedFixture = fixtures[selectedMatchday];  // Wyciągnij mecze dla wybranej kolejki
+                if (selectedFixture) {
+                    fixturesDiv.innerHTML = `<pre>${selectedFixture}</pre>`; // Wyświetl mecze wybranej kolejki
+                } else {
+                    fixturesDiv.innerHTML = `<p>Nie znaleziono danych dla tej kolejki. Może numer kolejki jest nieprawidłowy lub dane nie zostały załadowane poprawnie.</p>`;
+                }
+            })
+            .catch(error => {
+                fixturesDiv.innerHTML = `<p>Błąd wczytywania danych: ${error}</p>`;
+            });
+    }
+}
+
+// Inicjalizacja
+document.addEventListener("DOMContentLoaded", function () {
+    loadFixtures();
+});
