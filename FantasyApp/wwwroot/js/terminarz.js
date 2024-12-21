@@ -1,19 +1,23 @@
 ﻿function showContent() {
-    const selectedOption = document.getElementById('select-option').value;
-
-    // Ukryj wszystkie elementy z klasą 'content'
-    document.querySelectorAll('.content').forEach(div => {
-        div.classList.add('hidden'); // Dodaj klasę ukrywającą
+    // Ukryj wszystkie pola
+    document.querySelectorAll('.content').forEach(function (div) {
+        div.style.display = 'none';
     });
 
-    // Pokaż odpowiedni element, jeśli istnieje
-    if (selectedOption !== "none") {
-        const selectedDiv = document.getElementById(selectedOption);
-        if (selectedDiv) {
-            selectedDiv.classList.remove('hidden'); // Usuń klasę ukrywającą
-        }
+    // Pobierz wybraną opcję
+    const selectedValue = document.getElementById('select-option').value;
+
+    // Zmień nagłówek i pokaż odpowiednie pole
+    if (selectedValue === "cala-runda") {
+        document.getElementById('cala-runda').style.display = 'block';
+    } else if (selectedValue === "cala-runda-fdr") {
+        document.getElementById('cala-runda-fdr').style.display = 'block';
+    }
+    else if (selectedValue === "kolejki") {
+        document.getElementById('kolejki').style.display = 'block';
     }
 }
+
 
 // TERMINARZ POSZCZEGÓLNE KOLEJKI
 document.addEventListener("DOMContentLoaded", function () {
@@ -56,15 +60,10 @@ function populateKolejkaOptions(fixtures) {
 
 // Funkcja do wyświetlania zawartości dla wybranej kolejki
 function showKolejkaContent() {
+    const fixtures = document.getElementById('fixtures');
     const selectedKolejka = document.getElementById('select-kolejka').value;
-    const fixturesDiv = document.getElementById('fixtures');
 
-    // Wyczyszczenie starej zawartości
-    fixturesDiv.innerHTML = '';
-
-    if (selectedKolejka !== "none") {
-        // Przykładowe dane - tutaj możesz wczytać dane z serwera przez AJAX
-        fixturesDiv.innerHTML = `<p>Wybrano kolejkę: ${selectedKolejka}</p>`;
-    }
+    // Przykład testowy - dynamiczne ładowanie zawartości
+    fixtures.innerHTML = `<p>Wybrano kolejkę: ${selectedKolejka}</p>`;
 }
 
