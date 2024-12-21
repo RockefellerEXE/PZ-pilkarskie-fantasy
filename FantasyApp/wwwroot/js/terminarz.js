@@ -1,12 +1,17 @@
 ﻿function showContent() {
     const selectedOption = document.getElementById('select-option').value;
 
-    // Ukryj wszystkie elementy
-    document.querySelectorAll('.content').forEach(div => div.classList.add('hidden'));
+    // Ukryj wszystkie elementy z klasą 'content'
+    document.querySelectorAll('.content').forEach(div => {
+        div.classList.add('hidden'); // Dodaj klasę ukrywającą
+    });
 
-    // Pokaż odpowiedni
-    if (selectedOption) {
-        document.getElementById(selectedOption).classList.remove('hidden');
+    // Pokaż odpowiedni element, jeśli istnieje
+    if (selectedOption !== "none") {
+        const selectedDiv = document.getElementById(selectedOption);
+        if (selectedDiv) {
+            selectedDiv.classList.remove('hidden'); // Usuń klasę ukrywającą
+        }
     }
 }
 
@@ -51,10 +56,15 @@ function populateKolejkaOptions(fixtures) {
 
 // Funkcja do wyświetlania zawartości dla wybranej kolejki
 function showKolejkaContent() {
-    const fixtures = document.getElementById('fixtures');
     const selectedKolejka = document.getElementById('select-kolejka').value;
+    const fixturesDiv = document.getElementById('fixtures');
 
-    // Przykład testowy - dynamiczne ładowanie zawartości
-    fixtures.innerHTML = `<p>Wybrano kolejkę: ${selectedKolejka}</p>`;
+    // Wyczyszczenie starej zawartości
+    fixturesDiv.innerHTML = '';
+
+    if (selectedKolejka !== "none") {
+        // Przykładowe dane - tutaj możesz wczytać dane z serwera przez AJAX
+        fixturesDiv.innerHTML = `<p>Wybrano kolejkę: ${selectedKolejka}</p>`;
+    }
 }
 

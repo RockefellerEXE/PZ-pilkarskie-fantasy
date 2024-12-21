@@ -1,5 +1,5 @@
 ﻿.content {
-    display: block; /* Wyświetlanie zawartości */
+    display: none; /* Wyświetlanie zawartości */
     width: 100%; /* Pełna szerokość */
     height: auto; /* Dostosowanie do zawartości */
 }
@@ -14,5 +14,8 @@ iframe {
     height: 600px; /* Wysokość można dostosować */
     border: none; /* Usunięcie obramowania */
     overflow: auto; /* Włącz przewijanie, jeśli zawartość jest większa */
+}
+.hidden {
+    display:block;
 }
 
