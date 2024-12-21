@@ -6,12 +6,12 @@
 
 .container {
     max-width: 1200px; /* Opcjonalne - szerokość kontenera */
-    margin: 0 auto; /* Wyśrodkowanie */
+    margin: 0; /* Wyśrodkowanie */
 }
 
 iframe {
-    width: 100%; /* Pełna szerokość kontenera */
-    height: 600px; /* Wysokość można dostosować */
+    width: 200%; /* Pełna szerokość kontenera */
+    height: 1000px; /* Wysokość można dostosować */
     border: none; /* Usunięcie obramowania */
     overflow: auto; /* Włącz przewijanie, jeśli zawartość jest większa */
 }
