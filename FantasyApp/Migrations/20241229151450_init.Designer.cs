@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FantasyApp.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20241229112258_init")]
+    [Migration("20241229151450_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -34,6 +34,10 @@ namespace FantasyApp.Migrations
                     b.Property<int>("Budzet")
                         .HasColumnType("int");
 
+                    b.Property<string>("NazwaDruzyny")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("UzytkownikId")
                         .HasColumnType("int");
 
@@ -42,6 +46,29 @@ namespace FantasyApp.Migrations
                     b.HasIndex("UzytkownikId");
 
                     b.ToTable("Druzyny");
+
+                    b.HasData(
+                        new
+                        {
+                            DruzynaId = 1,
+                            Budzet = 100,
+                            NazwaDruzyny = "Drużyna A",
+                            UzytkownikId = 1
+                        },
+                        new
+                        {
+                            DruzynaId = 2,
+                            Budzet = 100,
+                            NazwaDruzyny = "Drużyna B",
+                            UzytkownikId = 2
+                        },
+                        new
+                        {
+                            DruzynaId = 3,
+                            Budzet = 100,
+                            NazwaDruzyny = "Drużyna C",
+                            UzytkownikId = 3
+                        });
                 });
 
             modelBuilder.Entity("FantasyApp.Models.Klub", b =>
@@ -59,6 +86,23 @@ namespace FantasyApp.Migrations
                     b.HasKey("KlubId");
 
                     b.ToTable("Kluby");
+
+                    b.HasData(
+                        new
+                        {
+                            KlubId = 1,
+                            Nazwa = "FC Barcelona"
+                        },
+                        new
+                        {
+                            KlubId = 2,
+                            Nazwa = "Real Madrid"
+                        },
+                        new
+                        {
+                            KlubId = 3,
+                            Nazwa = "Manchester United"
+                        });
                 });
 
             modelBuilder.Entity("FantasyApp.Models.SkladDruzyny", b =>
@@ -74,6 +118,38 @@ namespace FantasyApp.Migrations
                     b.HasIndex("ZawodnikId");
 
                     b.ToTable("SkladDruzyny");
+
+                    b.HasData(
+                        new
+                        {
+                            DruzynaId = 1,
+                            ZawodnikId = 1
+                        },
+                        new
+                        {
+                            DruzynaId = 1,
+                            ZawodnikId = 3
+                        },
+                        new
+                        {
+                            DruzynaId = 2,
+                            ZawodnikId = 2
+                        },
+                        new
+                        {
+                            DruzynaId = 2,
+                            ZawodnikId = 4
+                        },
+                        new
+                        {
+                            DruzynaId = 3,
+                            ZawodnikId = 5
+                        },
+                        new
+                        {
+                            DruzynaId = 3,
+                            ZawodnikId = 7
+                        });
                 });
 
             modelBuilder.Entity("FantasyApp.Models.StatystykiZawodnikow", b =>
@@ -96,7 +172,7 @@ namespace FantasyApp.Migrations
                     b.Property<int>("DruzynaId")
                         .HasColumnType("int");
 
-                    b.Property<int>("KarneSprowadzone")
+                    b.Property<int>("KarneSpowodowane")
                         .HasColumnType("int");
 
                     b.Property<int>("KarneWywalczone")
@@ -124,6 +200,53 @@ namespace FantasyApp.Migrations
                     b.HasIndex("ZawodnikId");
 
                     b.ToTable("StatystykiZawodnikow");
+
+                    b.HasData(
+                        new
+                        {
+                            StatystykiZawodnikowId = 1,
+                            Asysty = 1,
+                            Bramki = 1,
+                            CzerwoneKartki = 0,
+                            DruzynaId = 1,
+                            KarneSpowodowane = 0,
+                            KarneWywalczone = 0,
+                            KarneZmarnowane = 0,
+                            Punkty = 5,
+                            StrzalyObronione = 0,
+                            ZawodnikId = 1,
+                            ZolteKartki = 0
+                        },
+                        new
+                        {
+                            StatystykiZawodnikowId = 2,
+                            Asysty = 1,
+                            Bramki = 1,
+                            CzerwoneKartki = 0,
+                            DruzynaId = 2,
+                            KarneSpowodowane = 0,
+                            KarneWywalczone = 0,
+                            KarneZmarnowane = 0,
+                            Punkty = 5,
+                            StrzalyObronione = 0,
+                            ZawodnikId = 2,
+                            ZolteKartki = 0
+                        },
+                        new
+                        {
+                            StatystykiZawodnikowId = 3,
+                            Asysty = 1,
+                            Bramki = 1,
+                            CzerwoneKartki = 0,
+                            DruzynaId = 1,
+                            KarneSpowodowane = 0,
+                            KarneWywalczone = 0,
+                            KarneZmarnowane = 0,
+                            Punkty = 5,
+                            StrzalyObronione = 0,
+                            ZawodnikId = 3,
+                            ZolteKartki = 0
+                        });
                 });
 
             modelBuilder.Entity("FantasyApp.Models.Transfer", b =>
@@ -151,6 +274,29 @@ namespace FantasyApp.Migrations
                     b.HasIndex("ZawodnikId");
 
                     b.ToTable("Transfery");
+
+                    b.HasData(
+                        new
+                        {
+                            TransferId = 1,
+                            DruzynaId = 1,
+                            TypTransferu = "Kupno",
+                            ZawodnikId = 1
+                        },
+                        new
+                        {
+                            TransferId = 2,
+                            DruzynaId = 1,
+                            TypTransferu = "Kupno",
+                            ZawodnikId = 3
+                        },
+                        new
+                        {
+                            TransferId = 3,
+                            DruzynaId = 2,
+                            TypTransferu = "Kupno",
+                            ZawodnikId = 4
+                        });
                 });
 
             modelBuilder.Entity("FantasyApp.Models.Uzytkownik", b =>
@@ -179,6 +325,32 @@ namespace FantasyApp.Migrations
                     b.HasKey("UzytkownikId");
 
                     b.ToTable("Uzytkownicy");
+
+                    b.HasData(
+                        new
+                        {
+                            UzytkownikId = 1,
+                            Email = "user1@example.com",
+                            Haslo = "password1",
+                            Login = "user1",
+                            Punkty = 0
+                        },
+                        new
+                        {
+                            UzytkownikId = 2,
+                            Email = "user2@example.com",
+                            Haslo = "password2",
+                            Login = "user2",
+                            Punkty = 0
+                        },
+                        new
+                        {
+                            UzytkownikId = 3,
+                            Email = "user3@example.com",
+                            Haslo = "password3",
+                            Login = "user3",
+                            Punkty = 0
+                        });
                 });
 
             modelBuilder.Entity("FantasyApp.Models.Zawodnik", b =>
@@ -215,6 +387,88 @@ namespace FantasyApp.Migrations
                     b.HasIndex("KlubId");
 
                     b.ToTable("Zawodnicy");
+
+                    b.HasData(
+                        new
+                        {
+                            ZawodnikId = 1,
+                            Cena = 50m,
+                            Imie = "Marc",
+                            KlubId = 1,
+                            Nazwisko = "Ter Stegen",
+                            Pozycja = "Bramkarz",
+                            Punkty = 100
+                        },
+                        new
+                        {
+                            ZawodnikId = 2,
+                            Cena = 55m,
+                            Imie = "Thibaut",
+                            KlubId = 2,
+                            Nazwisko = "Courtois",
+                            Pozycja = "Bramkarz",
+                            Punkty = 95
+                        },
+                        new
+                        {
+                            ZawodnikId = 3,
+                            Cena = 40m,
+                            Imie = "Gerard",
+                            KlubId = 1,
+                            Nazwisko = "Pique",
+                            Pozycja = "Obrońca",
+                            Punkty = 80
+                        },
+                        new
+                        {
+                            ZawodnikId = 4,
+                            Cena = 42m,
+                            Imie = "David",
+                            KlubId = 2,
+                            Nazwisko = "Alaba",
+                            Pozycja = "Obrońca",
+                            Punkty = 85
+                        },
+                        new
+                        {
+                            ZawodnikId = 5,
+                            Cena = 60m,
+                            Imie = "Bruno",
+                            KlubId = 3,
+                            Nazwisko = "Fernandes",
+                            Pozycja = "Pomocnik",
+                            Punkty = 110
+                        },
+                        new
+                        {
+                            ZawodnikId = 6,
+                            Cena = 55m,
+                            Imie = "Pedri",
+                            KlubId = 1,
+                            Nazwisko = "Gonzalez",
+                            Pozycja = "Pomocnik",
+                            Punkty = 105
+                        },
+                        new
+                        {
+                            ZawodnikId = 7,
+                            Cena = 70m,
+                            Imie = "Marcus",
+                            KlubId = 3,
+                            Nazwisko = "Rashford",
+                            Pozycja = "Napastnik",
+                            Punkty = 120
+                        },
+                        new
+                        {
+                            ZawodnikId = 8,
+                            Cena = 75m,
+                            Imie = "Karim",
+                            KlubId = 2,
+                            Nazwisko = "Benzema",
+                            Pozycja = "Napastnik",
+                            Punkty = 130
+                        });
                 });
 
             modelBuilder.Entity("FantasyApp.Models.Druzyna", b =>
