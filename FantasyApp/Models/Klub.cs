@@ -4,11 +4,11 @@ namespace FantasyApp.Models
 {
     public class Klub
     {
-        [Key]
-        public int KlubId { get; set; }
-        public string NazwaKlubu { get; set; }
+        public int KlubId { get; set; } // Klucz główny
+        public string Nazwa { get; set; }
 
-        public ICollection<Zawodnik> Zawodnicy { get; set; }
+        public ICollection<Zawodnik> Zawodnicy { get; set; } // Nawigacja
     }
+
 
 }
