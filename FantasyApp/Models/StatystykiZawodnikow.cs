@@ -14,7 +14,7 @@ namespace FantasyApp.Models
         public int Asysty { get; set; }
         public int ZolteKartki { get; set; }
         public int CzerwoneKartki { get; set; }
-        public int KarneSprowadzone { get; set; }
+        public int KarneSpowodowane { get; set; }
         public int KarneWywalczone { get; set; }
         public int KarneZmarnowane { get; set; }
         public int StrzalyObronione { get; set; }
