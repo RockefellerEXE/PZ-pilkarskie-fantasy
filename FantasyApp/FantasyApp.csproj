@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="wwwroot\Pliki_terminarz\terminarz_poszczegolne.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Update="Pages\Index - kopiować.cshtml">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
