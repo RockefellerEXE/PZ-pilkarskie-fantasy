@@ -7,7 +7,7 @@ namespace FantasyApp.Models
     {
         public int ZawodnikId { get; set; } // Klucz główny
         public int KlubId { get; set; } // Klucz obcy
-        public string Imie { get; set; }
+       // public string Imie { get; set; }
         public string Nazwisko { get; set; }
         public string Pozycja { get; set; }
         public decimal Cena { get; set; }
