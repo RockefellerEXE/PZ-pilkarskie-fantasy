@@ -4,14 +4,14 @@ namespace FantasyApp.Models
 {
     public class Uzytkownik
     {
-        [Key]
-        public int UzytkownikId { get; set; }
+        public int UzytkownikId { get; set; } // Klucz główny
         public string Login { get; set; }
-        public string Haslo { get; set; } // zaszyfrowane hasło
+        public string Haslo { get; set; }
         public string Email { get; set; }
         public int Punkty { get; set; }
 
-        // Możesz dodać relacje jeśli użytkownik może mieć swoje mecze/statystyki
+        public ICollection<Druzyna> Druzyny { get; set; } // Nawigacja
     }
+
 
 }
