@@ -598,15 +598,93 @@ namespace FantasyApp.DAL
 
                 new Zawodnik { ZawodnikId = 414, KlubId = 15, Nazwisko = "Dalmau", Pozycja = "Napastnik", Cena = 6.5m, Punkty = 0 },
                 new Zawodnik { ZawodnikId = 415, KlubId = 15, Nazwisko = "Shikavka", Pozycja = "Napastnik", Cena = 6m, Punkty = 0 },
-                new Zawodnik { ZawodnikId = 416, KlubId = 15, Nazwisko = "Bąk", Pozycja = "Napastnik", Cena = 3.5m, Punkty = 0 }
+                new Zawodnik { ZawodnikId = 416, KlubId = 15, Nazwisko = "Bąk", Pozycja = "Napastnik", Cena = 3.5m, Punkty = 0 },
 
 
-//RADOMIAK RADOM
+                //RADOMIAK RADOM
+                new Zawodnik { ZawodnikId = 417, KlubId = 16, Nazwisko = "Kikolski", Pozycja = "Bramkarz", Cena = 4m, Punkty = 0 },
+                new Zawodnik { ZawodnikId = 418, KlubId = 16, Nazwisko = "Koptas", Pozycja = "Bramkarz", Cena = 3.5m, Punkty = 0 },
 
-//LECHIA GDAŃSK
+                new Zawodnik { ZawodnikId = 419, KlubId = 16, Nazwisko = "Ouattara", Pozycja = "Obrońca", Cena = 5m, Punkty = 0 },
+                new Zawodnik { ZawodnikId = 420, KlubId = 16, Nazwisko = "Henrique", Pozycja = "Obrońca", Cena = 5m, Punkty = 0 },
+                new Zawodnik { ZawodnikId = 421, KlubId = 16, Nazwisko = "Rossi", Pozycja = "Obrońca", Cena = 4.5m, Punkty = 0 },
+                new Zawodnik { ZawodnikId = 422, KlubId = 16, Nazwisko = "Mammadov", Pozycja = "Obrońca", Cena = 4m, Punkty = 0 },
+                new Zawodnik { ZawodnikId = 423, KlubId = 16, Nazwisko = "Cichocki", Pozycja = "Obrońca", Cena = 4m, Punkty = 0 },
+                new Zawodnik { ZawodnikId = 424, KlubId = 16, Nazwisko = "Jakubik", Pozycja = "Obrońca", Cena = 4m, Punkty = 0 },
 
-//ŚLĄSK WROCŁAW
+                new Zawodnik { ZawodnikId = 425, KlubId = 16, Nazwisko = "Wolski", Pozycja = "Pomocnik", Cena = 5.5m, Punkty = 0 },
+                new Zawodnik { ZawodnikId = 426, KlubId = 16, Nazwisko = "Grzesik", Pozycja = "Pomocnik", Cena = 5.5m, Punkty = 0 },
+                new Zawodnik { ZawodnikId = 427, KlubId = 16, Nazwisko = "Alves", Pozycja = "Pomocnik", Cena = 5m, Punkty = 0 },
+                new Zawodnik { ZawodnikId = 428, KlubId = 16, Nazwisko = "Donis", Pozycja = "Pomocnik", Cena = 5m, Punkty = 0 },
+                new Zawodnik { ZawodnikId = 429, KlubId = 16, Nazwisko = "Jordao", Pozycja = "Pomocnik", Cena = 4.5m, Punkty = 0 },
+                new Zawodnik { ZawodnikId = 430, KlubId = 16, Nazwisko = "Luizao", Pozycja = "Pomocnik", Cena = 4.5m, Punkty = 0 },
+                new Zawodnik { ZawodnikId = 431, KlubId = 16, Nazwisko = "Vagner", Pozycja = "Pomocnik", Cena = 4.5m, Punkty = 0 },
+                new Zawodnik { ZawodnikId = 432, KlubId = 16, Nazwisko = "Leandro", Pozycja = "Pomocnik", Cena = 4.5m, Punkty = 0 },
+                new Zawodnik { ZawodnikId = 433, KlubId = 16, Nazwisko = "Kaput", Pozycja = "Pomocnik", Cena = 4m, Punkty = 0 },
+                new Zawodnik { ZawodnikId = 434, KlubId = 16, Nazwisko = "Ramos", Pozycja = "Pomocnik", Cena = 3.5m, Punkty = 0 },
+                new Zawodnik { ZawodnikId = 435, KlubId = 16, Nazwisko = "Zimovski", Pozycja = "Pomocnik", Cena = 3.5m, Punkty = 0 },
+                new Zawodnik { ZawodnikId = 436, KlubId = 16, Nazwisko = "Capita", Pozycja = "Pomocnik", Cena = 3.5m, Punkty = 0 },
+                new Zawodnik { ZawodnikId = 437, KlubId = 16, Nazwisko = "Cielemęcki", Pozycja = "Pomocnik", Cena = 3m, Punkty = 0 },
 
+                new Zawodnik { ZawodnikId = 438, KlubId = 16, Nazwisko = "Rocha", Pozycja = "Napastnik", Cena = 10.5m, Punkty = 0 },
+                new Zawodnik { ZawodnikId = 439, KlubId = 16, Nazwisko = "Sarmiento", Pozycja = "Napastnik", Cena = 3.5m, Punkty = 0 },
+            //LECHIA GDAŃSK
+                new Zawodnik { ZawodnikId = 440, KlubId = 17, Nazwisko = "Sarnavskyi", Pozycja = "Bramkarz", Cena = 4m, Punkty = 0 },
+                new Zawodnik { ZawodnikId = 441, KlubId = 17, Nazwisko = "Weirauch", Pozycja = "Bramkarz", Cena = 3.5m, Punkty = 0 },
+
+                new Zawodnik { ZawodnikId = 442, KlubId = 17, Nazwisko = "Olsson", Pozycja = "Obrońca", Cena = 4.5m, Punkty = 0 },
+                new Zawodnik { ZawodnikId = 443, KlubId = 17, Nazwisko = "Piła", Pozycja = "Obrońca", Cena = 4.5m, Punkty = 0 },
+                new Zawodnik { ZawodnikId = 444, KlubId = 17, Nazwisko = "Pllana", Pozycja = "Obrońca", Cena = 4.5m, Punkty = 0 },
+                new Zawodnik { ZawodnikId = 445, KlubId = 17, Nazwisko = "Kałahur", Pozycja = "Obrońca", Cena = 4m, Punkty = 0 },
+                new Zawodnik { ZawodnikId = 446, KlubId = 17, Nazwisko = "Chindris", Pozycja = "Obrońca", Cena = 4m, Punkty = 0 },
+                new Zawodnik { ZawodnikId = 447, KlubId = 17, Nazwisko = "Gueho", Pozycja = "Obrońca", Cena = 3.5m, Punkty = 0 },
+
+                new Zawodnik { ZawodnikId = 448, KlubId = 17, Nazwisko = "Mena", Pozycja = "Pomocnik", Cena = 5.5m, Punkty = 0 },
+                new Zawodnik { ZawodnikId = 449, KlubId = 17, Nazwisko = "Khlan", Pozycja = "Pomocnik", Cena = 5.5m, Punkty = 0 },
+                new Zawodnik { ZawodnikId = 450, KlubId = 17, Nazwisko = "Kapic", Pozycja = "Pomocnik", Cena = 5m, Punkty = 0 },
+                new Zawodnik { ZawodnikId = 451, KlubId = 17, Nazwisko = "Zhelizko", Pozycja = "Pomocnik", Cena = 4.5m, Punkty = 0 },
+                new Zawodnik { ZawodnikId = 452, KlubId = 17, Nazwisko = "Tsarenko", Pozycja = "Pomocnik", Cena = 4.5m, Punkty = 0 },
+                new Zawodnik { ZawodnikId = 453, KlubId = 17, Nazwisko = "Neugebauer", Pozycja = "Pomocnik", Cena = 4.5m, Punkty = 0 },
+                new Zawodnik { ZawodnikId = 454, KlubId = 17, Nazwisko = "Buletsa", Pozycja = "Pomocnik", Cena = 4m, Punkty = 0 },
+                new Zawodnik { ZawodnikId = 455, KlubId = 17, Nazwisko = "D'Arrigo", Pozycja = "Pomocnik", Cena = 4m, Punkty = 0 },
+                new Zawodnik { ZawodnikId = 456, KlubId = 17, Nazwisko = "Wendt", Pozycja = "Pomocnik", Cena = 4m, Punkty = 0 },
+                new Zawodnik { ZawodnikId = 457, KlubId = 17, Nazwisko = "Wójtowicz", Pozycja = "Pomocnik", Cena = 4m, Punkty = 0 },
+                new Zawodnik { ZawodnikId = 458, KlubId = 17, Nazwisko = "Kardas", Pozycja = "Pomocnik", Cena = 3m, Punkty = 0 },
+
+                new Zawodnik { ZawodnikId = 459, KlubId = 17, Nazwisko = "Viunnyk", Pozycja = "Napastnik", Cena = 6m, Punkty = 0 },
+                new Zawodnik { ZawodnikId = 460, KlubId = 17, Nazwisko = "Bobcek", Pozycja = "Napastnik", Cena = 5m, Punkty = 0 },
+                new Zawodnik { ZawodnikId = 461, KlubId = 17, Nazwisko = "Sezonienko", Pozycja = "Napastnik", Cena = 4.5m, Punkty = 0 },
+                //ŚLĄSK WROCŁAW
+                new Zawodnik { ZawodnikId = 462, KlubId = 18, Nazwisko = "Leszczyński", Pozycja = "Bramkarz", Cena = 4m, Punkty = 0 },
+                new Zawodnik { ZawodnikId = 463, KlubId = 18, Nazwisko = "Loska", Pozycja = "Bramkarz", Cena = 3.5m, Punkty = 0 },
+
+                new Zawodnik { ZawodnikId = 464, KlubId = 18, Nazwisko = "Petkov", Pozycja = "Obrońca", Cena = 4.5m, Punkty = 0 },
+                new Zawodnik { ZawodnikId = 465, KlubId = 18, Nazwisko = "Petrov", Pozycja = "Obrońca", Cena = 4.5m, Punkty = 0 },
+                new Zawodnik { ZawodnikId = 466, KlubId = 18, Nazwisko = "Paluszek", Pozycja = "Obrońca", Cena = 4.5m, Punkty = 0 },
+                new Zawodnik { ZawodnikId = 467, KlubId = 18, Nazwisko = "Guercio", Pozycja = "Obrońca", Cena = 4.5m, Punkty = 0 },
+                new Zawodnik { ZawodnikId = 468, KlubId = 18, Nazwisko = "Bejger", Pozycja = "Obrońca", Cena = 4m, Punkty = 0 },
+                new Zawodnik { ZawodnikId = 469, KlubId = 18, Nazwisko = "Szota", Pozycja = "Obrońca", Cena = 4m, Punkty = 0 },
+                new Zawodnik { ZawodnikId = 470, KlubId = 18, Nazwisko = "Matsenko", Pozycja = "Obrońca", Cena = 4m, Punkty = 0 },
+                new Zawodnik { ZawodnikId = 471, KlubId = 18, Nazwisko = "Gerstenstein", Pozycja = "Obrońca", Cena = 3.5m, Punkty = 0 },
+                new Zawodnik { ZawodnikId = 472, KlubId = 18, Nazwisko = "Bartolewski", Pozycja = "Obrońca", Cena = 3m, Punkty = 0 },
+                new Zawodnik { ZawodnikId = 473, KlubId = 18, Nazwisko = "Kurowski", Pozycja = "Obrońca", Cena = 3m, Punkty = 0 },
+
+                new Zawodnik { ZawodnikId = 474, KlubId = 18, Nazwisko = "Samiec-Talar", Pozycja = "Pomocnik", Cena = 5.5m, Punkty = 0 },
+                new Zawodnik { ZawodnikId = 475, KlubId = 18, Nazwisko = "Schwarz", Pozycja = "Pomocnik", Cena = 5.5m, Punkty = 0 },
+                new Zawodnik { ZawodnikId = 476, KlubId = 18, Nazwisko = "Żukowski", Pozycja = "Pomocnik", Cena = 5m, Punkty = 0 },
+                new Zawodnik { ZawodnikId = 477, KlubId = 18, Nazwisko = "Jasper", Pozycja = "Pomocnik", Cena = 4.5m, Punkty = 0 },
+                new Zawodnik { ZawodnikId = 478, KlubId = 18, Nazwisko = "Cebula", Pozycja = "Pomocnik", Cena = 4.5m, Punkty = 0 },
+                new Zawodnik { ZawodnikId = 479, KlubId = 18, Nazwisko = "Ortiz", Pozycja = "Pomocnik", Cena = 4.5m, Punkty = 0 },
+                new Zawodnik { ZawodnikId = 480, KlubId = 18, Nazwisko = "Pokorny", Pozycja = "Pomocnik", Cena = 4m, Punkty = 0 },
+                new Zawodnik { ZawodnikId = 481, KlubId = 18, Nazwisko = "Baluta", Pozycja = "Pomocnik", Cena = 3.5m, Punkty = 0 },
+                new Zawodnik { ZawodnikId = 482, KlubId = 18, Nazwisko = "Rejczyk", Pozycja = "Pomocnik", Cena = 3.5m, Punkty = 0 },
+                new Zawodnik { ZawodnikId = 483, KlubId = 18, Nazwisko = "Ince", Pozycja = "Pomocnik", Cena = 3.5m, Punkty = 0 },
+                new Zawodnik { ZawodnikId = 484, KlubId = 18, Nazwisko = "Jezierski", Pozycja = "Pomocnik", Cena = 3.5m, Punkty = 0 },
+                new Zawodnik { ZawodnikId = 485, KlubId = 18, Nazwisko = "Sharabura", Pozycja = "Pomocnik", Cena = 3m, Punkty = 0 },
+
+                new Zawodnik { ZawodnikId = 486, KlubId = 18, Nazwisko = "Musiolik", Pozycja = "Napastnik", Cena = 5.5m, Punkty = 0 },
+                new Zawodnik { ZawodnikId = 487, KlubId = 18, Nazwisko = "Basse", Pozycja = "Napastnik", Cena = 3.5m, Punkty = 0 },
+                new Zawodnik { ZawodnikId = 488, KlubId = 18, Nazwisko = "Świerczok", Pozycja = "Napastnik", Cena = 5m, Punkty = 0 }
             );
 
             modelBuilder.Entity<SkladDruzyny>().HasData(
