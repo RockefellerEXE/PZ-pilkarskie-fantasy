@@ -5,6 +5,14 @@
     background-color: #f4f4f4;
 }
 
+.twitter-timeline {
+    width: 100%; /* Dopasowanie do szerokości kontenera */
+    height: 600px; /* Ustawienie wysokości */
+    border: 1px solid #ccc; /* Opcjonalna ramka */
+    border-radius: 8px; /* Zaokrąglone rogi */
+    overflow: hidden; /* Ukrycie przewijania */
+}
+
 .header {
     background-color: #89c44a;
     padding: 10px 20px;
