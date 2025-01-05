@@ -1,0 +1,79 @@
+﻿@{
+    ViewData["Title"] = "Ranking";
+}
+<html>
+<head>
+    <meta charset="UTF-8">
+	<link href="~/css/ranking.css" rel="stylesheet" />
+    <title>@ViewData["Title"]</title>
+</head>
+<body>
+    <div>
+        <h1 id="main-heading">@ViewData["Title"]</h1>
+
+        <select id="select-option" onchange="showContent()">
+            <option value="none" selected hidden disabled>Wybierz opcję</option>
+            <option value="ranking-ogolny" selected>Ranking ogólny</option>
+            <option value="ligi-prywatne">Ligi prywatne</option>
+        </select>
+        <div id="ranking-ogolny" class="content">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Pozycja</th>
+                        <th>Gracz</th>
+                        <th>Punkty</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Jan Kowalski</td>
+                        <td>1200</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Anna Nowak</td>
+                        <td>1150</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>Piotr Wiśniewski</td>
+                        <td>1100</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div id="ligi-prywatne" class="content">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Pozycja</th>
+                        <th>Liga</th>
+                        <th>Twoje punkty</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>5</td>
+                        <td>Super Liga</td>
+                        <td>1500</td>
+                    </tr>
+                    <tr>
+                        <td>12</td>
+                        <td>Ekstra Team</td>
+                        <td>1400</td>
+                    </tr>
+                    <tr>
+                        <td>8</td>
+                        <td>Wyzwanie 2024</td>
+                        <td>1450</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+     <script src="~/js/ranking.js"></script>
+</body>
+</html>
