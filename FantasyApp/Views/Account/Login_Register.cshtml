@@ -1,0 +1,65 @@
+﻿@{
+    ViewData["Title"] = "Logowanie/Rejestracja";
+}
+<head>
+	<link href="~/css/login_register.css" rel="stylesheet" />
+</head>
+<body>
+    <h2>Logowanie i Rejestracja</h2>
+    @if (!ViewData.ModelState.IsValid)
+    {
+        <div class="validation-summary">
+            @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+            {
+                <p style="color: red;">@error.ErrorMessage</p>
+            }
+        </div>
+    }
+    <div class="auth-container">
+        <!-- Formularz logowania -->
+        <div class="auth-form">
+            <h3>Logowanie</h3>
+            <form method="post" asp-action="Login" asp-controller="Account">
+                <div>
+                    <label for="Username">Login</label>
+                    <input type="text" id="Login_Username" name="Username" value="" required />
+                </div>
+                <div>
+                    <label for="Password">Hasło</label>
+                    <input type="password" id="Login_Password" name="Password" required />
+                </div>
+                <div>
+                    <button type="submit">Zaloguj się</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Formularz rejestracji -->
+        
+        <div class="auth-form">
+            <h3>Rejestracja</h3>
+            <form method="post" asp-action="Register" asp-controller="Account">
+                <div>
+                    <label for="userName">Nazwa użytkownika</label>
+                    <input type="text" id="Register_Username" name="Username" required />
+                </div>
+
+                <div>
+                    <label for="email">Email</label>
+                    <input type="email" id="Register_Email" name="Email" required />
+                </div>
+
+                <div>
+                    <label for="password">Hasło</label>
+                    <input type="password" id="Register_Password" name="Password" required />
+                </div>
+
+                <div>
+                    <button type="submit">Zarejestruj się</button>
+                </div>
+            </form>
+        </div>
+        
+    </div>
+</body>
+

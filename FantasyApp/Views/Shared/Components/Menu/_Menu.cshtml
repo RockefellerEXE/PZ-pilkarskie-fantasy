@@ -1,23 +1,38 @@
 ﻿<ul class="nav navbar-nav">
 		<li>
 			<a href="@Url.Action("Aktualnosci","Home")">Aktualności</a>
-			<a href="@Url.Action("Budowanie_zespolu","Home")">Budowanie zespołu</a>
-			<a href="@Url.Action("Ranking","Home")">Ranking</a>
-			<a href="@Url.Action("Statystyki","Home")">Statystyki</a>
-			<a href="@Url.Action("Terminarz","Home")">Terminarz</a>
-			<a href="@Url.Action("Zasady_faq","Home")">Zasady/FAQ</a>
-			<a href="@Url.Action("Kontakt","Home")">Kontakt</a>
 		</li>
+		@if (User.Identity.IsAuthenticated)
+		{
+			<li>
+
+				<a href="@Url.Action("Budowanie_zespolu","Home")">Budowanie zespołu</a>
+			</li>
+		}
+		<li>
+			<a href="@Url.Action("Ranking","Home")">Ranking</a>
+		</li>
+		<li>
+			<a href="@Url.Action("Statystyki","Home")">Statystyki</a>
+		</li>
+		<li>
+			<a href="@Url.Action("Terminarz","Home")">Terminarz</a>
+		</li>
+		<li>
+			<a href="@Url.Action("Zasady_faq","Home")">Zasady/FAQ</a>
+		</li>
+		<li>
+			<a href="@Url.Action("Kontakt","Home")">Kontakt</a>
+		</li>	
 </ul>
 
 <ul class="nav navbar-nav navbar-right">
 	@if (User.Identity.IsAuthenticated)
 	{
-		<li><a href="@Url.Action("Logout","Account")"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+		<li><a href="@Url.Action("Logout","Account")"><span class="glyphicon glyphicon-log-out"></span> Wyloguj się</a></li>
 	}
 	else
 	{
-		<li><a href="@Url.Action("Login","Account")"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-		<li><a href="@Url.Action("Register","Account")"><span class="glyphicon glyphicon-log-in"></span> Register</a></li>
+		<li><a href="@Url.Action("Login_Register","Account")"><span class="glyphicon glyphicon-log-in"></span> Logowanie / Rejestracja</a></li>
 	}
 </ul>

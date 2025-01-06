@@ -1,4 +1,5 @@
 ﻿using FantasyApp.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -27,6 +28,10 @@ namespace FantasyApp.Controllers
         }
         public IActionResult Budowanie_zespolu()
         {
+            if (!User.Identity.IsAuthenticated)
+			{ 
+                return RedirectToAction("Index", "Home");
+            }
             return View();
         }
 		public IActionResult Ranking()
