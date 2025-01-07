@@ -1,7 +1,6 @@
 ﻿@{
     ViewData["Title"] = "Terminarz";
 }
-<h1>test</h1>
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -20,15 +19,15 @@
             <option value="kolejki">Poszczególne kolejki</option>
         </select>
         <!-- Pola do wyświetlania terminarzy -->
-        <div id="cala-runda-fdr" class="content">
+        <div id="cala-runda-fdr" class="content-terminarz">
             <h2>Terminarz całej rundy z FDR</h2>
             <iframe src="/Pliki_terminarz/terminarz_FDR.htm" frameborder="0"></iframe>
         </div>
-        <div id="cala-runda" class="content">
+        <div id="cala-runda" class="content-terminarz">
             <h2>Terminarz całej rundy bez FDR</h2>
             <iframe src="/Pliki_terminarz/terminarz_NO_FDR.htm" frameborder="0"></iframe>
         </div>
-        <div id="kolejki" class="content">
+        <div id="kolejki" class="content-terminarz">
             <h2>Terminarz poszczególnych kolejek</h2>
             <select id="select-kolejka" onchange="showKolejkaContent()">
                 <option value="none" selected hidden disabled>Wybierz kolejkę</option>
