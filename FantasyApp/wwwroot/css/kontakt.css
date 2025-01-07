@@ -17,10 +17,9 @@
     overflow-y: auto;
 }
 
-h1 {
+.big--h1 {
     text-align: center;
-    color: #333;
-    font-size: 2rem;
+    font-size: 4rem;
 }
 
 .person {
