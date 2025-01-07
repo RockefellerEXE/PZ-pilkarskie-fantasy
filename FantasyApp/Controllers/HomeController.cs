@@ -1,4 +1,5 @@
-﻿using FantasyApp.Models;
+﻿using FantasyApp.DAL;
+using FantasyApp.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
@@ -9,9 +10,12 @@ namespace FantasyApp.Controllers
     {
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+		FantasyContext db;
+
+        public HomeController(ILogger<HomeController> logger, FantasyContext db)
         {
             _logger = logger;
+			this.db = db;
         }
 
 		public IActionResult Index()
@@ -40,7 +44,8 @@ namespace FantasyApp.Controllers
 		}
 		public IActionResult Statystyki()
 		{
-			return View();
+			var zawodnicy = db.Zawodnicy.ToArray();
+			return View(zawodnicy);
 		}
 		public IActionResult Terminarz()
 		{
