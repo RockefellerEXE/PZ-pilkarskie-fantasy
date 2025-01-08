@@ -2,6 +2,7 @@
 using FantasyApp.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 
 namespace FantasyApp.Controllers
@@ -42,11 +43,41 @@ namespace FantasyApp.Controllers
 		{
 			return View();
 		}
-		public IActionResult Statystyki()
+		public IActionResult Statystyki(string pozycja = "Wszyscy") // Domyślnie "Wszyscy"
 		{
-			var zawodnicy = db.Zawodnicy.ToArray();
-			return View(zawodnicy);
+			ViewBag.Pozycja = pozycja; // Przekazanie aktualnie wybranej wartości do widoku
+
+			IQueryable<Zawodnik> query = db.Zawodnicy.Include(z => z.Statystyki);
+
+			if (pozycja != "Wszyscy" && !string.IsNullOrEmpty(pozycja))
+			{
+				// Filtruj po konkretnej pozycji
+				query = query.Where(z => z.Pozycja == pozycja);
+			}
+
+			// Wybierz odpowiednie dane w zależności od wybranej opcji
+			var zawodnicyStatystyki = query.Select(z => new ZawodnikStatystykiViewModel
+			{
+				Nazwisko = z.Nazwisko,
+				Pozycja = z.Pozycja,
+				Punkty = z.Statystyki.Sum(s => s.Punkty),
+				Bramki = pozycja == "Wszyscy" ? null : (int?)z.Statystyki.Sum(s => s.Bramki),
+				Asysty = pozycja == "Wszyscy" ? null : (int?)z.Statystyki.Sum(s => s.Asysty),
+				ZolteKartki = pozycja == "Wszyscy" ? null : (int?)z.Statystyki.Sum(s => s.ZolteKartki),
+				CzerwoneKartki = pozycja == "Wszyscy" ? null : (int?)z.Statystyki.Sum(s => s.CzerwoneKartki),
+				KarneSpowodowane = pozycja == "Wszyscy" ? null : (int?)z.Statystyki.Sum(s => s.KarneSpowodowane),
+				KarneWywalczone = pozycja == "Wszyscy" ? null : (int?)z.Statystyki.Sum(s => s.KarneWywalczone),
+				KarneZmarnowane = pozycja == "Wszyscy" ? null : (int?)z.Statystyki.Sum(s => s.KarneZmarnowane),
+				StrzalyObronione = pozycja == "Wszyscy" ? null : (int?)z.Statystyki.Sum(s => s.StrzalyObronione)
+			}).ToList();
+
+			return View(zawodnicyStatystyki);
 		}
+
+
+
+
+
 		public IActionResult Terminarz()
 		{
 			return View();

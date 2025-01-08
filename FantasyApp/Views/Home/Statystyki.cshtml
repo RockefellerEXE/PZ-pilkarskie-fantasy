@@ -1,4 +1,7 @@
-﻿@model IEnumerable<Zawodnik>
+﻿@model IEnumerable<FantasyApp.Models.ZawodnikStatystykiViewModel>
+
+
+
 @{
     ViewData["Title"] = "Statystyki";
 }
@@ -19,34 +22,66 @@
         <!-- Main Content -->
         <main class="main-content">
             <h1>Statystyki</h1>
-            <select class="dropdown">
-                <option>Wszyscy zawodnicy</option>
+        <form method="get" action="/Home/Statystyki">
+            <select name="pozycja" class="dropdown" onchange="this.form.submit()">
                 <optgroup label="Pozycje">
-                    <option>Bramkarz</option>
-                    <option>Obrońca</option>
-                    <option>Pomocnik</option>
-                    <option>Napastnik</option>
-                </optgroup>
-                <optgroup label="Kluby">
-                    <option>Lech, Legia itd.</option>
+                    <option value="none" selected hidden disabled>Wybierz opcję</option>
+                    <option value="Wszyscy" selected>Wszyscy zawodnicy</option>
+                    <option value="Bramkarz">Bramkarz</option>
+                    <option value="Obrońca">Obrońca</option>
+                    <option value="Pomocnik">Pomocnik</option>
+                    <option value="Napastnik">Napastnik</option>
                 </optgroup>
             </select>
+        </form>
 
-            <!-- Display Area -->
-            <div class="">
-                <table>
+            <div>
+            <table>
+                <thead>
                     <tr>
-                        <td>Nazwisko</td>
-                        <td>Pozycja</td>
+                        <th>Nazwisko</th>
+                        <th>Pozycja</th>
+                        <th>Punkty</th>
+                        @if (ViewBag.Pozycja != "Wszyscy")
+                        {
+                            <th>Bramki</th>
+                            <th>Asysty</th>
+                            <th>Żółte Kartki</th>
+                            <th>Czerwone Kartki</th>
+                            <th>Karne Spowodowane</th>
+                            <th>Karne Wywalczone</th>
+                            <th>Karne Zmarnowane</th>
+                            <th>Strzały Obronie</th>
+                        }
                     </tr>
-                    @foreach(var zawodnik in Model)
+                </thead>
+                <tbody>
+                    @foreach (var zawodnik in Model)
                     {
                         <tr>
                             <td>@zawodnik.Nazwisko</td>
                             <td>@zawodnik.Pozycja</td>
+                            <td>@zawodnik.Punkty</td>
+                            @if (ViewBag.Pozycja != "Wszyscy")
+                            {
+                                <td>@zawodnik.Bramki</td>
+                                <td>@zawodnik.Asysty</td>
+                                <td>@zawodnik.ZolteKartki</td>
+                                <td>@zawodnik.CzerwoneKartki</td>
+                                <td>@zawodnik.KarneSpowodowane</td>
+                                <td>@zawodnik.KarneWywalczone</td>
+                                <td>@zawodnik.KarneZmarnowane</td>
+                                <td>@zawodnik.StrzalyObronione</td>
+                            }
                         </tr>
                     }
-                </table>
+                </tbody>
+            </table>
+
+
+
+
+
             </div>
         </main>
     </body>
