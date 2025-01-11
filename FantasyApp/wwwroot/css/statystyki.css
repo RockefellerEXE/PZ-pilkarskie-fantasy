@@ -61,3 +61,45 @@
         font-size: 18px;
     }
 
+.zawodnik-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+    .zawodnik-table th, .zawodnik-table td {
+        padding: 12px;
+        text-align: left;
+        border: 1px solid #ddd;
+    }
+
+    .zawodnik-table th {
+        background-color: #f4f4f4;
+        font-weight: bold;
+    }
+
+    .zawodnik-table tr:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+
+    .zawodnik-table tr:hover {
+        background-color: #f1f1f1;
+    }
+
+    .zawodnik-table td {
+        font-size: 14px;
+    }
+
+    .zawodnik-table th, .zawodnik-table td {
+        border: 1px solid #ccc;
+        padding: 8px 12px;
+    }
+
+    .zawodnik-table td {
+        font-size: 14px;
+    }
+
+.dropdown {
+    padding: 8px;
+    margin-top: 10px;
+}
