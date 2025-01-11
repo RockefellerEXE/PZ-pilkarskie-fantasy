@@ -1,6 +1,6 @@
 ﻿    function showContent() {
         // Ukryj wszystkie pola
-        document.querySelectorAll('.content').forEach(function (div) {
+        document.querySelectorAll('.ranking-content').forEach(function (div) {
             div.style.display = 'none';
         });
 
