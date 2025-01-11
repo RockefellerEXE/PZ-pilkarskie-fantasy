@@ -41,7 +41,12 @@ namespace FantasyApp.Controllers
         }
 		public IActionResult Ranking()
 		{
-			return View();
+			var ranking = db.Uzytkownicy
+				.OrderByDescending(u => u.Punkty) // Sortowanie po punktach
+				.ToList();
+
+			return View(ranking); // Przekazanie danych do widoku
+
 		}
 		public IActionResult Statystyki(string pozycja = "Wszyscy") // Domyślnie "Wszyscy"
 		{

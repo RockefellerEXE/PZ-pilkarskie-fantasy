@@ -1,4 +1,7 @@
-﻿@{
+﻿@model IEnumerable<FantasyApp.Models.Uzytkownik>
+
+
+@{
     ViewData["Title"] = "Ranking";
 }
 <html>
@@ -11,69 +14,75 @@
     <div>
         <h1 id="main-heading">@ViewData["Title"]</h1>
 
-        <select id="select-option" onchange="showContent()">
-            <option value="none" selected hidden disabled>Wybierz opcję</option>
-            <option value="ranking-ogolny">Ranking ogólny</option>
-            <option value="ligi-prywatne">Ligi prywatne</option>
-        </select>
-        <div id="ranking-ogolny" class="ranking-content">
-            <table>
-                <thead>
+        @* <select id="select-option" onchange="showContent()"> *@
+        @*     <option value="none" selected hidden disabled>Wybierz opcję</option> *@
+        @*     <option value="ranking-ogolny">Ranking ogólny</option> *@
+        @*     <option value="ligi-prywatne">Ligi prywatne</option> *@
+        @* </select> *@
+        @* <div id="ranking-ogolny" class="ranking-content"> *@
+        <h1>Ranking Użytkowników</h1>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Miejsce</th>
+                    <th>Login</th>
+                    <th>Punkty</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null && Model.Any())
+                {
+                    int miejsce = 1; // Zmienna do numeracji
+                    foreach (var uzytkownik in Model)
+                    {
+                        <tr>
+                            <td>@(miejsce++)</td>
+                            <td>@uzytkownik.Login</td>
+                            <td>@uzytkownik.Punkty</td>
+                        </tr>
+                    }
+                }
+                else
+                {
                     <tr>
-                        <th>Pozycja</th>
-                        <th>Gracz</th>
-                        <th>Punkty</th>
+                        <td colspan="3">Brak użytkowników do wyświetlenia.</td>
                     </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Jan Kowalski</td>
-                        <td>1200</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Anna Nowak</td>
-                        <td>1150</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Piotr Wiśniewski</td>
-                        <td>1100</td>
-                    </tr>
-                </tbody>
-            </table>
+                }
+            </tbody>
+        </table>
+
         </div>
 
-        <div id="ligi-prywatne" class="ranking-content">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Pozycja</th>
-                        <th>Liga</th>
-                        <th>Twoje punkty</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>5</td>
-                        <td>Super Liga</td>
-                        <td>1500</td>
-                    </tr>
-                    <tr>
-                        <td>12</td>
-                        <td>Ekstra Team</td>
-                        <td>1400</td>
-                    </tr>
-                    <tr>
-                        <td>8</td>
-                        <td>Wyzwanie 2024</td>
-                        <td>1450</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
+    @*     <div id="ligi-prywatne" class="ranking-content"> *@
+    @*         <table> *@
+    @*             <thead> *@
+    @*                 <tr> *@
+    @*                     <th>Pozycja</th> *@
+    @*                     <th>Liga</th> *@
+    @*                     <th>Twoje punkty</th> *@
+    @*                 </tr> *@
+    @*             </thead> *@
+    @*             <tbody> *@
+    @*                 <tr> *@
+    @*                     <td>5</td> *@
+    @*                     <td>Super Liga</td> *@
+    @*                     <td>1500</td> *@
+    @*                 </tr> *@
+    @*                 <tr> *@
+    @*                     <td>12</td> *@
+    @*                     <td>Ekstra Team</td> *@
+    @*                     <td>1400</td> *@
+    @*                 </tr> *@
+    @*                 <tr> *@
+    @*                     <td>8</td> *@
+    @*                     <td>Wyzwanie 2024</td> *@
+    @*                     <td>1450</td> *@
+    @*                 </tr> *@
+    @*             </tbody> *@
+    @*         </table> *@
+    @*     </div> *@
+    @* </div> *@
      <script src="~/js/ranking.js"></script>
 </body>
 </html>
