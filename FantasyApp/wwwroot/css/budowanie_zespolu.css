@@ -145,7 +145,9 @@ body {
     padding: 10px;
     background-color: #f8f9fa;
     border-radius: 5px;
+    max-height: 60vh;
     border: 1px solid #ddd;
+    overflow-y: scroll;
 }
 
 select {

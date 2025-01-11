@@ -1,4 +1,6 @@
-﻿@{
+﻿@model IEnumerable<FantasyApp.Models.Zawodnik>
+
+@{
     ViewData["Title"] = "Budowanie zespołu";
 }
 <!DOCTYPE html>
@@ -79,24 +81,81 @@
                 </div>
                 <div class="player-list">
                     <h2>Lista zawodników</h2>
-                    <select>
-                        <option value="wybierz_pozycje" disabled selected hidden>Wybierz pozycję</option>
-                        <option value="wszyscy_zawodnicy">Wszyscy zawodnicy</option>
-                        <option value="wszyscy_zawodnicy">Watchlista</option>
-                        <optgroup label="Pozycja">
-                            <option value="bramkarz">Bramkarz</option>
-                            <option value="obronca">Obrońca</option>
-                            <option value="pomocnik">Pomocnik</option>
-                            <option value="napastnik">Napastnik</option>
-                        </optgroup>
-                        <optgroup label="Kluby">
-                            <option value="klub_1">Klub 1</option>
-                            <option value="klub_2">Klub 2</option>
-                        </optgroup>
-                    </select>
+                        @* <option value="wszyscy_zawodnicy">Watchlista</option> *@
+                    <form method="get" action="/Home/Budowanie_zespolu">
+                        <select name="pozycja" class="dropdown" onchange="this.form.submit()">
+                            <optgroup label="Pozycje">
+                                @if (ViewBag.Pozycja == "Wszyscy")
+                                {
+                                    <option value="Wszyscy" selected>Wszyscy zawodnicy</option>
+                                }
+                                else
+                                {
+                                    <option value="Wszyscy">Wszyscy zawodnicy</option>
+                                }
+                                @if (ViewBag.Pozycja == "Bramkarz")
+                                {
+                                    <option value="Bramkarz" selected>Bramkarz</option>
+                                }
+                                else
+                                {
+                                    <option value="Bramkarz">Bramkarz</option>
+                                }
+                                @if (ViewBag.Pozycja == "Obrońca")
+                                {
+                                    <option value="Obrońca" selected>Obrońca</option>
+                                }
+                                else
+                                {
+                                    <option value="Obrońca">Obrońca</option>
+                                }
+                                @if (ViewBag.Pozycja == "Pomocnik")
+                                {
+                                    <option value="Pomocnik" selected>Pomocnik</option>
+                                }
+                                else
+                                {
+                                    <option value="Pomocnik">Pomocnik</option>
+                                }
+                                @if (ViewBag.Pozycja == "Napastnik")
+                                {
+                                    <option value="Napastnik" selected>Napastnik</option>
+                                }
+                                else
+                                {
+                                    <option value="Napastnik">Napastnik</option>
+                                }
+                            </optgroup>
+                        </select>
+                    </form>
+                        @* <optgroup label="Kluby"> *@
+                        @*     <option value="klub_1">Klub 1</option> *@
+                        @*     <option value="klub_2">Klub 2</option> *@
                     <!-- Okno do wyboru zawodników w przyszłości -->
                     <div class="player-selection">
-                        <p>Tu będzie możliwość wyboru zawodników.</p>
+                        <h1>@ViewBag.Pozycja</h1>
+                        <table class="zawodnik-table">
+                            <thead>
+                                <tr>
+
+                                        <th>Nazwisko</th>
+                                        <th>Klub</th>
+                                        <th>Cena</th>
+                                        <th>Dodaj do drużyny</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            @foreach (var zawodnik in Model)
+                                {
+                                <tr>
+                                    <td>@zawodnik.Nazwisko</td>
+                                    <td>@zawodnik.Klub.Nazwa</td>
+                                    <td>@zawodnik.Cena</td>
+                                    <td>+</td>
+                                </tr>
+                                }
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>

@@ -31,13 +31,25 @@ namespace FantasyApp.Controllers
         {
             return View();
         }
-        public IActionResult Budowanie_zespolu()
+        public IActionResult Budowanie_zespolu(string? pozycja)
         {
             if (!User.Identity.IsAuthenticated)
-			{ 
-                return RedirectToAction("Index", "Home");
+			{
+				return RedirectToAction("Index", "Home");
             }
-            return View();
+
+			IQueryable<Zawodnik> query = db.Zawodnicy.Include(z => z.Klub).Where(z => z.Pozycja == pozycja);
+
+			var zawodnicy = query.Select(z => new Zawodnik
+			{
+				Nazwisko = z.Nazwisko,
+				Klub = z.Klub,
+				Cena = z.Cena
+			}).ToList();
+
+
+
+            return View(zawodnicy);
         }
 		public IActionResult Ranking()
 		{
