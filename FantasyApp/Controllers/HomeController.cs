@@ -50,6 +50,7 @@ namespace FantasyApp.Controllers
             return View(zawodnicy);
         }
 		[HttpPost]
+		[HttpPost]
 		public IActionResult DodajDoDruzyny(int zawodnikId)
 		{
 			if (!User.Identity.IsAuthenticated)
@@ -70,9 +71,6 @@ namespace FantasyApp.Controllers
 			var zawodnik = db.Zawodnicy.FirstOrDefault(z => z.ZawodnikId == zawodnikId);
 			if (zawodnik == null)
 			{
-				Console.WriteLine($"Szukany zawodnikId: {zawodnikId}");
-
-
 				return BadRequest("Nie znaleziono zawodnika.");
 			}
 
@@ -99,12 +97,21 @@ namespace FantasyApp.Controllers
 			druzyna.Budzet -= zawodnik.Cena;
 			db.Druzyny.Update(druzyna);
 
+			// Dodaj wpis do tabeli Transfery
+			var transfer = new Transfer
+			{
+				DruzynaId = druzyna.DruzynaId,
+				ZawodnikId = zawodnikId,
+				TypTransferu = "Kupno" // Możesz użyć stałej lub enum, jeśli jest taka potrzeba
+			};
+
+			db.Transfery.Add(transfer);
+
+			// Zapisz zmiany w bazie danych
 			db.SaveChanges();
 
-			return Ok("Zawodnik został dodany do drużyny.");
+			return Ok("Zawodnik został dodany do drużyny i wpisany do transferów.");
 		}
-
-
 
 		public IActionResult Ranking()
 		{
