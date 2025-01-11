@@ -42,15 +42,70 @@ namespace FantasyApp.Controllers
 
 			var zawodnicy = query.Select(z => new Zawodnik
 			{
+				ZawodnikId = z.ZawodnikId,
 				Nazwisko = z.Nazwisko,
 				Klub = z.Klub,
 				Cena = z.Cena
 			}).ToList();
-
-
-
             return View(zawodnicy);
         }
+		[HttpPost]
+		public IActionResult DodajDoDruzyny(int zawodnikId)
+		{
+			if (!User.Identity.IsAuthenticated)
+			{
+				return RedirectToAction("Index", "Home");
+			}
+
+			// Znajdź aktualną drużynę użytkownika
+			var uzytkownikId = int.Parse(User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier).Value);
+			var druzyna = db.Druzyny.FirstOrDefault(d => d.UzytkownikId == uzytkownikId);
+
+			if (druzyna == null)
+			{
+				return BadRequest("Nie znaleziono drużyny dla użytkownika.");
+			}
+
+			// Sprawdź, czy zawodnik istnieje
+			var zawodnik = db.Zawodnicy.FirstOrDefault(z => z.ZawodnikId == zawodnikId);
+			if (zawodnik == null)
+			{
+				Console.WriteLine($"Szukany zawodnikId: {zawodnikId}");
+
+
+				return BadRequest("Nie znaleziono zawodnika.");
+			}
+
+			// Sprawdź, czy zawodnik już istnieje w składzie drużyny
+			if (db.SkladDruzyny.Any(sd => sd.DruzynaId == druzyna.DruzynaId && sd.ZawodnikId == zawodnikId))
+			{
+				return BadRequest("Zawodnik już znajduje się w składzie drużyny.");
+			}
+
+			// Dodaj zawodnika do składu drużyny
+			var skladDruzyny = new SkladDruzyny
+			{
+				DruzynaId = druzyna.DruzynaId,
+				ZawodnikId = zawodnikId
+			};
+
+			db.SkladDruzyny.Add(skladDruzyny);
+
+			// (Opcjonalnie) Aktualizuj budżet drużyny
+			if (druzyna.Budzet < zawodnik.Cena)
+			{
+				return BadRequest("Nie masz wystarczających środków, aby dodać tego zawodnika.");
+			}
+			druzyna.Budzet -= zawodnik.Cena;
+			db.Druzyny.Update(druzyna);
+
+			db.SaveChanges();
+
+			return Ok("Zawodnik został dodany do drużyny.");
+		}
+
+
+
 		public IActionResult Ranking()
 		{
 			return View();

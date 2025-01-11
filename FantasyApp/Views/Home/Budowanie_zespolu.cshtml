@@ -141,7 +141,7 @@
                                         <th>Nazwisko</th>
                                         <th>Klub</th>
                                         <th>Cena</th>
-                                        <th>Dodaj do drużyny</th>
+                                        <th>Akcja</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -151,7 +151,12 @@
                                     <td>@zawodnik.Nazwisko</td>
                                     <td>@zawodnik.Klub.Nazwa</td>
                                     <td>@zawodnik.Cena</td>
-                                    <td>+</td>
+                                        <td>
+                                            <form asp-action="DodajDoDruzyny" asp-controller="Home" method="post">
+                                                <input type="hidden" name="zawodnikId" value="@zawodnik.ZawodnikId" />
+                                                <button type="submit" class="btn btn-success">Dodaj do drużyny</button>
+                                            </form>
+                                        </td>
                                 </tr>
                                 }
                             </tbody>
