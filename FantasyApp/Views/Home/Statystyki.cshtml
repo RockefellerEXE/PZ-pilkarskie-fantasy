@@ -24,12 +24,46 @@
         <form method="get" action="/Home/Statystyki">
             <select name="pozycja" class="dropdown" onchange="this.form.submit()">
                 <optgroup label="Pozycje">
-                    <option value="none" selected hidden disabled>Wybierz opcję</option>
-                    <option value="Wszyscy">Wszyscy zawodnicy</option>
-                    <option value="Bramkarz">Bramkarz</option>
-                    <option value="Obrońca">Obrońca</option>
-                    <option value="Pomocnik">Pomocnik</option>
-                    <option value="Napastnik">Napastnik</option>
+                    @if (ViewBag.Pozycja == "Wszyscy")
+                    {
+                        <option value="Wszyscy" selected>Wszyscy zawodnicy</option>
+                    }
+                    else
+                    {
+                        <option value="Wszyscy">Wszyscy zawodnicy</option>
+                    }
+                    @if (ViewBag.Pozycja == "Bramkarz")
+                    {
+                        <option value="Bramkarz" selected>Bramkarz</option>
+                    }
+                    else
+                    {
+                        <option value="Bramkarz">Bramkarz</option>
+                    }
+                    @if (ViewBag.Pozycja == "Obrońca")
+                    {
+                        <option value="Obrońca" selected>Obrońca</option>
+                    }
+                    else
+                    {
+                        <option value="Obrońca">Obrońca</option>
+                    }
+                    @if (ViewBag.Pozycja == "Pomocnik")
+                    {
+                        <option value="Pomocnik" selected>Pomocnik</option>
+                    }
+                    else
+                    {
+                        <option value="Pomocnik">Pomocnik</option>
+                    }
+                    @if (ViewBag.Pozycja == "Napastnik")
+                    {
+                        <option value="Napastnik" selected>Napastnik</option>
+                    }
+                    else
+                    {
+                        <option value="Napastnik">Napastnik</option>
+                    }
                 </optgroup>
             </select>
         </form>
@@ -43,8 +77,8 @@
                         @if (ViewBag.Pozycja == "Wszyscy"){
 
                         <th>Nazwisko</th>
-                        <th>Punkty</th>
                         <th>Pozycja</th>
+                        <th>Punkty</th>
                         }
                         else
                         {
