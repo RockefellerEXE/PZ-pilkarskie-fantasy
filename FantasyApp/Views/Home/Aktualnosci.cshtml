@@ -7,33 +7,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="~/css/aktualnosci.css" rel="stylesheet" />
+    <title>@ViewData["Title"]</title>
 </head>
 <body>
+    <!-- Zielony nagłówek -->
     <div class="header">
         <h1>Aktualności</h1>
     </div>
-    <div class="container">
-        <div class="table-section">
+
+    <!-- Kontener strony -->
+    <div class="page-container">
+        <!-- Sekcja lewa -->
+        <div class="left-section">
             <h2>Zmiany cen zawodników</h2>
-            <img src="https://via.placeholder.com/400x200?text=Tabela+zmian+cen" alt="Tabela zmian cen">
+            <div class="placeholder">Tabela zmian cen</div>
             <div class="pagination">
-                <button class="active">1</button>
+                <button>1</button>
                 <button>2</button>
                 <button>3</button>
-                <button>...</button>
-                <button>10</button>
+                <button>4</button>
             </div>
         </div>
-        <div class="table-section">
+
+        <!-- Sekcja prawa (Tweety) -->
+        <div class="right-section">
             <h2>Najważniejsze tweety</h2>
-            <img src="https://via.placeholder.com/400x200?text=Tabela+tweetów" alt="Tabela tweetów">
-            <div class="pagination">
-                <button class="active">1</button>
-                <button>2</button>
-                <button>3</button>
-                <button>...</button>
-                <button>10</button>
-            </div>
+
+            <!-- Oś czasu Twittera -->
+            <a class="twitter-timeline" href="https://twitter.com/f4ntasyLover?ref_src=twsrc%5Etfw">
+                Tweets by f4ntasyLover
+            </a>
+            <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
         </div>
     </div>
 </body>

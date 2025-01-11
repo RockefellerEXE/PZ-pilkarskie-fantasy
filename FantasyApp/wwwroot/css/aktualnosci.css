@@ -1,63 +1,88 @@
-﻿body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f4f4f4;
-}
-
-.header {
-    background-color: #89c44a;
-    padding: 10px 20px;
-    color: white;
-    text-align: center;
-}
-
-.container {
+﻿/* Stylowanie kontenera */
+.page-container {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
     padding: 20px;
+    gap: 20px;
+    background-color: #f4f4f4;
+    width: 100%;
 }
 
-.table-section {
-    width: 48%;
-    background-color: white;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    padding: 10px;
+/* Zielony pasek pod nagłówkiem */
+.header {
+    text-align: center;
+    background-color: #e3f7d8; /* Zielony pasek */
+    color: black; /* Biały kolor tekstu */
+    padding: 30px 0; /* Jeszcze większe odstępy pionowe */
+    margin: 0;
+    font-size: 1.5rem; /* Opcjonalnie większy tekst */
 }
 
-    .table-section h2 {
-        margin-top: 0;
-        font-size: 18px;
-        color: #333;
+
+    .header:after {
+        content: '';
+        display: block;
+        width: 100%;
+        height: 4px;
+        background-color: #e3f7d8; /* Zielony pasek */
+        margin-top: 10px;
     }
 
-.pagination {
+/* Styl sekcji lewej */
+.left-section {
+    flex: 1;
+    min-width: 800px;
+    background-color: #e3f7d8;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Sekcja prawa (Tweety) */
+.right-section {
+    flex: 1;
+    min-width: 800px;
+    background-color: #e3f7d8; /* Zielony kolor tła */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Styl placeholderów */
+.placeholder {
+    height: 400px; /* Większa wysokość */
+    background-color: #ddd;
+    border: 2px dashed #bbb;
     display: flex;
     justify-content: center;
-    margin-top: 10px;
+    align-items: center;
+    color: #777;
+    margin-bottom: 20px;
+}
+
+/* Styl paginacji */
+.pagination {
+    display: flex;
+    gap: 10px;
 }
 
     .pagination button {
-        background-color: #ddd;
-        border: none;
-        padding: 5px 10px;
-        margin: 0 2px;
+        padding: 10px 15px;
+        border: 1px solid #ccc;
+        background-color: #fff;
+        border-radius: 5px;
         cursor: pointer;
-        border-radius: 3px;
-        transition: background-color 0.3s;
+        transition: all 0.3s;
     }
 
-        .pagination button.active {
-            background-color: #89c44a;
-            color: white;
-        }
-
         .pagination button:hover {
-            background-color: #ccc;
+            background-color: #eee;
         }
 
-img {
-    max-width: 100%;
-    border-radius: 5px;
+/* Tweety */
+.twitter-timeline {
+    width: 100%; /* Rozciągnij widżet na pełną szerokość */
+    border: none;
+    background-color: #e3f7d8;
 }
