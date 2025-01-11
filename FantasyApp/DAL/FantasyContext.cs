@@ -15,8 +15,11 @@ namespace FantasyApp.DAL
 		public DbSet<Zawodnik> Zawodnicy { get; set; }
 		public DbSet<StatystykiZawodnikow> StatystykiZawodnikow { get; set; }
 		public DbSet<Transfer> Transfery { get; set; }
+        public DbSet<HistoriaCen> HistoriaCen { get; set; }
 
-		protected override void OnModelCreating(ModelBuilder modelBuilder)
+
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
 			// SkladDruzyny: Klucz złożony
 			modelBuilder.Entity<SkladDruzyny>()
@@ -61,8 +64,13 @@ namespace FantasyApp.DAL
 				.WithMany(z => z.Transfery)
 				.HasForeignKey(t => t.ZawodnikId);
 
-			// Dodanie danych początkowych
-			modelBuilder.Entity<Klub>().HasData(
+
+			modelBuilder.Entity<HistoriaCen>()
+			   .HasOne(hc => hc.Zawodnik)
+               .WithMany(hc => hc.HistoriaCen)
+               .HasForeignKey(hc => hc.ZawodnikId);
+            // Dodanie danych początkowych
+            modelBuilder.Entity<Klub>().HasData(
 
 				new Klub { KlubId = 1, Nazwa = "Lech Poznań" },
 				new Klub { KlubId = 2, Nazwa = "Raków Częstochowa" },
@@ -628,6 +636,8 @@ namespace FantasyApp.DAL
 				new Transfer { TransferId = 2, DruzynaId = 1, ZawodnikId = 3, TypTransferu = "Kupno" },
 				new Transfer { TransferId = 3, DruzynaId = 2, ZawodnikId = 4, TypTransferu = "Kupno" }
 			);
-		}
+
+           
+        }
 	}
 }
