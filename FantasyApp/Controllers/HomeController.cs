@@ -12,7 +12,7 @@ namespace FantasyApp.Controllers
         private readonly ILogger<HomeController> _logger;
 
 		FantasyContext db;
-
+        
         public HomeController(ILogger<HomeController> logger, FantasyContext db)
         {
             _logger = logger;
@@ -70,22 +70,33 @@ namespace FantasyApp.Controllers
 			return View(zawodnicy);
 		}
 		[HttpPost]
-		public IActionResult DodajDoDruzyny(int zawodnikId)
+		public IActionResult DodajDoDruzyny(int zawodnikId, string formacjaString="0-4-3-3")
 		{
 			if (!User.Identity.IsAuthenticated)
 			{
 				return RedirectToAction("Index", "Home");
 			}
+			Dictionary<string, int> formacja = new Dictionary<string, int>();
 
-			// Znajdź aktualną drużynę użytkownika
-			var uzytkownikId = int.Parse(User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier).Value);
-			var druzyna = db.Druzyny.FirstOrDefault(d => d.UzytkownikId == uzytkownikId);
+            List<string> klucze = new List<string> { "Bramkarz", "Obrońca", "Pomocnik", "Napastnik" };
+
+            string[] pozycje = formacjaString.Split('-');
+
+            for (int i = 0; i < pozycje.Length; i++)
+			{
+				if (int.TryParse(pozycje[i], out int liczbaZawodnikow))
+				{
+					formacja.Add(klucze[i], liczbaZawodnikow);
+				}
+			}
+                // Znajdź aktualną drużynę użytkownika
+                var uzytkownikId = int.Parse(User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier).Value);
+			var druzyna = db.Druzyny.Include(d => d.SkladDruzyny).FirstOrDefault(d => d.UzytkownikId == uzytkownikId);
 
 			if (druzyna == null)
 			{
 				return BadRequest("Nie znaleziono drużyny dla użytkownika.");
 			}
-
 			// Sprawdź, czy zawodnik istnieje
 			var zawodnik = db.Zawodnicy.FirstOrDefault(z => z.ZawodnikId == zawodnikId);
 			if (zawodnik == null)
@@ -98,9 +109,15 @@ namespace FantasyApp.Controllers
 			{
 				return BadRequest("Zawodnik już znajduje się w składzie drużyny.");
 			}
+			
 
-			// Dodaj zawodnika do składu drużyny
-			var skladDruzyny = new SkladDruzyny
+            if (db.SkladDruzyny.Where(d => d.DruzynaId == druzyna.DruzynaId && d.PozycjaWDruzynie == zawodnik.Pozycja).Count() >= formacja[zawodnik.Pozycja])
+            {
+				return BadRequest("Na tej pozycji może być max "+ formacja[zawodnik.Pozycja] + " zawodników");
+            }
+                
+            // Dodaj zawodnika do składu drużyny
+            var skladDruzyny = new SkladDruzyny
 			{
 				DruzynaId = druzyna.DruzynaId,
 				ZawodnikId = zawodnikId,
