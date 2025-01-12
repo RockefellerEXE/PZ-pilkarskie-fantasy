@@ -31,25 +31,44 @@ namespace FantasyApp.Controllers
         {
             return View();
         }
-        public IActionResult Budowanie_zespolu(string? pozycja)
-        {
-            if (!User.Identity.IsAuthenticated)
+		public IActionResult Budowanie_zespolu(string? pozycja)
+		{
+			if (!User.Identity.IsAuthenticated)
 			{
 				return RedirectToAction("Index", "Home");
-            }
+			}
 
-			IQueryable<Zawodnik> query = db.Zawodnicy.Include(z => z.Klub).Where(z => z.Pozycja == pozycja);
+			var uzytkownikId = int.Parse(User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier).Value);
 
-			var zawodnicy = query.Select(z => new Zawodnik
+			// Pobierz drużynę użytkownika
+			var druzyna = db.Druzyny.FirstOrDefault(d => d.UzytkownikId == uzytkownikId);
+			if (druzyna == null)
 			{
-				ZawodnikId = z.ZawodnikId,
-				Nazwisko = z.Nazwisko,
-				Klub = z.Klub,
-				Cena = z.Cena
-			}).ToList();
-            return View(zawodnicy);
-        }
-		[HttpPost]
+				return BadRequest("Nie znaleziono drużyny dla użytkownika.");
+			}
+
+			// Pobierz zawodników przypisanych do drużyny
+			var zawodnicyWDruzynie = db.SkladDruzyny
+				.Where(sd => sd.DruzynaId == druzyna.DruzynaId)
+				.Include(sd => sd.Zawodnik)
+				.ThenInclude(z => z.Klub)
+				.Select(sd => sd.Zawodnik)
+				.ToList();
+
+			// Pobierz zawodników na podstawie wybranej pozycji (jeśli jest podana)
+			IQueryable<Zawodnik> query = db.Zawodnicy.Include(z => z.Klub);
+			if (!string.IsNullOrEmpty(pozycja))
+			{
+				query = query.Where(z => z.Pozycja == pozycja);
+			}
+
+			var zawodnicy = query.ToList();
+			var budzet = druzyna.Budzet;
+			ViewBag.Budzet = budzet;
+			// Przekaż do widoku zawodników drużyny i dostępnych zawodników
+			ViewBag.ZawodnicyWDruzynie = zawodnicyWDruzynie;
+			return View(zawodnicy);
+		}
 		[HttpPost]
 		public IActionResult DodajDoDruzyny(int zawodnikId)
 		{
@@ -111,6 +130,56 @@ namespace FantasyApp.Controllers
 			db.SaveChanges();
 
 			return Ok("Zawodnik został dodany do drużyny i wpisany do transferów.");
+		}
+		[HttpPost]
+		public IActionResult UsunZDruzyny(int zawodnikId)
+		{
+			if (!User.Identity.IsAuthenticated)
+			{
+				return RedirectToAction("Index", "Home");
+			}
+
+			var uzytkownikId = int.Parse(User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier).Value);
+			var druzyna = db.Druzyny.FirstOrDefault(d => d.UzytkownikId == uzytkownikId);
+
+			if (druzyna == null)
+			{
+				return BadRequest("Nie znaleziono drużyny dla użytkownika.");
+			}
+
+			// Znajdź zawodnika w składzie drużyny
+			var skladDruzyny = db.SkladDruzyny.FirstOrDefault(sd => sd.DruzynaId == druzyna.DruzynaId && sd.ZawodnikId == zawodnikId);
+			if (skladDruzyny == null)
+			{
+				return BadRequest("Zawodnik nie znajduje się w składzie drużyny.");
+			}
+
+			// Pobierz zawodnika
+			var zawodnik = db.Zawodnicy.FirstOrDefault(z => z.ZawodnikId == zawodnikId);
+			if (zawodnik == null)
+			{
+				return BadRequest("Zawodnik nie istnieje.");
+			}
+
+			// Dodaj kwotę zawodnika do budżetu drużyny
+			druzyna.Budzet += zawodnik.Cena;
+
+			// Usuń zawodnika ze składu drużyny
+			db.SkladDruzyny.Remove(skladDruzyny);
+
+			// Dodaj transfer do tabeli Transfery (transfer "Sprzedaż")
+			var transfer = new Transfer
+			{
+				DruzynaId = druzyna.DruzynaId,
+				ZawodnikId = zawodnikId,
+				TypTransferu = "Sprzedaż" // Możesz użyć stałej lub enum, jeśli jest taka potrzeba
+			};
+			db.Transfery.Add(transfer);
+
+			// Zapisz zmiany w bazie danych
+			db.SaveChanges();
+
+			return Ok("Zawodnik został usunięty z drużyny, a środki zostały przywrócone do budżetu.");
 		}
 
 		public IActionResult Ranking()
