@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FantasyApp.Migrations.Users
 {
     [DbContext(typeof(UsersContext))]
-    [Migration("20250111183026_wlasneid")]
-    partial class wlasneid
+    [Migration("20250112105415_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

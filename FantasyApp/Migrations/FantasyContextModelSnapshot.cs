@@ -44,29 +44,6 @@ namespace FantasyApp.Migrations
                     b.HasIndex("UzytkownikId");
 
                     b.ToTable("Druzyny");
-
-                    b.HasData(
-                        new
-                        {
-                            DruzynaId = 1,
-                            Budzet = 100m,
-                            NazwaDruzyny = "Drużyna A",
-                            UzytkownikId = 1
-                        },
-                        new
-                        {
-                            DruzynaId = 2,
-                            Budzet = 100m,
-                            NazwaDruzyny = "Drużyna B",
-                            UzytkownikId = 2
-                        },
-                        new
-                        {
-                            DruzynaId = 3,
-                            Budzet = 100m,
-                            NazwaDruzyny = "Drużyna C",
-                            UzytkownikId = 3
-                        });
                 });
 
             modelBuilder.Entity("FantasyApp.Models.Klub", b =>
@@ -191,38 +168,6 @@ namespace FantasyApp.Migrations
                     b.HasIndex("ZawodnikId");
 
                     b.ToTable("SkladDruzyny");
-
-                    b.HasData(
-                        new
-                        {
-                            DruzynaId = 1,
-                            ZawodnikId = 1
-                        },
-                        new
-                        {
-                            DruzynaId = 1,
-                            ZawodnikId = 3
-                        },
-                        new
-                        {
-                            DruzynaId = 2,
-                            ZawodnikId = 2
-                        },
-                        new
-                        {
-                            DruzynaId = 2,
-                            ZawodnikId = 4
-                        },
-                        new
-                        {
-                            DruzynaId = 3,
-                            ZawodnikId = 5
-                        },
-                        new
-                        {
-                            DruzynaId = 3,
-                            ZawodnikId = 7
-                        });
                 });
 
             modelBuilder.Entity("FantasyApp.Models.StatystykiZawodnikow", b =>
@@ -273,53 +218,6 @@ namespace FantasyApp.Migrations
                     b.HasIndex("ZawodnikId");
 
                     b.ToTable("StatystykiZawodnikow");
-
-                    b.HasData(
-                        new
-                        {
-                            StatystykiZawodnikowId = 1,
-                            Asysty = 1,
-                            Bramki = 1,
-                            CzerwoneKartki = 0,
-                            DruzynaId = 1,
-                            KarneSpowodowane = 0,
-                            KarneWywalczone = 0,
-                            KarneZmarnowane = 0,
-                            Punkty = 5,
-                            StrzalyObronione = 0,
-                            ZawodnikId = 1,
-                            ZolteKartki = 0
-                        },
-                        new
-                        {
-                            StatystykiZawodnikowId = 2,
-                            Asysty = 1,
-                            Bramki = 1,
-                            CzerwoneKartki = 0,
-                            DruzynaId = 2,
-                            KarneSpowodowane = 0,
-                            KarneWywalczone = 0,
-                            KarneZmarnowane = 0,
-                            Punkty = 5,
-                            StrzalyObronione = 0,
-                            ZawodnikId = 2,
-                            ZolteKartki = 0
-                        },
-                        new
-                        {
-                            StatystykiZawodnikowId = 3,
-                            Asysty = 1,
-                            Bramki = 1,
-                            CzerwoneKartki = 0,
-                            DruzynaId = 1,
-                            KarneSpowodowane = 0,
-                            KarneWywalczone = 0,
-                            KarneZmarnowane = 0,
-                            Punkty = 5,
-                            StrzalyObronione = 0,
-                            ZawodnikId = 3,
-                            ZolteKartki = 0
-                        });
                 });
 
             modelBuilder.Entity("FantasyApp.Models.Transfer", b =>
@@ -347,29 +245,6 @@ namespace FantasyApp.Migrations
                     b.HasIndex("ZawodnikId");
 
                     b.ToTable("Transfery");
-
-                    b.HasData(
-                        new
-                        {
-                            TransferId = 1,
-                            DruzynaId = 1,
-                            TypTransferu = "Kupno",
-                            ZawodnikId = 1
-                        },
-                        new
-                        {
-                            TransferId = 2,
-                            DruzynaId = 1,
-                            TypTransferu = "Kupno",
-                            ZawodnikId = 3
-                        },
-                        new
-                        {
-                            TransferId = 3,
-                            DruzynaId = 2,
-                            TypTransferu = "Kupno",
-                            ZawodnikId = 4
-                        });
                 });
 
             modelBuilder.Entity("FantasyApp.Models.Uzytkownik", b =>
@@ -387,26 +262,6 @@ namespace FantasyApp.Migrations
                     b.HasKey("UzytkownikId");
 
                     b.ToTable("Uzytkownicy");
-
-                    b.HasData(
-                        new
-                        {
-                            UzytkownikId = 1,
-                            Login = "user1",
-                            Punkty = 0
-                        },
-                        new
-                        {
-                            UzytkownikId = 2,
-                            Login = "user2",
-                            Punkty = 0
-                        },
-                        new
-                        {
-                            UzytkownikId = 3,
-                            Login = "user3",
-                            Punkty = 0
-                        });
                 });
 
             modelBuilder.Entity("FantasyApp.Models.Zawodnik", b =>
