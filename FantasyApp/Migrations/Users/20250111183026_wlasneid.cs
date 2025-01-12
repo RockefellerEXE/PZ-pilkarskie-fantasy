@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace FantasyApp.Migrations.Users
 {
-    public partial class userInit : Migration
+    public partial class wlasneid : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FantasyApp.Migrations
 {
     [DbContext(typeof(FantasyContext))]
-    [Migration("20250111174210_zmianaBudzetu")]
-    partial class zmianaBudzetu
+    [Migration("20250111182756_wlasneid")]
+    partial class wlasneid
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -377,10 +377,7 @@ namespace FantasyApp.Migrations
             modelBuilder.Entity("FantasyApp.Models.Uzytkownik", b =>
                 {
                     b.Property<int>("UzytkownikId")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UzytkownikId"), 1L, 1);
 
                     b.Property<string>("Login")
                         .IsRequired()

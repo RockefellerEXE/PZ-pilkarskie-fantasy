@@ -4,7 +4,7 @@
 
 namespace FantasyApp.Migrations
 {
-    public partial class fantasyInit : Migration
+    public partial class wlasneid : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -25,8 +25,7 @@ namespace FantasyApp.Migrations
                 name: "Uzytkownicy",
                 columns: table => new
                 {
-                    UzytkownikId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UzytkownikId = table.Column<int>(type: "int", nullable: false),
                     Login = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Punkty = table.Column<int>(type: "int", nullable: false)
                 },
@@ -66,7 +65,7 @@ namespace FantasyApp.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UzytkownikId = table.Column<int>(type: "int", nullable: false),
                     NazwaDruzyny = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Budzet = table.Column<int>(type: "int", nullable: false)
+                    Budzet = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -205,9 +204,9 @@ namespace FantasyApp.Migrations
                 columns: new[] { "DruzynaId", "Budzet", "NazwaDruzyny", "UzytkownikId" },
                 values: new object[,]
                 {
-                    { 1, 100, "Drużyna A", 1 },
-                    { 2, 100, "Drużyna B", 2 },
-                    { 3, 100, "Drużyna C", 3 }
+                    { 1, 100m, "Drużyna A", 1 },
+                    { 2, 100m, "Drużyna B", 2 },
+                    { 3, 100m, "Drużyna C", 3 }
                 });
 
             migrationBuilder.InsertData(

@@ -375,10 +375,7 @@ namespace FantasyApp.Migrations
             modelBuilder.Entity("FantasyApp.Models.Uzytkownik", b =>
                 {
                     b.Property<int>("UzytkownikId")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UzytkownikId"), 1L, 1);
 
                     b.Property<string>("Login")
                         .IsRequired()
