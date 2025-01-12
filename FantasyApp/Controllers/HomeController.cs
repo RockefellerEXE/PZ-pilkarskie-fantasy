@@ -103,7 +103,8 @@ namespace FantasyApp.Controllers
 			var skladDruzyny = new SkladDruzyny
 			{
 				DruzynaId = druzyna.DruzynaId,
-				ZawodnikId = zawodnikId
+				ZawodnikId = zawodnikId,
+				PozycjaWDruzynie = zawodnik.Pozycja
 			};
 
 			db.SkladDruzyny.Add(skladDruzyny);
