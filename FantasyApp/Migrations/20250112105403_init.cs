@@ -4,7 +4,7 @@
 
 namespace FantasyApp.Migrations
 {
-    public partial class fantasyInit : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -25,8 +25,7 @@ namespace FantasyApp.Migrations
                 name: "Uzytkownicy",
                 columns: table => new
                 {
-                    UzytkownikId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UzytkownikId = table.Column<int>(type: "int", nullable: false),
                     Login = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Punkty = table.Column<int>(type: "int", nullable: false)
                 },
@@ -66,7 +65,7 @@ namespace FantasyApp.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UzytkownikId = table.Column<int>(type: "int", nullable: false),
                     NazwaDruzyny = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Budzet = table.Column<int>(type: "int", nullable: false)
+                    Budzet = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -191,26 +190,6 @@ namespace FantasyApp.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "Uzytkownicy",
-                columns: new[] { "UzytkownikId", "Login", "Punkty" },
-                values: new object[,]
-                {
-                    { 1, "user1", 0 },
-                    { 2, "user2", 0 },
-                    { 3, "user3", 0 }
-                });
-
-            migrationBuilder.InsertData(
-                table: "Druzyny",
-                columns: new[] { "DruzynaId", "Budzet", "NazwaDruzyny", "UzytkownikId" },
-                values: new object[,]
-                {
-                    { 1, 100, "Drużyna A", 1 },
-                    { 2, 100, "Drużyna B", 2 },
-                    { 3, 100, "Drużyna C", 3 }
-                });
-
-            migrationBuilder.InsertData(
                 table: "Zawodnicy",
                 columns: new[] { "ZawodnikId", "Cena", "KlubId", "Nazwisko", "Pozycja", "Punkty" },
                 values: new object[,]
@@ -253,7 +232,10 @@ namespace FantasyApp.Migrations
                     { 36, 5.5m, 2, "Dieguez", "Obrońca", 0 },
                     { 37, 5m, 2, "Stojinovic", "Obrońca", 0 },
                     { 38, 4.5m, 2, "Tomas Silva", "Obrońca", 0 },
-                    { 39, 4.5m, 2, "Haliti", "Obrońca", 0 }
+                    { 39, 4.5m, 2, "Haliti", "Obrońca", 0 },
+                    { 40, 4m, 2, "Polak", "Obrońca", 0 },
+                    { 41, 4.5m, 2, "Kovacik", "Obrońca", 0 },
+                    { 42, 9m, 2, "Hansen", "Pomocnik", 0 }
                 });
 
             migrationBuilder.InsertData(
@@ -261,9 +243,6 @@ namespace FantasyApp.Migrations
                 columns: new[] { "ZawodnikId", "Cena", "KlubId", "Nazwisko", "Pozycja", "Punkty" },
                 values: new object[,]
                 {
-                    { 40, 4m, 2, "Polak", "Obrońca", 0 },
-                    { 41, 4.5m, 2, "Kovacik", "Obrońca", 0 },
-                    { 42, 9m, 2, "Hansen", "Pomocnik", 0 },
                     { 43, 8m, 2, "Miki", "Pomocnik", 0 },
                     { 44, 8m, 2, "Curlinov", "Pomocnik", 0 },
                     { 45, 6m, 2, "Kubicki", "Pomocnik", 0 },
@@ -302,7 +281,10 @@ namespace FantasyApp.Migrations
                     { 78, 4.5m, 3, "Czyż", "Pomocnik", 0 },
                     { 79, 4.5m, 3, "Barath", "Pomocnik", 0 },
                     { 80, 4.5m, 3, "Lederman", "Pomocnik", 0 },
-                    { 81, 3m, 3, "Nowakowski", "Pomocnik", 0 }
+                    { 81, 3m, 3, "Nowakowski", "Pomocnik", 0 },
+                    { 82, 7.5m, 3, "Brunes", "Napastnik", 0 },
+                    { 83, 7m, 3, "Makuch", "Napastnik", 0 },
+                    { 84, 5m, 3, "Diaz", "Napastnik", 0 }
                 });
 
             migrationBuilder.InsertData(
@@ -310,9 +292,6 @@ namespace FantasyApp.Migrations
                 columns: new[] { "ZawodnikId", "Cena", "KlubId", "Nazwisko", "Pozycja", "Punkty" },
                 values: new object[,]
                 {
-                    { 82, 7.5m, 3, "Brunes", "Napastnik", 0 },
-                    { 83, 7m, 3, "Makuch", "Napastnik", 0 },
-                    { 84, 5m, 3, "Diaz", "Napastnik", 0 },
                     { 85, 4.5m, 3, "Walczak", "Napastnik", 0 },
                     { 86, 6m, 4, "Tobiasz", "Bramkarz", 0 },
                     { 87, 5m, 4, "Kobylak", "Bramkarz", 0 },
@@ -351,7 +330,10 @@ namespace FantasyApp.Migrations
                     { 120, 6.5m, 5, "Wahlqvist", "Obrońca", 0 },
                     { 121, 6.5m, 5, "Koutris", "Obrońca", 0 },
                     { 122, 5.5m, 5, "Borges", "Obrońca", 0 },
-                    { 123, 5m, 5, "Keramitsis", "Obrońca", 0 }
+                    { 123, 5m, 5, "Keramitsis", "Obrońca", 0 },
+                    { 124, 5.5m, 5, "Zech", "Obrońca", 0 },
+                    { 125, 4.5m, 5, "Malec", "Obrońca", 0 },
+                    { 126, 4.5m, 5, "Lis", "Obrońca", 0 }
                 });
 
             migrationBuilder.InsertData(
@@ -359,9 +341,6 @@ namespace FantasyApp.Migrations
                 columns: new[] { "ZawodnikId", "Cena", "KlubId", "Nazwisko", "Pozycja", "Punkty" },
                 values: new object[,]
                 {
-                    { 124, 5.5m, 5, "Zech", "Obrońca", 0 },
-                    { 125, 4.5m, 5, "Malec", "Obrońca", 0 },
-                    { 126, 4.5m, 5, "Lis", "Obrońca", 0 },
                     { 127, 3.5m, 5, "D.Loncar", "Obrońca", 0 },
                     { 128, 3.5m, 5, "Lisowski", "Obrońca", 0 },
                     { 129, 8m, 5, "Grosicki", "Pomocnik", 0 },
@@ -400,7 +379,10 @@ namespace FantasyApp.Migrations
                     { 162, 6m, 6, "Rózga", "Pomocnik", 0 },
                     { 163, 5m, 6, "Al-Ammari", "Pomocnik", 0 },
                     { 164, 5m, 6, "Rakoczy", "Pomocnik", 0 },
-                    { 165, 5m, 6, "Sokołowski", "Pomocnik", 0 }
+                    { 165, 5m, 6, "Sokołowski", "Pomocnik", 0 },
+                    { 166, 4.5m, 6, "Atanasov", "Pomocnik", 0 },
+                    { 167, 4.5m, 6, "Bochnak", "Pomocnik", 0 },
+                    { 168, 4.5m, 6, "Bzdyl", "Pomocnik", 0 }
                 });
 
             migrationBuilder.InsertData(
@@ -408,9 +390,6 @@ namespace FantasyApp.Migrations
                 columns: new[] { "ZawodnikId", "Cena", "KlubId", "Nazwisko", "Pozycja", "Punkty" },
                 values: new object[,]
                 {
-                    { 166, 4.5m, 6, "Atanasov", "Pomocnik", 0 },
-                    { 167, 4.5m, 6, "Bochnak", "Pomocnik", 0 },
-                    { 168, 4.5m, 6, "Bzdyl", "Pomocnik", 0 },
                     { 169, 3m, 6, "Lachowicz", "Pomocnik", 0 },
                     { 170, 3m, 6, "Pomietło", "Pomocnik", 0 },
                     { 171, 13m, 6, "Kallman", "Napastnik", 0 },
@@ -449,7 +428,10 @@ namespace FantasyApp.Migrations
                     { 204, 3m, 8, "Jeż", "Bramkarz", 0 },
                     { 205, 5.5m, 8, "Luberecki", "Obrońca", 0 },
                     { 206, 5.5m, 8, "Rudol", "Obrońca", 0 },
-                    { 207, 5.5m, 8, "Bartos", "Obrońca", 0 }
+                    { 207, 5.5m, 8, "Bartos", "Obrońca", 0 },
+                    { 208, 5m, 8, "Najemski", "Obrońca", 0 },
+                    { 209, 5m, 8, "Stolarski", "Obrońca", 0 },
+                    { 210, 5m, 8, "Wojcik", "Obrońca", 0 }
                 });
 
             migrationBuilder.InsertData(
@@ -457,9 +439,6 @@ namespace FantasyApp.Migrations
                 columns: new[] { "ZawodnikId", "Cena", "KlubId", "Nazwisko", "Pozycja", "Punkty" },
                 values: new object[,]
                 {
-                    { 208, 5m, 8, "Najemski", "Obrońca", 0 },
-                    { 209, 5m, 8, "Stolarski", "Obrońca", 0 },
-                    { 210, 5m, 8, "Wojcik", "Obrońca", 0 },
                     { 211, 5m, 8, "Palacz", "Obrońca", 0 },
                     { 212, 3.5m, 8, "Romanowski", "Obrońca", 0 },
                     { 213, 3m, 8, "Kruk", "Obrońca", 0 },
@@ -498,7 +477,10 @@ namespace FantasyApp.Migrations
                     { 246, 5m, 9, "Shehu", "Pomocnik", 0 },
                     { 247, 5m, 9, "Hanousek", "Pomocnik", 0 },
                     { 248, 4m, 9, "Diliberto", "Pomocnik", 0 },
-                    { 249, 3.5m, 9, "Gong", "Pomocnik", 0 }
+                    { 249, 3.5m, 9, "Gong", "Pomocnik", 0 },
+                    { 250, 3.5m, 9, "Nunes", "Pomocnik", 0 },
+                    { 251, 3m, 9, "Gryzio", "Pomocnik", 0 },
+                    { 252, 10.5m, 9, "Rondic", "Napastnik", 0 }
                 });
 
             migrationBuilder.InsertData(
@@ -506,9 +488,6 @@ namespace FantasyApp.Migrations
                 columns: new[] { "ZawodnikId", "Cena", "KlubId", "Nazwisko", "Pozycja", "Punkty" },
                 values: new object[,]
                 {
-                    { 250, 3.5m, 9, "Nunes", "Pomocnik", 0 },
-                    { 251, 3m, 9, "Gryzio", "Pomocnik", 0 },
-                    { 252, 10.5m, 9, "Rondic", "Napastnik", 0 },
                     { 253, 7m, 9, "Sypek", "Napastnik", 0 },
                     { 254, 5.5m, 9, "Hamulic", "Napastnik", 0 },
                     { 255, 4.5m, 9, "Sobol", "Napastnik", 0 },
@@ -547,7 +526,10 @@ namespace FantasyApp.Migrations
                     { 288, 5m, 11, "Nobrega", "Obrońca", 0 },
                     { 289, 4.5m, 11, "Lewicki", "Obrońca", 0 },
                     { 290, 4.5m, 11, "Mokwa", "Obrońca", 0 },
-                    { 291, 4.5m, 11, "Reiner", "Obrońca", 0 }
+                    { 291, 4.5m, 11, "Reiner", "Obrońca", 0 },
+                    { 292, 3m, 11, "Liszewski", "Obrońca", 0 },
+                    { 293, 3m, 11, "Pitan", "Obrońca", 0 },
+                    { 294, 9m, 11, "Felix", "Pomocnik", 0 }
                 });
 
             migrationBuilder.InsertData(
@@ -555,9 +537,6 @@ namespace FantasyApp.Migrations
                 columns: new[] { "ZawodnikId", "Cena", "KlubId", "Nazwisko", "Pozycja", "Punkty" },
                 values: new object[,]
                 {
-                    { 292, 3m, 11, "Liszewski", "Obrońca", 0 },
-                    { 293, 3m, 11, "Pitan", "Obrońca", 0 },
-                    { 294, 9m, 11, "Felix", "Pomocnik", 0 },
                     { 295, 7m, 11, "Chrapek", "Pomocnik", 0 },
                     { 296, 6.5m, 11, "Kądzior", "Pomocnik", 0 },
                     { 297, 5.5m, 11, "Szczepański", "Pomocnik", 0 },
@@ -596,7 +575,10 @@ namespace FantasyApp.Migrations
                     { 330, 5.5m, 12, "Assayag", "Napastnik", 0 },
                     { 331, 4.5m, 13, "Hładun", "Bramkarz", 0 },
                     { 332, 4m, 13, "Buric", "Bramkarz", 0 },
-                    { 333, 3m, 13, "Matysek", "Bramkarz", 0 }
+                    { 333, 3m, 13, "Matysek", "Bramkarz", 0 },
+                    { 334, 7m, 13, "Wdowiak", "Obrońca", 0 },
+                    { 335, 6m, 13, "Grzybek", "Obrońca", 0 },
+                    { 336, 5.5m, 13, "Kłudka", "Obrońca", 0 }
                 });
 
             migrationBuilder.InsertData(
@@ -604,9 +586,6 @@ namespace FantasyApp.Migrations
                 columns: new[] { "ZawodnikId", "Cena", "KlubId", "Nazwisko", "Pozycja", "Punkty" },
                 values: new object[,]
                 {
-                    { 334, 7m, 13, "Wdowiak", "Obrońca", 0 },
-                    { 335, 6m, 13, "Grzybek", "Obrońca", 0 },
-                    { 336, 5.5m, 13, "Kłudka", "Obrońca", 0 },
                     { 337, 5.5m, 13, "Mata", "Obrońca", 0 },
                     { 338, 5m, 13, "Orlikowski", "Obrońca", 0 },
                     { 339, 5m, 13, "Ławniczak", "Obrońca", 0 },
@@ -645,7 +624,10 @@ namespace FantasyApp.Migrations
                     { 372, 5.5m, 14, "Blagaic", "Pomocnik", 0 },
                     { 373, 5m, 14, "M.Stępień", "Pomocnik", 0 },
                     { 374, 5m, 14, "Cholewiak", "Pomocnik", 0 },
-                    { 375, 5m, 14, "Abramowicz", "Pomocnik", 0 }
+                    { 375, 5m, 14, "Abramowicz", "Pomocnik", 0 },
+                    { 376, 4.5m, 14, "Serafin", "Pomocnik", 0 },
+                    { 377, 4.5m, 14, "Radecki", "Pomocnik", 0 },
+                    { 378, 4m, 14, "Hajda", "Pomocnik", 0 }
                 });
 
             migrationBuilder.InsertData(
@@ -653,9 +635,6 @@ namespace FantasyApp.Migrations
                 columns: new[] { "ZawodnikId", "Cena", "KlubId", "Nazwisko", "Pozycja", "Punkty" },
                 values: new object[,]
                 {
-                    { 376, 4.5m, 14, "Serafin", "Pomocnik", 0 },
-                    { 377, 4.5m, 14, "Radecki", "Pomocnik", 0 },
-                    { 378, 4m, 14, "Hajda", "Pomocnik", 0 },
                     { 379, 4m, 14, "Walski", "Pomocnik", 0 },
                     { 380, 4m, 14, "Siemaszko", "Pomocnik", 0 },
                     { 381, 4m, 14, "Tomalski", "Pomocnik", 0 },
@@ -694,39 +673,6 @@ namespace FantasyApp.Migrations
                     { 414, 6.5m, 15, "Dalmau", "Napastnik", 0 },
                     { 415, 6m, 15, "Shikavka", "Napastnik", 0 },
                     { 416, 3.5m, 15, "Bąk", "Napastnik", 0 }
-                });
-
-            migrationBuilder.InsertData(
-                table: "SkladDruzyny",
-                columns: new[] { "DruzynaId", "ZawodnikId" },
-                values: new object[,]
-                {
-                    { 1, 1 },
-                    { 1, 3 },
-                    { 2, 2 },
-                    { 2, 4 },
-                    { 3, 5 },
-                    { 3, 7 }
-                });
-
-            migrationBuilder.InsertData(
-                table: "StatystykiZawodnikow",
-                columns: new[] { "StatystykiZawodnikowId", "Asysty", "Bramki", "CzerwoneKartki", "DruzynaId", "KarneSpowodowane", "KarneWywalczone", "KarneZmarnowane", "Punkty", "StrzalyObronione", "ZawodnikId", "ZolteKartki" },
-                values: new object[,]
-                {
-                    { 1, 1, 1, 0, 1, 0, 0, 0, 5, 0, 1, 0 },
-                    { 2, 1, 1, 0, 2, 0, 0, 0, 5, 0, 2, 0 },
-                    { 3, 1, 1, 0, 1, 0, 0, 0, 5, 0, 3, 0 }
-                });
-
-            migrationBuilder.InsertData(
-                table: "Transfery",
-                columns: new[] { "TransferId", "DruzynaId", "TypTransferu", "ZawodnikId" },
-                values: new object[,]
-                {
-                    { 1, 1, "Kupno", 1 },
-                    { 2, 1, "Kupno", 3 },
-                    { 3, 2, "Kupno", 4 }
                 });
 
             migrationBuilder.CreateIndex(

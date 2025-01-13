@@ -1,4 +1,5 @@
-﻿using FantasyApp.Models;
+﻿using FantasyApp.DAL;
+using FantasyApp.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,10 +9,13 @@ namespace FantasyApp.Controllers
 	{
 		UserManager<AppUser> _userManager { get; }
 		SignInManager<AppUser> _signInManager { get; }
-		public AccountController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager)
+
+        FantasyContext db;
+        public AccountController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, FantasyContext db)
 		{
 			_userManager = userManager;
 			_signInManager = signInManager;
+            this.db = db;
 		}
 
         [HttpPost]
@@ -37,6 +41,22 @@ namespace FantasyApp.Controllers
 
             if (result.Succeeded)
             {
+                var newUser = await _userManager.FindByNameAsync(model.Username);
+                var nowyUser = new Uzytkownik
+                {
+                    UzytkownikId = newUser.Id,
+                    Login = newUser.UserName,
+                    Punkty = 0
+                };
+                var nowaDruzyna = new Druzyna
+                {
+                    UzytkownikId = nowyUser.UzytkownikId,
+                    NazwaDruzyny = "Drużyna użytkownika "+ nowyUser.Login,
+                    Budzet = 100
+                };
+                db.Uzytkownicy.Add(nowyUser);
+                db.Druzyny.Add(nowaDruzyna);
+                db.SaveChanges();
                 // Jeśli rejestracja się powiedzie, logujemy użytkownika
                 await _signInManager.SignInAsync(user, isPersistent: false);
                 return RedirectToAction("Index", "Home");
