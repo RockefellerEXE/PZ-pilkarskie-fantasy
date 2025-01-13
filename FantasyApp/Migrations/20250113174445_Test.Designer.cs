@@ -3,6 +3,7 @@ using FantasyApp.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FantasyApp.Migrations
 {
     [DbContext(typeof(FantasyContext))]
-    partial class FantasyContextModelSnapshot : ModelSnapshot
+    [Migration("20250113174445_Test")]
+    partial class Test
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -91,43 +93,6 @@ namespace FantasyApp.Migrations
                     b.HasIndex("ZawodnikId");
 
                     b.ToTable("HistoriaCen");
-
-                    b.HasData(
-                        new
-                        {
-                            HistoriaCenId = 1,
-                            CenaPrzed = 7m,
-                            Kolejka = 19,
-                            ZawodnikId = 1
-                        },
-                        new
-                        {
-                            HistoriaCenId = 2,
-                            CenaPrzed = 6m,
-                            Kolejka = 19,
-                            ZawodnikId = 2
-                        },
-                        new
-                        {
-                            HistoriaCenId = 3,
-                            CenaPrzed = 9m,
-                            Kolejka = 19,
-                            ZawodnikId = 3
-                        },
-                        new
-                        {
-                            HistoriaCenId = 4,
-                            CenaPrzed = 9m,
-                            Kolejka = 20,
-                            ZawodnikId = 14
-                        },
-                        new
-                        {
-                            HistoriaCenId = 5,
-                            CenaPrzed = 7m,
-                            Kolejka = 19,
-                            ZawodnikId = 1
-                        });
                 });
 
             modelBuilder.Entity("FantasyApp.Models.Klub", b =>

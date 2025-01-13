@@ -637,7 +637,14 @@ namespace FantasyApp.DAL
 				new Transfer { TransferId = 3, DruzynaId = 2, ZawodnikId = 4, TypTransferu = "Kupno" }
 			);
 
-           
+			modelBuilder.Entity<HistoriaCen>().HasData(
+				new HistoriaCen { HistoriaCenId = 1, ZawodnikId = 1, Kolejka = 19 , CenaPrzed = 7 },
+				new HistoriaCen { HistoriaCenId = 2, ZawodnikId = 2, Kolejka = 19 , CenaPrzed = 6 },
+				new HistoriaCen { HistoriaCenId = 3, ZawodnikId = 3, Kolejka = 19 , CenaPrzed = 9 },
+				new HistoriaCen { HistoriaCenId = 4, ZawodnikId = 14, Kolejka = 20 , CenaPrzed = 9 },
+				new HistoriaCen { HistoriaCenId = 5, ZawodnikId = 1, Kolejka = 19 , CenaPrzed = 7 }
+            );
+
         }
 	}
 }
