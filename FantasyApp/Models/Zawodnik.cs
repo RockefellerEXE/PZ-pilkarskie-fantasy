@@ -17,7 +17,8 @@ namespace FantasyApp.Models
 		public ICollection<SkladDruzyny> SkladDruzyny { get; set; }
 		public ICollection<StatystykiZawodnikow> Statystyki { get; set; }
 		public ICollection<Transfer> Transfery { get; set; }
-	}
+        public ICollection<HistoriaCen> HistoriaCen { get; set; }
+    }
 
 
 

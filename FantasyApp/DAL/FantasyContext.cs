@@ -15,8 +15,11 @@ namespace FantasyApp.DAL
 		public DbSet<Zawodnik> Zawodnicy { get; set; }
 		public DbSet<StatystykiZawodnikow> StatystykiZawodnikow { get; set; }
 		public DbSet<Transfer> Transfery { get; set; }
+        public DbSet<HistoriaCen> HistoriaCen { get; set; }
 
-		protected override void OnModelCreating(ModelBuilder modelBuilder)
+
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
 			// SkladDruzyny: Klucz złożony
 			modelBuilder.Entity<SkladDruzyny>()
@@ -61,12 +64,20 @@ namespace FantasyApp.DAL
 				.WithMany(z => z.Transfery)
 				.HasForeignKey(t => t.ZawodnikId);
 
+
+
+			modelBuilder.Entity<HistoriaCen>()
+			   .HasOne(hc => hc.Zawodnik)
+               .WithMany(hc => hc.HistoriaCen)
+               .HasForeignKey(hc => hc.ZawodnikId);
+
 			//POZWALAMY NA DAWANIE SWOJEGO ID
-            modelBuilder.Entity<Uzytkownik>(entity =>
-            {
-                entity.Property(e => e.UzytkownikId)
-                    .ValueGeneratedNever(); // Wyłącza automatyczne generowanie wartości
-            });
+      modelBuilder.Entity<Uzytkownik>(entity =>
+      {
+          entity.Property(e => e.UzytkownikId)
+              .ValueGeneratedNever(); // Wyłącza automatyczne generowanie wartości
+      });
+
             // Dodanie danych początkowych
             modelBuilder.Entity<Klub>().HasData(
 
@@ -634,6 +645,14 @@ namespace FantasyApp.DAL
 			//	new Transfer { TransferId = 2, DruzynaId = 1, ZawodnikId = 3, TypTransferu = "Kupno" },
 			//	new Transfer { TransferId = 3, DruzynaId = 2, ZawodnikId = 4, TypTransferu = "Kupno" }
 			//);
+      
+      modelBuilder.Entity<HistoriaCen>().HasData(
+				new HistoriaCen { HistoriaCenId = 1, ZawodnikId = 1, Kolejka = 19 , CenaPrzed = 7 },
+				new HistoriaCen { HistoriaCenId = 2, ZawodnikId = 2, Kolejka = 19 , CenaPrzed = 6 },
+				new HistoriaCen { HistoriaCenId = 3, ZawodnikId = 3, Kolejka = 19 , CenaPrzed = 9 },
+				new HistoriaCen { HistoriaCenId = 4, ZawodnikId = 14, Kolejka = 20 , CenaPrzed = 9 },
+				new HistoriaCen { HistoriaCenId = 5, ZawodnikId = 1, Kolejka = 19 , CenaPrzed = 7 }
+            );
 		}
 	}
 }

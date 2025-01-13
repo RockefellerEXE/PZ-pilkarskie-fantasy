@@ -1,5 +1,6 @@
 ﻿using FantasyApp.DAL;
 using FantasyApp.Models;
+using FantasyApp.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -27,10 +28,37 @@ namespace FantasyApp.Controllers
 		{
 			return View();
 		}
-		public IActionResult Aktualnosci()
+        public IActionResult Aktualnosci(int page = 1)
         {
-            return View();
+            int pageSize = 10; // Liczba rekordów na stronie
+            int najnowszaKolejka = db.HistoriaCen.Max(h => h.Kolejka); // Znajdź najnowszą kolejkę
+
+            // Pobranie danych z bazy danych tylko dla najnowszej kolejki
+            var zawodnicyHistoria = db.Zawodnicy
+                .Include(z => z.HistoriaCen)
+                .SelectMany(z => z.HistoriaCen, (zawodnik, historia) => new ZawodnikHistoriaCenViewModel
+                {
+                    Nazwisko = zawodnik.Nazwisko,
+                    Cena = zawodnik.Cena,
+                    Kolejka = historia.Kolejka,
+                    CenaPrzed = historia.CenaPrzed
+                })
+                .Where(h => h.Kolejka == najnowszaKolejka) // Filtrowanie dla najnowszej kolejki
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ToList();
+
+            // Obliczanie ilości stron
+            int totalCount = zawodnicyHistoria.Count(); // Liczba rekordów po filtrowaniu
+            int totalPages = (int)Math.Ceiling(totalCount / (double)pageSize);
+
+            // Przekazywanie danych do widoku
+            ViewBag.CurrentPage = page;
+            ViewBag.TotalPages = totalPages;
+
+            return View(zawodnicyHistoria);
         }
+
 		public IActionResult Budowanie_zespolu(string? pozycja)
 		{
 			if (!User.Identity.IsAuthenticated)
@@ -114,6 +142,7 @@ namespace FantasyApp.Controllers
             if (db.SkladDruzyny.Where(d => d.DruzynaId == druzyna.DruzynaId && d.PozycjaWDruzynie == zawodnik.Pozycja).Count() >= formacja[zawodnik.Pozycja])
             {
 				return BadRequest("Na tej pozycji może być max "+ formacja[zawodnik.Pozycja] + " zawodników");
+
             }
                 
             // Dodaj zawodnika do składu drużyny
@@ -243,8 +272,7 @@ namespace FantasyApp.Controllers
 
 
 
-
-		public IActionResult Terminarz()
+        public IActionResult Terminarz()
 		{
 			return View();
 		}
