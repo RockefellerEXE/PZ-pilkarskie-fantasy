@@ -1,51 +1,50 @@
-﻿/* Resetowanie styli */
-body, h1, h2, p, ol, li, button, ul, select {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-/* Globalne style */
+﻿/* Styl dla całej strony */
 body {
     font-family: Arial, sans-serif;
-    line-height: 1.6;
-    background-color: #f3f3f3;
-    color: #333;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
 }
 
+/* Kontener główny */
 .container {
-    width: 90%;
-    margin: 20px auto;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Wyśrodkowanie w poziomie */
+    justify-content: center; /* Wyśrodkowanie w pionie */
 }
 
-/* Stylowanie przycisków */
+/* Styl dla przycisków nawigacyjnych */
 .button-group {
     display: flex;
-    justify-content: flex-start;
+    justify-content: center;
     margin-bottom: 20px;
 }
 
 .nav-button {
     padding: 10px 20px;
     margin: 0 10px;
-    background-color: #28a745; /* Zielony */
-    color: white;
     border: none;
-    border-radius: 5px;
+    background-color: #007bff;
+    color: white;
     cursor: pointer;
-    font-size: 16px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
 }
 
     .nav-button:hover {
-        background-color: #218838; /* Zielony ciemniejszy */
+        background-color: #0056b3;
     }
 
     .nav-button.active {
-        background-color: #218838; /* Zielony ciemniejszy */
+        background-color: #0056b3;
         font-weight: bold;
     }
 
-/* Sekcje zawartości */
+/* Sekcje treści */
 .content-section {
     display: none;
 }
@@ -54,139 +53,192 @@ body {
         display: block;
     }
 
-/* Layout: Wybór zespołu / Transfery / Punkty */
-.team-layout, .points-layout, .transfer-layout {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-}
-
-/* Sekcja Wybór zespołu */
-.team-image {
-    width: 50%;
-    border: 2px solid #ccc;
+/* Styl dla siatki zespołu */
+.team-grid {
+    display: grid;
+    grid-template-rows: repeat(4, auto); /* 4 rzędy: bramkarz, obrońcy, pomocnicy, napastnicy */
+    gap: 20px;
+    background-color: #d4edda;
+    padding: 20px;
     border-radius: 10px;
+    position: relative;
 }
 
+/* Pozycje na boisku */
+.goalkeeper {
+    display: flex;
+    justify-content: center;
+}
+
+.defenders {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 obrońców */
+    gap: 10px;
+    justify-content: center;
+}
+
+.midfielders {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 pomocników */
+    gap: 10px;
+    justify-content: center;
+}
+
+.forwards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 napastników */
+    gap: 10px;
+    justify-content: center;
+}
+
+/* Styl dla każdego zawodnika */
+.player {
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+    .player span {
+        display: block;
+        margin-bottom: 5px;
+    }
+
+/* Styl ławki */
 .bench {
-    width: 45%;
-    text-align: left;
+    background-color: #f8d7da;
+    padding: 10px;
+    border-radius: 10px;
+    margin-top: 20px;
 }
 
-.bench-list, .player-list ul {
-    list-style: none;
-    margin-top: 10px;
+/* Tabela transferów */
+.zawodnik-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    overflow-x: auto; /* Dodane dla responsywności */
 }
 
-    .bench-list li, .player-list li {
-        background-color: #28a745;
-        color: white;
-        padding: 10px 15px;
-        margin: 5px 0;
-        border-radius: 5px;
-    }
-
-.player-list {
-    width: 45%;
-}
-
-.team-info {
-    margin-bottom: 15px;
-    font-size: 18px;
-}
-
-/* Sekcja Punkty */
-.points-layout {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-}
-
-    .points-layout .team-info {
-        margin-right: 20px;
-    }
-
-    .points-layout .team-image {
-        max-width: 45%;
-        margin-right: 20px;
-    }
-
-    .points-layout .bench {
-        width: 45%;
-    }
-
-/* Sekcja Transfery */
-.transfer-layout {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-}
-
-    .transfer-layout .player-selection {
-        width: 45%;
-        margin-top: 20px;
-        padding: 10px;
-        background-color: #f8f9fa;
-        border-radius: 5px;
+    .zawodnik-table th, .zawodnik-table td {
         border: 1px solid #ddd;
+        padding: 10px;
+        text-align: left;
     }
 
-        .transfer-layout .player-selection select {
-            width: 100%;
+    .zawodnik-table th {
+        background-color: #007bff;
+        color: white;
+    }
+
+    .zawodnik-table tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+/* Styl dla formularzy i przycisków */
+form {
+    display: inline-block;
+}
+
+button {
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    color: white;
+}
+
+    .btn-danger:hover {
+        background-color: #c82333;
+    }
+
+.btn-success {
+    background-color: #28a745;
+    color: white;
+}
+
+    .btn-success:hover {
+        background-color: #218838;
+    }
+
+/* Dropdown */
+.dropdown {
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    /* Tabela transferów */
+    .zawodnik-table {
+        width: 100%;
+        overflow-x: auto;
+    }
+
+        .zawodnik-table th, .zawodnik-table td {
             padding: 8px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-            margin-bottom: 10px;
+            font-size: 14px;
         }
 
-/* Stylowanie formularza wyboru zawodników */
-.player-selection {
-    margin-top: 20px;
-    padding: 10px;
-    background-color: #f8f9fa;
-    border-radius: 5px;
-    max-height: 60vh;
-    border: 1px solid #ddd;
-    overflow-y: scroll;
-}
+            /* Dostosowanie szerokości dla mniejszych ekranów */
+            .zawodnik-table th:nth-child(1),
+            .zawodnik-table td:nth-child(1) {
+                width: 30%;
+            }
 
-select {
-    width: 100%;
-    padding: 10px;
-    font-size: 16px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-}
+            .zawodnik-table th:nth-child(2),
+            .zawodnik-table td:nth-child(2) {
+                width: 30%;
+            }
 
-option {
-    font-size: 16px;
-}
+            .zawodnik-table th:nth-child(3),
+            .zawodnik-table td:nth-child(3) {
+                width: 20%;
+            }
 
-select option:disabled {
-    font-style: italic;
-    color: #888;
-}
+            .zawodnik-table th:nth-child(4),
+            .zawodnik-table td:nth-child(4) {
+                width: 20%;
+            }
 
-/* Ogólne marginesy dla nagłówków */
-h1, h2 {
-    margin-bottom: 10px;
-}
-
-/* Stylowanie dla listy zawodników */
-.bench-list {
-    list-style: none;
-    display: flex;
-    flex-wrap: wrap; /* Pozwalamy na zawijanie elementów w nowe linie */
-    justify-content: center;
-    gap: 15px;
-    margin-top: 20px;
-}
-
-    .bench-list li {
-        background-color: #28a745;
-        color: white;
-        padding: 10px 15px;
-        border-radius: 5px;
-        width: 100%;  Ustawiamy szerokość elementu na 45%, aby były dwie kolumny 
-        text-align: center;
+    /* Formularz z dropdownem */
+    form {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
     }
+
+    .dropdown {
+        width: 48%;
+    }
+
+    /* Zmiana układu przycisków */
+    .btn-success,
+    .btn-danger {
+        width: 100%;
+        padding: 10px;
+        margin-top: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .nav-button {
+        padding: 8px 16px;
+    }
+
+    .zawodnik-table th, .zawodnik-table td {
+        padding: 6px;
+        font-size: 12px;
+    }
+
+    .dropdown {
+        width: 100%;
+    }
+}

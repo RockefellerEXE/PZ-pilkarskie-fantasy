@@ -23,152 +23,186 @@
         <!-- Sekcja: Wybór zespołu -->
         <div id="team" class="content-section active">
             <h1>Wybierz swój zespół</h1>
-            <h4> ###Nazwa zespołu###</h4>
-            <p>Aktualny budżet: @ViewBag.Budzet</p> <!-- Wyświetlanie budżetu drużyny -->
-            <div class="team-layout">
-                <img src="https://tortytorty.pl/18308-medium_default/boisko-wydruk-na-oplatku.jpg" alt="Boisko" class="team-image" />
+            <h4>###Nazwa zespołu###</h4>
+            <p>Aktualny budżet: @ViewBag.Budzet</p>
+            <div class="team-grid">
+                <!-- Bramkarz -->
+                <div class="goalkeeper">
+                    @foreach (var zawodnik in ViewBag.ZawodnicyWDruzynie)
+                    {
+                        if (zawodnik.PozycjaWDruzynie == "Bramkarz")
+                        {
+                            <div class="player" data-position="goalkeeper">
+                                <span>@zawodnik.Nazwisko</span>
+                                <span>@zawodnik.KlubNazwa</span>
+                            </div>
+                        }
+                    }
+                </div>
+
+                <!-- Obrońcy -->
+                <div class="defenders">
+                    @foreach (var zawodnik in ViewBag.ZawodnicyWDruzynie)
+                    {
+                        if (zawodnik.PozycjaWDruzynie == "Obrońca")
+                        {
+                            <div class="player" data-position="defender">
+                                <span>@zawodnik.Nazwisko</span>
+                                <span>@zawodnik.KlubNazwa</span>
+                            </div>
+                        }
+                    }
+                </div>
+
+                <!-- Pomocnicy -->
+                <div class="midfielders">
+                    @foreach (var zawodnik in ViewBag.ZawodnicyWDruzynie)
+                    {
+                        if (zawodnik.PozycjaWDruzynie == "Pomocnik")
+                        {
+                            <div class="player" data-position="midfielder">
+                                <span>@zawodnik.Nazwisko</span>
+                                <span>@zawodnik.KlubNazwa</span>
+                            </div>
+                        }
+                    }
+                </div>
+
+                <!-- Napastnicy -->
+                <div class="forwards">
+                    @foreach (var zawodnik in ViewBag.ZawodnicyWDruzynie)
+                    {
+                        if (zawodnik.PozycjaWDruzynie == "Napastnik")
+                        {
+                            <div class="player" data-position="forward">
+                                <span>@zawodnik.Nazwisko</span>
+                                <span>@zawodnik.KlubNazwa</span>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Sekcja: Punkty -->
+        <div id="points" class="content-section">
+            <h1>Punkty</h1>
+            <h4>###Nazwa zespołu###</h4>
+            <div class="team-grid">
+                <div class="field">
+                    @foreach (var zawodnik in ViewBag.ZawodnicyWDruzynie)
+                    {
+                        if (zawodnik.PozycjaWDruzynie != "ławka")
+                        {
+                            <div class="player" data-position="@zawodnik.PozycjaWDruzynie">
+                                <span>@zawodnik.Nazwisko</span><br />
+                                <span>@zawodnik.KlubNazwa</span><br />
+                            </div>
+                        }
+                    }
+                </div>
                 <div class="bench">
                     <h2>Ławka</h2>
-                    <ol class="bench-list">
+                    <ol>
                         @foreach (var zawodnik in ViewBag.ZawodnicyWDruzynie)
                         {
-                            <li>
-                                @zawodnik.Nazwisko - @zawodnik.Klub.Nazwa
-                                <form asp-action="UsunZDruzyny" asp-controller="Home" method="post" style="display:inline;">
-                                    <input type="hidden" name="zawodnikId" value="@zawodnik.ZawodnikId" />
-                                    <button type="submit" class="btn btn-danger">Usuń</button>
-                                </form>
-                            </li>
+                            if (zawodnik.PozycjaWDruzynie == "ławka")
+                            {
+                                <li>
+                                    @zawodnik.Nazwisko - @zawodnik.KlubNazwa - Punkty:
+                                </li>
+                            }
                         }
                     </ol>
                 </div>
             </div>
         </div>
 
-        <!-- Sekcja: Punkty -->
-        <div id="points" class="content-section">
-            <h1>Punkty</h1>
-            <h4> ###Nazwa zespołu###</h4>
-            <p>Miejsce w rankingu: 1</p>
-            <div class="points-layout">
-                <img src="https://tortytorty.pl/18308-medium_default/boisko-wydruk-na-oplatku.jpg" alt="Boisko" class="team-image" />
-
-                <div class="bench">
-                    <h2>Ławka</h2>
-                    <ol class="bench-list">
-                        <li>A</li>
-                        <li>B</li>
-                        <li>C</li>
-                        <li>D</li>
-                        <li>E</li>
-                    </ol>
-                </div>
-            </div>
-        </div>
-
-
         <!-- Sekcja: Transfery -->
         <div id="transfers" class="content-section">
             <h1>Transfery</h1>
-            <h4> ###Nazwa zespołu###</h4>
-            <p>Liczba transferów:</p>
-            <div class="team-layout">
-                <img src="https://tortytorty.pl/18308-medium_default/boisko-wydruk-na-oplatku.jpg" alt="Boisko" class="team-image" />
-                <div class="bench">
-                    <h2>Ławka</h2>
-                    <ol class="bench-list">
-                        <li>A</li>
-                        <li>B</li>
-                        <li>C</li>
-                        <li>D</li>
-                        <li>E</li>
-                    </ol>
-                </div>
-                <div class="player-list">
-                    <h2>Lista zawodników</h2>
-                        @* <option value="wszyscy_zawodnicy">Watchlista</option> *@
-                    <form method="get" action="/Home/Budowanie_zespolu">
-                        <select name="pozycja" class="dropdown" onchange="this.form.submit()">
-                            <optgroup label="Pozycje">
-                                @if (ViewBag.Pozycja == "Wszyscy")
-                                {
-                                    <option value="Wszyscy" selected>Wszyscy zawodnicy</option>
-                                }
-                                else
-                                {
-                                    <option value="Wszyscy">Wszyscy zawodnicy</option>
-                                }
-                                @if (ViewBag.Pozycja == "Bramkarz")
-                                {
-                                    <option value="Bramkarz" selected>Bramkarz</option>
-                                }
-                                else
-                                {
-                                    <option value="Bramkarz">Bramkarz</option>
-                                }
-                                @if (ViewBag.Pozycja == "Obrońca")
-                                {
-                                    <option value="Obrońca" selected>Obrońca</option>
-                                }
-                                else
-                                {
-                                    <option value="Obrońca">Obrońca</option>
-                                }
-                                @if (ViewBag.Pozycja == "Pomocnik")
-                                {
-                                    <option value="Pomocnik" selected>Pomocnik</option>
-                                }
-                                else
-                                {
-                                    <option value="Pomocnik">Pomocnik</option>
-                                }
-                                @if (ViewBag.Pozycja == "Napastnik")
-                                {
-                                    <option value="Napastnik" selected>Napastnik</option>
-                                }
-                                else
-                                {
-                                    <option value="Napastnik">Napastnik</option>
-                                }
-                            </optgroup>
-                        </select>
-                    </form>
-                        @* <optgroup label="Kluby"> *@
-                        @*     <option value="klub_1">Klub 1</option> *@
-                        @*     <option value="klub_2">Klub 2</option> *@
-                    <!-- Okno do wyboru zawodników w przyszłości -->
-                    <div class="player-selection">
-                        <h1>@ViewBag.Pozycja</h1>
-                        <table class="zawodnik-table">
-                            <thead>
-                                <tr>
-
-                                        <th>Nazwisko</th>
-                                        <th>Klub</th>
-                                        <th>Cena</th>
-                                        <th>Akcja</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            @foreach (var zawodnik in Model)
-                                {
-                                <tr>
-                                    <td>@zawodnik.Nazwisko</td>
-                                    <td>@zawodnik.Klub.Nazwa</td>
-                                    <td>@zawodnik.Cena</td>
-                                        <td>
-                                            <form asp-action="DodajDoDruzyny" asp-controller="Home" method="post">
-                                                <input type="hidden" name="zawodnikId" value="@zawodnik.ZawodnikId" />
-                                                <button type="submit" class="btn btn-success">Dodaj do drużyny</button>
-                                            </form>
-                                        </td>
-                                </tr>
-                                }
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
+            <h4>###Nazwa zespołu###</h4>
+            <form method="get" action="/Home/Budowanie_zespolu">
+                <select name="pozycja" class="dropdown" onchange="this.form.submit()">
+                    <optgroup label="Pozycje">
+                        @if (ViewBag.Pozycja == "Wszyscy")
+                        {
+                            <option value="Wszyscy" selected>Wszyscy zawodnicy</option>
+                        }
+                        else
+                        {
+                            <option value="Wszyscy">Wszyscy zawodnicy</option>
+                        }
+                        @if (ViewBag.Pozycja == "Bramkarz")
+                        {
+                            <option value="Bramkarz" selected>Bramkarz</option>
+                        }
+                        else
+                        {
+                            <option value="Bramkarz">Bramkarz</option>
+                        }
+                        @if (ViewBag.Pozycja == "Obrońca")
+                        {
+                            <option value="Obrońca" selected>Obrońca</option>
+                        }
+                        else
+                        {
+                            <option value="Obrońca">Obrońca</option>
+                        }
+                        @if (ViewBag.Pozycja == "Pomocnik")
+                        {
+                            <option value="Pomocnik" selected>Pomocnik</option>
+                        }
+                        else
+                        {
+                            <option value="Pomocnik">Pomocnik</option>
+                        }
+                        @if (ViewBag.Pozycja == "Napastnik")
+                        {
+                            <option value="Napastnik" selected>Napastnik</option>
+                        }
+                        else
+                        {
+                            <option value="Napastnik">Napastnik</option>
+                        }
+                    </optgroup>
+                </select>
+            </form>
+            <table class="zawodnik-table">
+                <thead>
+                    <tr>
+                        <th>Nazwisko</th>
+                        <th>Klub</th>
+                        <th>Cena</th>
+                        @if (ViewBag.Pozycja == "Wszyscy")
+                        {
+                            <th>Pozycja</th>
+                        }
+                        <th>Akcja</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var zawodnik in Model)
+                    {
+                        <tr>
+                            <td>@zawodnik.Nazwisko</td>
+                            <td>@zawodnik.Klub.Nazwa</td>
+                            <td>@zawodnik.Cena</td>
+                            @if (ViewBag.Pozycja == "Wszyscy")
+                            {
+                                <td>@zawodnik.Pozycja</td>
+                            }
+                            <td>
+                                <form asp-action="DodajDoDruzyny" asp-controller="Home" method="post">
+                                    <input type="hidden" name="zawodnikId" value="@zawodnik.ZawodnikId" />
+                                    <button type="submit" class="btn btn-success">Dodaj do drużyny</button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
         </div>
     </div>
 </body>

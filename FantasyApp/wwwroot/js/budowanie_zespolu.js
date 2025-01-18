@@ -1,16 +1,24 @@
-﻿function showSection(sectionId) {
-    // Ukrywamy wszystkie sekcje
+﻿// Ensure this script is included in the layout
+
+function showSection(sectionId) {
     const sections = document.querySelectorAll('.content-section');
-    sections.forEach(section => section.classList.remove('active'));
-
-    // Deaktywujemy przyciski
     const buttons = document.querySelectorAll('.nav-button');
-    buttons.forEach(button => button.classList.remove('active'));
 
-    // Wyświetlamy odpowiednią sekcję
-    document.getElementById(sectionId).classList.add('active');
+    sections.forEach(section => {
+        if (section.id === sectionId) {
+            section.classList.add('active');
+        } else {
+            section.classList.remove('active');
+        }
+    });
 
-    // Aktywujemy odpowiedni przycisk
-    const activeButton = Array.from(buttons).find(button => button.onclick.toString().includes(sectionId));
-    if (activeButton) activeButton.classList.add('active');
+    buttons.forEach(button => {
+        if (button.getAttribute('onclick').includes(sectionId)) {
+            button.classList.add('active');
+        } else {
+            button.classList.remove('active');
+        }
+    });
 }
+
+// Additional JavaScript logic can be added here as needed

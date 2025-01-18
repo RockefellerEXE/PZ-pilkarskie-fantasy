@@ -59,8 +59,9 @@ namespace FantasyApp.Controllers
             return View(zawodnicyHistoria);
         }
 
-		public IActionResult Budowanie_zespolu(string? pozycja)
+		public IActionResult Budowanie_zespolu(string pozycja = "Wszyscy")
 		{
+			ViewBag.Pozycja = pozycja;
 			if (!User.Identity.IsAuthenticated)
 			{
 				return RedirectToAction("Index", "Home");
@@ -75,28 +76,36 @@ namespace FantasyApp.Controllers
 				return BadRequest("Nie znaleziono drużyny dla użytkownika.");
 			}
 
-			// Pobierz zawodników przypisanych do drużyny
+			// Pobierz zawodników przypisanych do drużyny wraz z ich pozycją w drużynie
 			var zawodnicyWDruzynie = db.SkladDruzyny
 				.Where(sd => sd.DruzynaId == druzyna.DruzynaId)
 				.Include(sd => sd.Zawodnik)
 				.ThenInclude(z => z.Klub)
-				.Select(sd => sd.Zawodnik)
+				.Select(sd => new ZawodnikWDruzynieViewModel
+				{
+					ZawodnikId = sd.Zawodnik.ZawodnikId,
+					Nazwisko = sd.Zawodnik.Nazwisko,
+					KlubNazwa = sd.Zawodnik.Klub.Nazwa,
+					PozycjaWDruzynie = sd.PozycjaWDruzynie
+				})
 				.ToList();
 
 			// Pobierz zawodników na podstawie wybranej pozycji (jeśli jest podana)
 			IQueryable<Zawodnik> query = db.Zawodnicy.Include(z => z.Klub);
-			if (!string.IsNullOrEmpty(pozycja))
+			if (!string.IsNullOrEmpty(pozycja) && !pozycja.Equals("Wszyscy"))
 			{
 				query = query.Where(z => z.Pozycja == pozycja);
 			}
 
 			var zawodnicy = query.ToList();
-			var budzet = druzyna.Budzet;
-			ViewBag.Budzet = budzet;
-			// Przekaż do widoku zawodników drużyny i dostępnych zawodników
+
+			// Przekaż dane do widoku
 			ViewBag.ZawodnicyWDruzynie = zawodnicyWDruzynie;
+			ViewBag.Budzet = druzyna.Budzet;
+
 			return View(zawodnicy);
 		}
+
 		[HttpPost]
 		public IActionResult DodajDoDruzyny(int zawodnikId, string formacjaString="1-4-3-3")
 		{
