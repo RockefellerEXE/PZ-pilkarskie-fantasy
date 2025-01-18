@@ -98,7 +98,7 @@ namespace FantasyApp.Controllers
 			return View(zawodnicy);
 		}
 		[HttpPost]
-		public IActionResult DodajDoDruzyny(int zawodnikId, string formacjaString="0-4-3-3")
+		public IActionResult DodajDoDruzyny(int zawodnikId, string formacjaString="1-4-3-3")
 		{
 			if (!User.Identity.IsAuthenticated)
 			{
