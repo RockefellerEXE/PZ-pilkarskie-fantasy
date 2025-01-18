@@ -65,7 +65,8 @@ namespace FantasyApp.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UzytkownikId = table.Column<int>(type: "int", nullable: false),
                     NazwaDruzyny = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Budzet = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                    Budzet = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    PozostaleTransfrery = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {

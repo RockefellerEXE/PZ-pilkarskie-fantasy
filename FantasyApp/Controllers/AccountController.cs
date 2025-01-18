@@ -52,7 +52,8 @@ namespace FantasyApp.Controllers
                 {
                     UzytkownikId = nowyUser.UzytkownikId,
                     NazwaDruzyny = "Drużyna użytkownika "+ nowyUser.Login,
-                    Budzet = 100
+                    Budzet = 100,
+                    PozostaleTransfrery = 2
                 };
                 db.Uzytkownicy.Add(nowyUser);
                 db.Druzyny.Add(nowaDruzyna);

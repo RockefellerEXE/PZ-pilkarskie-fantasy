@@ -19,6 +19,22 @@
             <button class="nav-button" onclick="showSection('points')">Punkty</button>
             <button class="nav-button" onclick="showSection('transfers')">Transfery</button>
         </div>
+        @if (!ViewData.ModelState.IsValid)
+        {
+            <div class="alert alert-danger">
+                @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                {
+                    <p style="color: red;">@error.ErrorMessage</p>
+                }
+            </div>
+
+        }
+        @if (ViewBag.SuccessMessage != null)
+        {
+            <div class="alert alert-success">
+                <p style="color: green;">@ViewBag.SuccessMessage</p>
+            </div>
+        }
 
         <!-- Sekcja: Wybór zespołu -->
         <div id="team" class="content-section active">
@@ -196,6 +212,7 @@
                             <td>
                                 <form asp-action="DodajDoDruzyny" asp-controller="Home" method="post">
                                     <input type="hidden" name="zawodnikId" value="@zawodnik.ZawodnikId" />
+                                    <input type="hidden" name="pozycja" value="@ViewBag.Pozycja" />
                                     <button type="submit" class="btn btn-success">Dodaj do drużyny</button>
                                 </form>
                             </td>

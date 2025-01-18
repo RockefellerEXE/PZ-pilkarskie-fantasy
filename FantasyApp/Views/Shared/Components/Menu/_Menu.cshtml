@@ -5,7 +5,7 @@
     @if (User.Identity.IsAuthenticated)
     {
         <li>
-            <a href="@Url.Action("Budowanie_zespolu","Home")">Budowanie zespołu</a>
+            <a href="@Url.Action("Budowanie_zespolu","Home",new {pozycja= "Wszyscy"})">Budowanie zespołu</a>
         </li>
     }
     <li>

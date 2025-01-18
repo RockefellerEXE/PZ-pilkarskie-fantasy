@@ -66,14 +66,22 @@ namespace FantasyApp.Controllers
 			{
 				return RedirectToAction("Index", "Home");
 			}
-
-			var uzytkownikId = int.Parse(User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier).Value);
+            if (TempData["ErrorMessage"] != null)
+            {
+				ModelState.AddModelError(string.Empty, TempData["ErrorMessage"].ToString());
+            }
+            if (TempData["SuccessMessage"] != null)
+            {
+                ViewBag.SuccessMessage = TempData["SuccessMessage"].ToString();
+            }
+            var uzytkownikId = int.Parse(User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier).Value);
 
 			// Pobierz drużynę użytkownika
 			var druzyna = db.Druzyny.FirstOrDefault(d => d.UzytkownikId == uzytkownikId);
 			if (druzyna == null)
 			{
-				return BadRequest("Nie znaleziono drużyny dla użytkownika.");
+                TempData["ErrorMessage"] = "Nie znaleziono drużyny dla użytkownika.";
+                return RedirectToAction("Budowanie_zespolu",pozycja);
 			}
 
 			// Pobierz zawodników przypisanych do drużyny wraz z ich pozycją w drużynie
@@ -107,7 +115,7 @@ namespace FantasyApp.Controllers
 		}
 
 		[HttpPost]
-		public IActionResult DodajDoDruzyny(int zawodnikId, string formacjaString="1-4-3-3")
+		public IActionResult DodajDoDruzyny(int zawodnikId, string pozycja, string formacjaString="1-4-3-3", bool czytransfer = false)
 		{
 			if (!User.Identity.IsAuthenticated)
 			{
@@ -127,32 +135,43 @@ namespace FantasyApp.Controllers
 				}
 			}
                 // Znajdź aktualną drużynę użytkownika
-                var uzytkownikId = int.Parse(User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier).Value);
+            var uzytkownikId = int.Parse(User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier).Value);
 			var druzyna = db.Druzyny.Include(d => d.SkladDruzyny).FirstOrDefault(d => d.UzytkownikId == uzytkownikId);
 
 			if (druzyna == null)
 			{
-				return BadRequest("Nie znaleziono drużyny dla użytkownika.");
-			}
+                TempData["ErrorMessage"] = "Nie znaleziono drużyny dla użytkownika.";
+                return RedirectToAction("Budowanie_zespolu", new { pozycja });
+            }
 			// Sprawdź, czy zawodnik istnieje
 			var zawodnik = db.Zawodnicy.FirstOrDefault(z => z.ZawodnikId == zawodnikId);
 			if (zawodnik == null)
 			{
-				return BadRequest("Nie znaleziono zawodnika.");
+                TempData["ErrorMessage"] = "Nie znaleziono zawodnika.";
+                return RedirectToAction("Budowanie_zespolu", new { pozycja });
 			}
 
 			// Sprawdź, czy zawodnik już istnieje w składzie drużyny
 			if (db.SkladDruzyny.Any(sd => sd.DruzynaId == druzyna.DruzynaId && sd.ZawodnikId == zawodnikId))
 			{
-				return BadRequest("Zawodnik już znajduje się w składzie drużyny.");
+                
+                TempData["ErrorMessage"] = "Zawodnik już znajduje się w składzie drużyny.";
+                return RedirectToAction("Budowanie_zespolu",new { pozycja });
 			}
 			
 
             if (db.SkladDruzyny.Where(d => d.DruzynaId == druzyna.DruzynaId && d.PozycjaWDruzynie == zawodnik.Pozycja).Count() >= formacja[zawodnik.Pozycja])
             {
-				return BadRequest("Na tej pozycji może być max "+ formacja[zawodnik.Pozycja] + " zawodników");
+                string zawodnikFormString = formacja[zawodnik.Pozycja] == 1 ? "zawodnik" : "zawodników";
+                TempData["ErrorMessage"] = "Na tej pozycji może być max "+ formacja[zawodnik.Pozycja] + " "+ zawodnikFormString;
+                return RedirectToAction("Budowanie_zespolu",new { pozycja });
 
             }
+			if (czytransfer && druzyna.PozostaleTransfrery == 0)
+			{
+                TempData["ErrorMessage"] = "Nie masz więcej transferów do wykorzystania";
+                return RedirectToAction("Budowanie_zespolu", new { pozycja });
+			}
                 
             // Dodaj zawodnika do składu drużyny
             var skladDruzyny = new SkladDruzyny
@@ -160,14 +179,20 @@ namespace FantasyApp.Controllers
 				DruzynaId = druzyna.DruzynaId,
 				ZawodnikId = zawodnikId,
 				PozycjaWDruzynie = zawodnik.Pozycja
+				
 			};
-
+			
 			db.SkladDruzyny.Add(skladDruzyny);
 
 			// (Opcjonalnie) Aktualizuj budżet drużyny
 			if (druzyna.Budzet < zawodnik.Cena)
 			{
-				return BadRequest("Nie masz wystarczających środków, aby dodać tego zawodnika.");
+                TempData["ErrorMessage"] = "Nie masz wystarczających środków, aby dodać tego zawodnika.";
+                return RedirectToAction("Budowanie_zespolu", new { pozycja });
+			}
+			if (czytransfer)
+			{
+				druzyna.PozostaleTransfrery -= 1;
 			}
 			druzyna.Budzet -= zawodnik.Cena;
 			db.Druzyny.Update(druzyna);
@@ -184,11 +209,11 @@ namespace FantasyApp.Controllers
 
 			// Zapisz zmiany w bazie danych
 			db.SaveChanges();
-
-			return Ok("Zawodnik został dodany do drużyny i wpisany do transferów.");
+            TempData["SuccessMessage"] = "Zawodnik został dodany do drużyny i wpisany do transferów.";
+            return RedirectToAction("Budowanie_zespolu", new { pozycja });
 		}
 		[HttpPost]
-		public IActionResult UsunZDruzyny(int zawodnikId)
+		public IActionResult UsunZDruzyny(int zawodnikId, string pozycja)
 		{
 			if (!User.Identity.IsAuthenticated)
 			{
@@ -200,21 +225,24 @@ namespace FantasyApp.Controllers
 
 			if (druzyna == null)
 			{
-				return BadRequest("Nie znaleziono drużyny dla użytkownika.");
+                TempData["ErrorMessage"] = "Nie znaleziono drużyny dla użytkownika.";
+                return RedirectToAction("Budowanie_zespolu", new { pozycja });
 			}
 
 			// Znajdź zawodnika w składzie drużyny
 			var skladDruzyny = db.SkladDruzyny.FirstOrDefault(sd => sd.DruzynaId == druzyna.DruzynaId && sd.ZawodnikId == zawodnikId);
 			if (skladDruzyny == null)
 			{
-				return BadRequest("Zawodnik nie znajduje się w składzie drużyny.");
+                TempData["ErrorMessage"] = "Zawodnik nie znajduje się w składzie drużyny.";
+                return RedirectToAction("Budowanie_zespolu", new { pozycja });
 			}
 
 			// Pobierz zawodnika
 			var zawodnik = db.Zawodnicy.FirstOrDefault(z => z.ZawodnikId == zawodnikId);
 			if (zawodnik == null)
 			{
-				return BadRequest("Zawodnik nie istnieje.");
+                TempData["ErrorMessage"] = "Zawodnik nie istnieje.";
+                return RedirectToAction("Budowanie_zespolu", new { pozycja });
 			}
 
 			// Dodaj kwotę zawodnika do budżetu drużyny
@@ -234,8 +262,8 @@ namespace FantasyApp.Controllers
 
 			// Zapisz zmiany w bazie danych
 			db.SaveChanges();
-
-			return Ok("Zawodnik został usunięty z drużyny, a środki zostały przywrócone do budżetu.");
+            TempData["SuccessMessage"] = "Zawodnik został usunięty z drużyny, a środki zostały przywrócone do budżetu.";
+            return RedirectToAction("Budowanie_zespolu", new { pozycja });
 		}
 
 		public IActionResult Ranking()

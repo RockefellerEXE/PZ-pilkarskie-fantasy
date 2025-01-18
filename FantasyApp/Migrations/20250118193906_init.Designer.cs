@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FantasyApp.Migrations
 {
     [DbContext(typeof(FantasyContext))]
-    [Migration("20250118152848_init")]
+    [Migration("20250118193906_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -37,6 +37,9 @@ namespace FantasyApp.Migrations
                     b.Property<string>("NazwaDruzyny")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("PozostaleTransfrery")
+                        .HasColumnType("int");
 
                     b.Property<int>("UzytkownikId")
                         .HasColumnType("int");

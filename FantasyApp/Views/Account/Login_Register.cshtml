@@ -8,7 +8,7 @@
     <h2>Logowanie i Rejestracja</h2>
     @if (!ViewData.ModelState.IsValid)
     {
-        <div class="validation-summary">
+        <div class="alert alert-danger">
             @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
             {
                 <p style="color: red;">@error.ErrorMessage</p>

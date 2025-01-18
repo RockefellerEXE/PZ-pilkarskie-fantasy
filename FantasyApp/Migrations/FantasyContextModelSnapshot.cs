@@ -36,6 +36,9 @@ namespace FantasyApp.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("PozostaleTransfrery")
+                        .HasColumnType("int");
+
                     b.Property<int>("UzytkownikId")
                         .HasColumnType("int");
 
