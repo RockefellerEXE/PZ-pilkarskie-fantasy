@@ -79,11 +79,33 @@ namespace FantasyApp.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "HistoriaCen",
+                columns: table => new
+                {
+                    HistoriaCenId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ZawodnikId = table.Column<int>(type: "int", nullable: false),
+                    Kolejka = table.Column<int>(type: "int", nullable: false),
+                    CenaPrzed = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_HistoriaCen", x => x.HistoriaCenId);
+                    table.ForeignKey(
+                        name: "FK_HistoriaCen_Zawodnicy_ZawodnikId",
+                        column: x => x.ZawodnikId,
+                        principalTable: "Zawodnicy",
+                        principalColumn: "ZawodnikId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "SkladDruzyny",
                 columns: table => new
                 {
                     DruzynaId = table.Column<int>(type: "int", nullable: false),
-                    ZawodnikId = table.Column<int>(type: "int", nullable: false)
+                    ZawodnikId = table.Column<int>(type: "int", nullable: false),
+                    PozycjaWDruzynie = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -675,10 +697,27 @@ namespace FantasyApp.Migrations
                     { 416, 3.5m, 15, "Bąk", "Napastnik", 0 }
                 });
 
+            migrationBuilder.InsertData(
+                table: "HistoriaCen",
+                columns: new[] { "HistoriaCenId", "CenaPrzed", "Kolejka", "ZawodnikId" },
+                values: new object[,]
+                {
+                    { 1, 7m, 19, 1 },
+                    { 2, 6m, 19, 2 },
+                    { 3, 9m, 19, 3 },
+                    { 4, 9m, 20, 14 },
+                    { 5, 7m, 19, 1 }
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Druzyny_UzytkownikId",
                 table: "Druzyny",
                 column: "UzytkownikId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_HistoriaCen_ZawodnikId",
+                table: "HistoriaCen",
+                column: "ZawodnikId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_SkladDruzyny_ZawodnikId",
@@ -713,6 +752,9 @@ namespace FantasyApp.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "HistoriaCen");
+
             migrationBuilder.DropTable(
                 name: "SkladDruzyny");
 

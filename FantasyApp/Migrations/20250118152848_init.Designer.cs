@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FantasyApp.Migrations
 {
     [DbContext(typeof(FantasyContext))]
-    [Migration("20250112105403_init")]
+    [Migration("20250118152848_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -46,6 +46,67 @@ namespace FantasyApp.Migrations
                     b.HasIndex("UzytkownikId");
 
                     b.ToTable("Druzyny");
+                });
+
+            modelBuilder.Entity("FantasyApp.Models.HistoriaCen", b =>
+                {
+                    b.Property<int>("HistoriaCenId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("HistoriaCenId"), 1L, 1);
+
+                    b.Property<decimal>("CenaPrzed")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("Kolejka")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ZawodnikId")
+                        .HasColumnType("int");
+
+                    b.HasKey("HistoriaCenId");
+
+                    b.HasIndex("ZawodnikId");
+
+                    b.ToTable("HistoriaCen");
+
+                    b.HasData(
+                        new
+                        {
+                            HistoriaCenId = 1,
+                            CenaPrzed = 7m,
+                            Kolejka = 19,
+                            ZawodnikId = 1
+                        },
+                        new
+                        {
+                            HistoriaCenId = 2,
+                            CenaPrzed = 6m,
+                            Kolejka = 19,
+                            ZawodnikId = 2
+                        },
+                        new
+                        {
+                            HistoriaCenId = 3,
+                            CenaPrzed = 9m,
+                            Kolejka = 19,
+                            ZawodnikId = 3
+                        },
+                        new
+                        {
+                            HistoriaCenId = 4,
+                            CenaPrzed = 9m,
+                            Kolejka = 20,
+                            ZawodnikId = 14
+                        },
+                        new
+                        {
+                            HistoriaCenId = 5,
+                            CenaPrzed = 7m,
+                            Kolejka = 19,
+                            ZawodnikId = 1
+                        });
                 });
 
             modelBuilder.Entity("FantasyApp.Models.Klub", b =>
@@ -164,6 +225,10 @@ namespace FantasyApp.Migrations
 
                     b.Property<int>("ZawodnikId")
                         .HasColumnType("int");
+
+                    b.Property<string>("PozycjaWDruzynie")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("DruzynaId", "ZawodnikId");
 
@@ -4055,6 +4120,17 @@ namespace FantasyApp.Migrations
                     b.Navigation("Uzytkownik");
                 });
 
+            modelBuilder.Entity("FantasyApp.Models.HistoriaCen", b =>
+                {
+                    b.HasOne("FantasyApp.Models.Zawodnik", "Zawodnik")
+                        .WithMany("HistoriaCen")
+                        .HasForeignKey("ZawodnikId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Zawodnik");
+                });
+
             modelBuilder.Entity("FantasyApp.Models.SkladDruzyny", b =>
                 {
                     b.HasOne("FantasyApp.Models.Druzyna", "Druzyna")
@@ -4144,6 +4220,8 @@ namespace FantasyApp.Migrations
 
             modelBuilder.Entity("FantasyApp.Models.Zawodnik", b =>
                 {
+                    b.Navigation("HistoriaCen");
+
                     b.Navigation("SkladDruzyny");
 
                     b.Navigation("Statystyki");
