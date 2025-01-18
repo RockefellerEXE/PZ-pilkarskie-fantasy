@@ -161,6 +161,11 @@
                                                 <input type="hidden" name="zawodnikId" value="@zawodnik.ZawodnikId" />
                                                 <button type="submit" class="btn btn-success">Dodaj do drużyny</button>
                                             </form>
+                                            <!-- Formularz do dodania zawodnika na ławkę -->
+                                            <form asp-action="DodajNaLawke" asp-controller="Home" method="post" style="display:inline;">
+                                                <input type="hidden" name="zawodnikId" value="@zawodnik.ZawodnikId" />
+                                                <button type="submit" class="btn btn-secondary">Dodaj na ławkę</button>
+                                            </form>
                                         </td>
                                 </tr>
                                 }

@@ -178,7 +178,58 @@ namespace FantasyApp.Controllers
 
 			return Ok("Zawodnik został dodany do drużyny i wpisany do transferów.");
 		}
-		[HttpPost]
+        // Akcja w kontrolerze do dodawania zawodników na ławkę
+        public IActionResult DodajNaLawke(int zawodnikId)
+        {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            // Znajdź aktualną drużynę użytkownika
+            var uzytkownikId = int.Parse(User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier).Value);
+            var druzyna = db.Druzyny.Include(d => d.SkladDruzyny).FirstOrDefault(d => d.UzytkownikId == uzytkownikId);
+
+            if (druzyna == null)
+            {
+                return BadRequest("Nie znaleziono drużyny dla użytkownika.");
+            }
+
+            // Sprawdź, czy zawodnik istnieje
+            var zawodnik = db.Zawodnicy.FirstOrDefault(z => z.ZawodnikId == zawodnikId);
+            if (zawodnik == null)
+            {
+                return BadRequest("Nie znaleziono zawodnika.");
+            }
+
+            // Sprawdź, czy zawodnik już jest na ławce lub w drużynie
+            if (db.SkladDruzyny.Any(sd => sd.DruzynaId == druzyna.DruzynaId && sd.ZawodnikId == zawodnikId))
+            {
+                return BadRequest("Zawodnik już znajduje się w drużynie lub na ławce.");
+            }
+
+            // Sprawdź, czy liczba zawodników na ławce nie przekracza 5
+            if (db.SkladDruzyny.Count(sd => sd.DruzynaId == druzyna.DruzynaId && sd.PozycjaWDruzynie == "Ławka") >= 5)
+            {
+                return BadRequest("Na ławce rezerwowych może być maksymalnie 5 zawodników.");
+            }
+
+            // Dodaj zawodnika na ławkę rezerwowych
+            var skladLawki = new SkladDruzyny
+            {
+                DruzynaId = druzyna.DruzynaId,
+                ZawodnikId = zawodnikId,
+                PozycjaWDruzynie = "Ławka"
+            };
+
+            db.SkladDruzyny.Add(skladLawki);
+
+            // Zapisz zmiany w bazie danych
+            db.SaveChanges();
+
+            return Ok("Zawodnik został dodany na ławkę rezerwowych.");
+        }
+        [HttpPost]
 		public IActionResult UsunZDruzyny(int zawodnikId)
 		{
 			if (!User.Identity.IsAuthenticated)
