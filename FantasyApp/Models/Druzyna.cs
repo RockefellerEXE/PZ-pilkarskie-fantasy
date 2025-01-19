@@ -12,7 +12,7 @@ namespace FantasyApp.Models
 
         public Uzytkownik Uzytkownik { get; set; } // Nawigacja
 		public ICollection<SkladDruzyny> SkladDruzyny { get; set; }
-		public ICollection<StatystykiZawodnikow> Statystyki { get; set; }
+		//public ICollection<StatystykiZawodnikow> Statystyki { get; set; }
 		public ICollection<Transfer> Transfery { get; set; }
 	}
 

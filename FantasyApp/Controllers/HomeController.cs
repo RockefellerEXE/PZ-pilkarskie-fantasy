@@ -95,8 +95,8 @@ namespace FantasyApp.Controllers
 					Nazwisko = sd.Zawodnik.Nazwisko,
 					KlubNazwa = sd.Zawodnik.Klub.Nazwa,
 					PozycjaWDruzynie = sd.PozycjaWDruzynie,
-					Punkty = sd.Zawodnik.Punkty
-				})
+					Punkty = sd.Zawodnik.Statystyki.Sum(s => s.Punkty),
+                })
 				.ToList();
 
 			// Pobierz zawodników na podstawie wybranej pozycji (jeśli jest podana)
@@ -214,7 +214,7 @@ namespace FantasyApp.Controllers
 		}
 
         // Akcja w kontrolerze do dodawania zawodników na ławkę
-        public IActionResult DodajNaLawke(int zawodnikId, bool czytransfer = false)
+        public IActionResult DodajNaLawke(int zawodnikId, string pozycja, bool czytransfer = false)
         {
             if (!User.Identity.IsAuthenticated)
             {
@@ -228,7 +228,7 @@ namespace FantasyApp.Controllers
             if (druzyna == null)
             {
                 TempData["ErrorMessage"] = "Nie znaleziono drużyny dla użytkownika.";
-                return RedirectToAction("Budowanie_zespolu");
+                return RedirectToAction("Budowanie_zespolu", new { pozycja });
             }
 
             // Sprawdź, czy zawodnik istnieje
@@ -236,21 +236,21 @@ namespace FantasyApp.Controllers
             if (zawodnik == null)
             {
                 TempData["ErrorMessage"] = "Nie znaleziono zawodnika.";
-                return RedirectToAction("Budowanie_zespolu");
+                return RedirectToAction("Budowanie_zespolu", new { pozycja });
             }
 
             // Sprawdź, czy zawodnik już jest na ławce lub w drużynie
             if (db.SkladDruzyny.Any(sd => sd.DruzynaId == druzyna.DruzynaId && sd.ZawodnikId == zawodnikId))
             {
                 TempData["ErrorMessage"] = "Zawodnik już znajduje się w drużynie lub na ławce.";
-				return RedirectToAction("Budowanie_zespolu");
+				return RedirectToAction("Budowanie_zespolu", new { pozycja });
             }
 
             // Sprawdź, czy liczba zawodników na ławce nie przekracza 5
             if (db.SkladDruzyny.Count(sd => sd.DruzynaId == druzyna.DruzynaId && sd.PozycjaWDruzynie == "Ławka") >= 5)
             {
                 TempData["ErrorMessage"] = "Na ławce rezerwowych może być maksymalnie 5 zawodników.";
-                return RedirectToAction("Budowanie_zespolu");
+                return RedirectToAction("Budowanie_zespolu", new { pozycja });
             }
 
             // Dodaj zawodnika na ławkę rezerwowych
@@ -265,7 +265,7 @@ namespace FantasyApp.Controllers
             if (druzyna.Budzet < zawodnik.Cena)
             {
                 TempData["ErrorMessage"] = "Nie masz wystarczających środków, aby dodać tego zawodnika.";
-                return RedirectToAction("Budowanie_zespolu");
+                return RedirectToAction("Budowanie_zespolu", new { pozycja });
             }
             if (czytransfer)
             {
@@ -287,7 +287,7 @@ namespace FantasyApp.Controllers
             db.SaveChanges();
 
             TempData["SuccessMessage"] = "Zawodnik został dodany na ławkę rezerwowych.";
-            return RedirectToAction("Budowanie_zespolu");
+            return RedirectToAction("Budowanie_zespolu", new {pozycja});
         }
         [HttpPost]
 		public IActionResult UsunZDruzyny(int zawodnikId, string pozycja)

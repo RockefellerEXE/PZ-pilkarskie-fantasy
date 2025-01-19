@@ -1,0 +1,54 @@
+﻿@{
+    ViewData["Title"] = "Ustawienia konta";
+}
+<head>
+	<link href="~/css/ustawienia.css" rel="stylesheet" />
+</head>
+<body>
+    <h2>Ustawienia konta</h2>
+
+    @if (!ViewData.ModelState.IsValid)
+    {
+        @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+        {
+            <div class="alert alert-danger">
+
+                <p style="color: red;">@error.ErrorMessage</p>
+            </div>
+        }
+
+    }
+    <div class="account-settings-container">
+        <!-- Formularz zmiany hasła -->
+        <div class="account-settings-form">
+            <h3>Zmiana hasła</h3>
+            <form method="post" asp-action="ChangePassword" asp-controller="Account">
+                <div>
+                    <label for="currentPassword">Obecne hasło</label>
+                    <input type="password" id="currentPassword" name="currentPassword" required />
+                </div>
+                <div>
+                    <label for="newPassword">Nowe hasło</label>
+                    <input type="password" id="newPassword" name="newPassword" required />
+                </div>
+                <div>
+                    <button type="submit">Zmień hasło</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Formularz zmiany adresu e-mail -->
+        <div class="account-settings-form">
+            <h3>Zmiana adresu e-mail</h3>
+            <form method="post" asp-action="ChangeEmail" asp-controller="Account">
+                <div>
+                    <label for="newEmail">Nowy e-mail</label>
+                    <input type="email" id="newEmail" name="newEmail" required />
+                </div>
+                <div>
+                    <button type="submit">Zmień e-mail</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>

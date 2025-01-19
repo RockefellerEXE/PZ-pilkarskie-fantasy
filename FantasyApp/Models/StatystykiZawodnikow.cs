@@ -7,7 +7,7 @@ namespace FantasyApp.Models
 	{
 		//[Key]
 		public int StatystykiZawodnikowId { get; set; } // Klucz główny
-		public int DruzynaId { get; set; } // Klucz obcy
+		//public int DruzynaId { get; set; } // Klucz obcy
 		public int ZawodnikId { get; set; } // Klucz obcy
 
 		public int Bramki { get; set; }
@@ -20,7 +20,7 @@ namespace FantasyApp.Models
 		public int StrzalyObronione { get; set; }
 		public int Punkty { get; set; }
 
-		public Druzyna Druzyna { get; set; } // Nawigacja
+		//public Druzyna Druzyna { get; set; } // Nawigacja
 		public Zawodnik Zawodnik { get; set; } // Nawigacja
 	}
 

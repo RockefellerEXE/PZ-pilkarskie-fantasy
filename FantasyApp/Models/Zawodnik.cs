@@ -14,7 +14,7 @@ namespace FantasyApp.Models
 		public int Punkty { get; set; }
 
 		public Klub Klub { get; set; } // Nawigacja
-		public ICollection<SkladDruzyny> SkladDruzyny { get; set; }
+        public ICollection<SkladDruzyny> SkladDruzyny { get; set; }
 		public ICollection<StatystykiZawodnikow> Statystyki { get; set; }
 		public ICollection<Transfer> Transfery { get; set; }
         public ICollection<HistoriaCen> HistoriaCen { get; set; }

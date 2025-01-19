@@ -46,7 +46,8 @@ namespace FantasyApp.Controllers
                 {
                     UzytkownikId = newUser.Id,
                     Login = newUser.UserName,
-                    Punkty = 0
+                    Punkty = 0,
+                    isAdmin = false
                 };
                 var nowaDruzyna = new Druzyna
                 {
@@ -114,5 +115,58 @@ namespace FantasyApp.Controllers
 		{
 			return View();
 		}
-	}
+        public IActionResult Ustawienia() { 
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> ChangePassword(string currentPassword, string newPassword)
+        {
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return RedirectToAction("Login_Register");
+            }
+
+            var result = await _userManager.ChangePasswordAsync(user, currentPassword, newPassword);
+            if (result.Succeeded)
+            {
+                ViewData["SuccessMessage"] = "Hasło zostało pomyślnie zmienione.";
+            }
+            else
+            {
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError(string.Empty, error.Description);
+                }
+            }
+
+            return View("Ustawienia");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ChangeEmail(string newEmail)
+        {
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return RedirectToAction("Login_Register");
+            }
+
+            user.Email = newEmail;
+            var result = await _userManager.UpdateAsync(user);
+
+            if (result.Succeeded)
+            {
+                await _signInManager.RefreshSignInAsync(user);
+                return RedirectToAction("Ustawienia");
+            }
+
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError(string.Empty, error.Description);
+            }
+
+            return RedirectToAction("Ustawienia");
+        }
+    }
 }
