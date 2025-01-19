@@ -174,6 +174,31 @@ button {
     border-radius: 5px;
 }
 
+.player.empty {
+    background-color: #f0f0f0;
+    color: #aaa;
+    border: 2px dashed #ccc;
+    text-align: center;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+    .player.empty span {
+        font-size: 14px;
+        font-weight: bold;
+    }
+
+.hidden-before-load {
+    visibility: hidden;
+    position: absolute; /* Ukrywa element bez wpływu na układ strony */
+}
+
+
+
+
+
+
+
 /* Responsive design */
 @media (max-width: 768px) {
     /* Tabela transferów */
@@ -227,6 +252,9 @@ button {
         margin-top: 10px;
     }
 }
+
+
+
 
 @media (max-width: 480px) {
     .nav-button {

@@ -37,64 +37,116 @@
         }
 
         <!-- Sekcja: Wybór zespołu -->
-        <div id="team" class="content-section active">
+        <div id="team" class="content-section hidden-before-load active">
             <h1>Wybierz swój zespół</h1>
             <h4>###Nazwa zespołu###</h4>
             <p>Aktualny budżet: @ViewBag.Budzet</p>
             <div class="team-grid">
+                @{
+                    var zawodnicy = (IEnumerable<dynamic>)ViewBag.ZawodnicyWDruzynie;
+                    var groupedPlayers = zawodnicy.GroupBy(z => z.PozycjaWDruzynie);
+                }
                 <!-- Bramkarz -->
                 <div class="goalkeeper">
-                    @foreach (var zawodnik in ViewBag.ZawodnicyWDruzynie)
+                    @{
+                        int goalkeeperCount = ((IEnumerable<dynamic>)ViewBag.ZawodnicyWDruzynie).Count(z => z.PozycjaWDruzynie == "Bramkarz");
+                        int maxGoalkeepers = 1; // Liczba miejsc dla bramkarzy
+                    }
+                    @foreach (var zawodnik in ((IEnumerable<dynamic>)ViewBag.ZawodnicyWDruzynie).Where(z => z.PozycjaWDruzynie == "Bramkarz"))
                     {
-                        if (zawodnik.PozycjaWDruzynie == "Bramkarz")
-                        {
-                            <div class="player" data-position="goalkeeper">
-                                <span>@zawodnik.Nazwisko</span>
-                                <span>@zawodnik.KlubNazwa</span>
-                            </div>
-                        }
+                        <div class="player" data-position="goalkeeper">
+                            <span>@zawodnik.Nazwisko</span>
+                            <span>@zawodnik.KlubNazwa</span>
+                            <form asp-action="UsunZDruzyny" asp-controller="Home" method="post">
+                                <input type="hidden" name="zawodnikId" value="@zawodnik.ZawodnikId" />
+                                <input type="hidden" name="pozycja" value="@ViewBag.Pozycja" />
+                                <button type="submit" class="btn btn-danger">Usuń</button>
+                            </form>
+                        </div>
+                    }
+                    @for (int i = goalkeeperCount; i < maxGoalkeepers; i++)
+                    {
+                        <div class="player empty" data-position="goalkeeper">
+                            <span>Bramkarz</span>
+                        </div>
                     }
                 </div>
 
                 <!-- Obrońcy -->
                 <div class="defenders">
-                    @foreach (var zawodnik in ViewBag.ZawodnicyWDruzynie)
+                    @{
+                        int defenderCount = ((IEnumerable<dynamic>)ViewBag.ZawodnicyWDruzynie).Count(z => z.PozycjaWDruzynie == "Obrońca");
+                        int maxDefenders = 4; // Liczba miejsc dla obrońców
+                    }
+                    @foreach (var zawodnik in ((IEnumerable<dynamic>)ViewBag.ZawodnicyWDruzynie).Where(z => z.PozycjaWDruzynie == "Obrońca"))
                     {
-                        if (zawodnik.PozycjaWDruzynie == "Obrońca")
-                        {
-                            <div class="player" data-position="defender">
-                                <span>@zawodnik.Nazwisko</span>
-                                <span>@zawodnik.KlubNazwa</span>
-                            </div>
-                        }
+                        <div class="player" data-position="defender">
+                            <span>@zawodnik.Nazwisko</span>
+                            <span>@zawodnik.KlubNazwa</span>
+                            <form asp-action="UsunZDruzyny" asp-controller="Home" method="post">
+                                <input type="hidden" name="zawodnikId" value="@zawodnik.ZawodnikId" />
+                                <input type="hidden" name="pozycja" value="@ViewBag.Pozycja" />
+                                <button type="submit" class="btn btn-danger">Usuń</button>
+                            </form>
+                        </div>
+                    }
+                    @for (int i = defenderCount; i < maxDefenders; i++)
+                    {
+                        <div class="player empty" data-position="defender">
+                            <span>Obrońca</span>
+                        </div>
                     }
                 </div>
 
                 <!-- Pomocnicy -->
                 <div class="midfielders">
-                    @foreach (var zawodnik in ViewBag.ZawodnicyWDruzynie)
+                    @{
+                        int midfielderCount = ((IEnumerable<dynamic>)ViewBag.ZawodnicyWDruzynie).Count(z => z.PozycjaWDruzynie == "Pomocnik");
+                        int maxMidfielders = 3; // Liczba miejsc dla pomocników
+                    }
+                    @foreach (var zawodnik in ((IEnumerable<dynamic>)ViewBag.ZawodnicyWDruzynie).Where(z => z.PozycjaWDruzynie == "Pomocnik"))
                     {
-                        if (zawodnik.PozycjaWDruzynie == "Pomocnik")
-                        {
-                            <div class="player" data-position="midfielder">
-                                <span>@zawodnik.Nazwisko</span>
-                                <span>@zawodnik.KlubNazwa</span>
-                            </div>
-                        }
+                        <div class="player" data-position="midfielder">
+                            <span>@zawodnik.Nazwisko</span>
+                            <span>@zawodnik.KlubNazwa</span>
+                            <form asp-action="UsunZDruzyny" asp-controller="Home" method="post">
+                                <input type="hidden" name="zawodnikId" value="@zawodnik.ZawodnikId" />
+                                <input type="hidden" name="pozycja" value="@ViewBag.Pozycja" />
+                                <button type="submit" class="btn btn-danger">Usuń</button>
+                            </form>
+                        </div>
+                    }
+                    @for (int i = midfielderCount; i < maxMidfielders; i++)
+                    {
+                        <div class="player empty" data-position="midfielder">
+                            <span>Pomocnik</span>
+                        </div>
                     }
                 </div>
 
                 <!-- Napastnicy -->
                 <div class="forwards">
-                    @foreach (var zawodnik in ViewBag.ZawodnicyWDruzynie)
+                    @{
+                        int forwardCount = ((IEnumerable<dynamic>)ViewBag.ZawodnicyWDruzynie).Count(z => z.PozycjaWDruzynie == "Napastnik");
+                        int maxForwards = 3; // Liczba miejsc dla napastników
+                    }
+                    @foreach (var zawodnik in ((IEnumerable<dynamic>)ViewBag.ZawodnicyWDruzynie).Where(z => z.PozycjaWDruzynie == "Napastnik"))
                     {
-                        if (zawodnik.PozycjaWDruzynie == "Napastnik")
-                        {
-                            <div class="player" data-position="forward">
-                                <span>@zawodnik.Nazwisko</span>
-                                <span>@zawodnik.KlubNazwa</span>
-                            </div>
-                        }
+                        <div class="player" data-position="forward">
+                            <span>@zawodnik.Nazwisko</span>
+                            <span>@zawodnik.KlubNazwa</span>
+                            <form asp-action="UsunZDruzyny" asp-controller="Home" method="post">
+                                <input type="hidden" name="zawodnikId" value="@zawodnik.ZawodnikId" />
+                                <input type="hidden" name="pozycja" value="@ViewBag.Pozycja" />
+                                <button type="submit" class="btn btn-danger">Usuń</button>
+                            </form>
+                        </div>
+                    }
+                    @for (int i = forwardCount; i < maxForwards; i++)
+                    {
+                        <div class="player empty" data-position="forward">
+                            <span>Napastnik</span>
+                        </div>
                     }
                 </div>
             </div>
@@ -102,31 +154,80 @@
         </div>
 
         <!-- Sekcja: Punkty -->
-        <div id="points" class="content-section">
+        <div id="points" class="content-section hidden-before-load">
             <h1>Punkty</h1>
             <h4>###Nazwa zespołu###</h4>
             <div class="team-grid">
-                <div class="field">
-                    @foreach (var zawodnik in ViewBag.ZawodnicyWDruzynie)
+                <!-- Bramkarze -->
+                <div class="goalkeeper">
+                    @{
+                        var goalkeeperList = ((IEnumerable<dynamic>)ViewBag.ZawodnicyWDruzynie).Where(z => z.PozycjaWDruzynie == "Bramkarz");
+                    }
+                    @foreach (var zawodnik in goalkeeperList)
                     {
-                        if (zawodnik.PozycjaWDruzynie != "ławka")
-                        {
-                            <div class="player" data-position="@zawodnik.PozycjaWDruzynie">
-                                <span>@zawodnik.Nazwisko</span><br />
-                                <span>@zawodnik.KlubNazwa</span><br />
-                            </div>
-                        }
+                        <div class="player" data-position="goalkeeper">
+                            <span>@zawodnik.Nazwisko</span>
+                            <span>@zawodnik.KlubNazwa</span>
+                            @* <span>Punkty: @zawodnik.Punkty</span> <!-- Wyświetlenie punktów -->*@
+                        </div>
                     }
                 </div>
+
+                <!-- Obrońcy -->
+                <div class="defenders">
+                    @{
+                        var defenderList = ((IEnumerable<dynamic>)ViewBag.ZawodnicyWDruzynie).Where(z => z.PozycjaWDruzynie == "Obrońca");
+                    }
+                    @foreach (var zawodnik in defenderList)
+                    {
+                        <div class="player" data-position="defender">
+                            <span>@zawodnik.Nazwisko</span>
+                            <span>@zawodnik.KlubNazwa</span>
+                            @*<span>Punkty: @zawodnik.Punkty</span> <!-- Wyświetlenie punktów -->*@
+                        </div>
+                    }
+                </div>
+
+                <!-- Pomocnicy -->
+                <div class="midfielders">
+                    @{
+                        var midfielderList = ((IEnumerable<dynamic>)ViewBag.ZawodnicyWDruzynie).Where(z => z.PozycjaWDruzynie == "Pomocnik");
+                    }
+                    @foreach (var zawodnik in midfielderList)
+                    {
+                        <div class="player" data-position="midfielder">
+                            <span>@zawodnik.Nazwisko</span>
+                            <span>@zawodnik.KlubNazwa</span>
+                           @* <span>Punkty: @zawodnik.Punkty</span> <!-- Wyświetlenie punktów -->*@
+                        </div>
+                    }
+                </div>
+
+                <!-- Napastnicy -->
+                <div class="forwards">
+                    @{
+                        var forwardList = ((IEnumerable<dynamic>)ViewBag.ZawodnicyWDruzynie).Where(z => z.PozycjaWDruzynie == "Napastnik");
+                    }
+                    @foreach (var zawodnik in forwardList)
+                    {
+                        <div class="player" data-position="forward">
+                            <span>@zawodnik.Nazwisko</span>
+                            <span>@zawodnik.KlubNazwa</span>
+                          @*  <span>Punkty: @zawodnik.Punkty</span> <!-- Wyświetlenie punktów --> *@
+                        </div>
+                    }
+                </div>
+
+                <!-- Ławka -->
                 <div class="bench">
                     <h2>Ławka</h2>
                     <ol>
                         @foreach (var zawodnik in ViewBag.ZawodnicyWDruzynie)
                         {
-                            if (zawodnik.PozycjaWDruzynie == "ławka")
+                            if (zawodnik.PozycjaWDruzynie == "Ławka")
                             {
                                 <li>
-                                    @zawodnik.Nazwisko - @zawodnik.KlubNazwa - Punkty:
+                                    @zawodnik.Nazwisko - @zawodnik.KlubNazwa @* - Punkty: @zawodnik.Punkty *@
                                 </li>
                             }
                         }
@@ -135,12 +236,13 @@
             </div>
         </div>
 
+
         <!-- Sekcja: Transfery -->
-        <div id="transfers" class="content-section">
+        <div id="transfers" class="content-section hidden-before-load">
             <h1>Transfery</h1>
             <h4>###Nazwa zespołu###</h4>
             <form method="get" action="/Home/Budowanie_zespolu">
-                <select name="pozycja" class="dropdown" onchange="this.form.submit()">
+                <select name="pozycja" id="transferyDropdown" class="dropdown" onchange="this.form.action += '#transfers'; this.form.submit()">
                     <optgroup label="Pozycje">
                         @if (ViewBag.Pozycja == "Wszyscy")
                         {
@@ -185,6 +287,7 @@
                     </optgroup>
                 </select>
             </form>
+
             <table class="zawodnik-table">
                 <thead>
                     <tr>
