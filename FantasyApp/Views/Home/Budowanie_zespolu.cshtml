@@ -21,12 +21,15 @@
         </div>
         @if (!ViewData.ModelState.IsValid)
         {
-            <div class="alert alert-danger">
-                @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
-                {
-                    <p style="color: red;">@error.ErrorMessage</p>
+            @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+            {
+                if (error.ErrorMessage != "The pozycja field is required."){
+                    <div class="alert alert-danger">
+
+                        <p style="color: red;">@error.ErrorMessage</p>
+                    </div>
                 }
-            </div>
+            }
 
         }
         @if (ViewBag.SuccessMessage != null)
@@ -148,6 +151,26 @@
                             <span>Napastnik</span>
                         </div>
                     }
+                </div>
+                <!-- Ławka -->
+                <div class="bench">
+                    <h2>Ławka</h2>
+                    <ol>
+                        @foreach (var zawodnik in ViewBag.ZawodnicyWDruzynie)
+                        {
+                            if (zawodnik.PozycjaWDruzynie == "Ławka")
+                            {
+                                <li>
+                                    @zawodnik.Nazwisko - @zawodnik.KlubNazwa
+                                </li>
+                                <form asp-action="UsunZDruzyny" asp-controller="Home" method="post">
+                                    <input type="hidden" name="zawodnikId" value="@zawodnik.ZawodnikId" />
+                                    <input type="hidden" name="pozycja" value="@ViewBag.Pozycja" />
+                                    <button type="submit" class="btn btn-danger">Usuń</button>
+                                </form>
+                            }
+                        }
+                    </ol>
                 </div>
             </div>
 
@@ -287,6 +310,7 @@
                     </optgroup>
                 </select>
             </form>
+
             <table class="zawodnik-table">
                 <thead>
                     <tr>

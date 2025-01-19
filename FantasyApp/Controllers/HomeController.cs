@@ -185,7 +185,6 @@ namespace FantasyApp.Controllers
 			
 			db.SkladDruzyny.Add(skladDruzyny);
 
-			// (Opcjonalnie) Aktualizuj budżet drużyny
 			if (druzyna.Budzet < zawodnik.Cena)
 			{
                 TempData["ErrorMessage"] = "Nie masz wystarczających środków, aby dodać tego zawodnika.";
@@ -215,7 +214,7 @@ namespace FantasyApp.Controllers
 		}
 
         // Akcja w kontrolerze do dodawania zawodników na ławkę
-        public IActionResult DodajNaLawke(int zawodnikId)
+        public IActionResult DodajNaLawke(int zawodnikId, bool czytransfer = false)
         {
             if (!User.Identity.IsAuthenticated)
             {
@@ -228,26 +227,30 @@ namespace FantasyApp.Controllers
 
             if (druzyna == null)
             {
-                return BadRequest("Nie znaleziono drużyny dla użytkownika.");
+                TempData["ErrorMessage"] = "Nie znaleziono drużyny dla użytkownika.";
+                return RedirectToAction("Budowanie_zespolu");
             }
 
             // Sprawdź, czy zawodnik istnieje
             var zawodnik = db.Zawodnicy.FirstOrDefault(z => z.ZawodnikId == zawodnikId);
             if (zawodnik == null)
             {
-                return BadRequest("Nie znaleziono zawodnika.");
+                TempData["ErrorMessage"] = "Nie znaleziono zawodnika.";
+                return RedirectToAction("Budowanie_zespolu");
             }
 
             // Sprawdź, czy zawodnik już jest na ławce lub w drużynie
             if (db.SkladDruzyny.Any(sd => sd.DruzynaId == druzyna.DruzynaId && sd.ZawodnikId == zawodnikId))
             {
-                return BadRequest("Zawodnik już znajduje się w drużynie lub na ławce.");
+                TempData["ErrorMessage"] = "Zawodnik już znajduje się w drużynie lub na ławce.";
+				return RedirectToAction("Budowanie_zespolu");
             }
 
             // Sprawdź, czy liczba zawodników na ławce nie przekracza 5
             if (db.SkladDruzyny.Count(sd => sd.DruzynaId == druzyna.DruzynaId && sd.PozycjaWDruzynie == "Ławka") >= 5)
             {
-                return BadRequest("Na ławce rezerwowych może być maksymalnie 5 zawodników.");
+                TempData["ErrorMessage"] = "Na ławce rezerwowych może być maksymalnie 5 zawodników.";
+                return RedirectToAction("Budowanie_zespolu");
             }
 
             // Dodaj zawodnika na ławkę rezerwowych
@@ -259,14 +262,35 @@ namespace FantasyApp.Controllers
             };
 
             db.SkladDruzyny.Add(skladLawki);
+            if (druzyna.Budzet < zawodnik.Cena)
+            {
+                TempData["ErrorMessage"] = "Nie masz wystarczających środków, aby dodać tego zawodnika.";
+                return RedirectToAction("Budowanie_zespolu");
+            }
+            if (czytransfer)
+            {
+                druzyna.PozostaleTransfrery -= 1;
+            }
+            druzyna.Budzet -= zawodnik.Cena;
+            db.Druzyny.Update(druzyna);
 
+            // Dodaj wpis do tabeli Transfery
+            var transfer = new Transfer
+            {
+                DruzynaId = druzyna.DruzynaId,
+                ZawodnikId = zawodnikId,
+                TypTransferu = "Kupno - Ławka" // Możesz użyć stałej lub enum, jeśli jest taka potrzeba
+            };
+
+            db.Transfery.Add(transfer);
             // Zapisz zmiany w bazie danych
             db.SaveChanges();
 
-            return Ok("Zawodnik został dodany na ławkę rezerwowych.");
+            TempData["SuccessMessage"] = "Zawodnik został dodany na ławkę rezerwowych.";
+            return RedirectToAction("Budowanie_zespolu");
         }
         [HttpPost]
-		public IActionResult UsunZDruzyny(int zawodnikId)
+		public IActionResult UsunZDruzyny(int zawodnikId, string pozycja)
 		{
 			if (!User.Identity.IsAuthenticated)
 			{
