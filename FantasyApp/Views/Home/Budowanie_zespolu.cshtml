@@ -287,7 +287,6 @@
                     </optgroup>
                 </select>
             </form>
-
             <table class="zawodnik-table">
                 <thead>
                     <tr>
@@ -317,6 +316,12 @@
                                     <input type="hidden" name="zawodnikId" value="@zawodnik.ZawodnikId" />
                                     <input type="hidden" name="pozycja" value="@ViewBag.Pozycja" />
                                     <button type="submit" class="btn btn-success">Dodaj do drużyny</button>
+                                </form>
+                                <!-- Formularz do dodania zawodnika na ławkę -->
+                                <form asp-action="DodajNaLawke" asp-controller="Home" method="post" style="display:inline;">
+                                    <input type="hidden" name="zawodnikId" value="@zawodnik.ZawodnikId" />
+                                    <input type="hidden" name="pozycja" value="Ławka" />
+                                    <button type="submit" class="btn btn-secondary">Dodaj na ławkę</button>
                                 </form>
                             </td>
                         </tr>
