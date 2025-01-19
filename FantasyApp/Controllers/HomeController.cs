@@ -264,7 +264,7 @@ namespace FantasyApp.Controllers
 				KarneWywalczone = pozycja == "Wszyscy" ? null : (int?)z.Statystyki.Sum(s => s.KarneWywalczone),
 				KarneZmarnowane = pozycja == "Wszyscy" ? null : (int?)z.Statystyki.Sum(s => s.KarneZmarnowane),
 				StrzalyObronione = pozycja == "Wszyscy" ? null : (int?)z.Statystyki.Sum(s => s.StrzalyObronione)
-			}).ToList();
+			}).OrderByDescending(z => z.Punkty).ToList();
 
 			return View(zawodnicyStatystyki);
 		}
