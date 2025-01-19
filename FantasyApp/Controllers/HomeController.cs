@@ -94,7 +94,8 @@ namespace FantasyApp.Controllers
 					ZawodnikId = sd.Zawodnik.ZawodnikId,
 					Nazwisko = sd.Zawodnik.Nazwisko,
 					KlubNazwa = sd.Zawodnik.Klub.Nazwa,
-					PozycjaWDruzynie = sd.PozycjaWDruzynie
+					PozycjaWDruzynie = sd.PozycjaWDruzynie,
+					Punkty = sd.Zawodnik.Punkty
 				})
 				.ToList();
 

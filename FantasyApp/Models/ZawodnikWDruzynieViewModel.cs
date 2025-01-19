@@ -6,5 +6,6 @@
 		public string Nazwisko { get; set; }
 		public string KlubNazwa { get; set; }
 		public string PozycjaWDruzynie { get; set; }
+		public int Punkty { get; set; }
 	}
 }
