@@ -1,0 +1,53 @@
+﻿body {
+    font-family: Arial, sans-serif;
+}
+
+.hero-section {
+    background-color: #f8f9fa;
+    padding: 50px 0;
+}
+
+    .hero-section .logo {
+        max-width: 600px;
+        margin-bottom: 20px;
+    }
+
+    .hero-section h1 {
+        font-size: 5rem;
+        margin-bottom: 20px;
+    }
+
+    .hero-section p {
+        font-size: 3rem;
+        margin-bottom: 30px;
+    }
+
+.cta-buttons .btn {
+    padding: 30px 50px;
+    font-size: 4rem;
+    margin: 0 10px;
+}
+
+.features-section {
+    padding: 50px 0;
+    background-color: #e9ecef;
+}
+
+    .features-section h2 {
+        font-size: 8rem;
+        color: #007bff;
+    }
+
+    .features-section p {
+        font-size: 6rem;
+        color: #6c757d;
+    }
+
+.footer {
+    padding: 20px 0;
+    background-color: #f8f9fa;
+}
+
+    .footer a {
+        color: #007bff;
+    }
