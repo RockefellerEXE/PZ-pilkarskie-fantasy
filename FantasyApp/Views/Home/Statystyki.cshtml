@@ -96,7 +96,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var zawodnik in Model)
+                    @foreach (var zawodnik in Model.OrderByDescending(z=>z.Punkty))
                     {
                         <tr>
                             @if (ViewBag.Pozycja == "Wszyscy")

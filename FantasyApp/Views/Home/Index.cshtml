@@ -1,41 +1,44 @@
 ﻿@{
     ViewData["Title"] = "Home";
 }
-
-<div class="hero-section">
-    <div class="container text-center">
-        <img src="~/images/fantasyimage.jpg" alt="Fantasy Legends Logo" class="logo">
-        <h1>Stań się menedżerem piłkarskim!</h1>
-        <p>Dołącz do świata piłkarskiego fantasy i wybierz do zespołu ulubionych zawodników.</p>
-        <link href="~/css/index.css" rel="stylesheet" />
-        <div class="cta-buttons">
-            <a class="btn btn-success btn-lg" href="@Url.Action("Login_Register", "Account")">Dołącz</a>
-        </div>
-    </div>
-</div>
-
-<div class="features-section">
-    <div class="container text-center">
-        <div class="row">
-            <div class="col-md-4">
-                <h2>16</h2>
-                <p>Zawodników</p>
-            </div>
-            <div class="col-md-4">
-                <h2>100</h2>
-                <p>Milionów</p>
-            </div>
-            <div class="col-md-4">
-                <h2>&infin;</h2>
-                <p>Możliwości</p>
+@if (!User.Identity.IsAuthenticated){
+    <div class="hero-section">
+        <div class="container text-center">
+            <img src="~/images/fantasyimage.jpg" alt="Fantasy Legends Logo" class="logo">
+            <h1>Stań się menedżerem piłkarskim!</h1>
+            <p>Dołącz do świata piłkarskiego fantasy i wybierz do zespołu ulubionych zawodników.</p>
+            <link href="~/css/index.css" rel="stylesheet" />
+            <div class="cta-buttons">
+                <a class="btn btn-success btn-lg" href="@Url.Action("Login_Register", "Account")">Dołącz</a>
             </div>
         </div>
     </div>
-</div>
 
-<footer class="footer bg-light text-center">
-    <div class="container">
-        <p>&copy; 2024 Fantasy Legends. Wszelkie prawa zastrzeżone.</p>
-       
+    <div class="features-section">
+        <div class="container text-center">
+            <div class="row">
+                <div class="col-md-4">
+                    <h2>16</h2>
+                    <p>Zawodników</p>
+                </div>
+                <div class="col-md-4">
+                    <h2>100</h2>
+                    <p>Milionów</p>
+                </div>
+                <div class="col-md-4">
+                    <h2>&infin;</h2>
+                    <p>Możliwości</p>
+                </div>
+            </div>
+        </div>
     </div>
-</footer>
+
+    <footer class="footer bg-light text-center">
+        <div class="container">
+            <p>&copy; 2024 Fantasy Legends. Wszelkie prawa zastrzeżone.</p>
+
+        </div>
+    </footer>
+}else{
+    <p>Witamy ponownie</p>
+}
