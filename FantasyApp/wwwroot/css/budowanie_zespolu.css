@@ -7,7 +7,7 @@ body {
 }
 
 /* Kontener główny */
-.container {
+.container-bz {
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
@@ -103,6 +103,7 @@ body {
 
     .player span {
         display: block;
+        margin-top: 5px;
         margin-bottom: 5px;
     }
 
@@ -113,7 +114,9 @@ body {
     border-radius: 10px;
     margin-top: 20px;
 }
-
+.bench li {
+    margin-bottom: 10px;
+}
 /* Tabela transferów */
 .zawodnik-table {
     width: 100%;
@@ -166,6 +169,15 @@ button {
     .btn-success:hover {
         background-color: #218838;
     }
+.btn-secondary {
+    background-color: #6c757d;
+    color: white;
+}
+
+    .btn-secondary:hover {
+        background-color: #5a6268;
+    }
+
 
 /* Dropdown */
 .dropdown {

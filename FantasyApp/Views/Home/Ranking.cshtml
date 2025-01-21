@@ -1,88 +1,53 @@
 ﻿@model IEnumerable<FantasyApp.Models.Uzytkownik>
 
-
 @{
     ViewData["Title"] = "Ranking";
 }
-<html>
+
+<!DOCTYPE html>
+<html lang="pl">
 <head>
     <meta charset="UTF-8">
-	<link href="~/css/ranking.css" rel="stylesheet" />
-    <title>@ViewData["Title"]</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="~/css/ranking.css" rel="stylesheet" />
 </head>
 <body>
-    <div>
-        <h1 id="main-heading">@ViewData["Title"]</h1>
-
-        @* <select id="select-option" onchange="showContent()"> *@
-        @*     <option value="none" selected hidden disabled>Wybierz opcję</option> *@
-        @*     <option value="ranking-ogolny">Ranking ogólny</option> *@
-        @*     <option value="ligi-prywatne">Ligi prywatne</option> *@
-        @* </select> *@
-        @* <div id="ranking-ogolny" class="ranking-content"> *@
+    <main class="main-content">
         <h1>Ranking Użytkowników</h1>
 
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Miejsce</th>
-                    <th>Login</th>
-                    <th>Punkty</th>
-                </tr>
-            </thead>
-            <tbody>
-                @if (Model != null && Model.Any())
-                {
-                    int miejsce = 1; // Zmienna do numeracji
-                    foreach (var uzytkownik in Model)
+        <div class="ranking-table-wrapper">
+            <table class="ranking-table">
+                <thead>
+                    <tr>
+                        <th>Miejsce</th>
+                        <th>Login</th>
+                        <th>Punkty</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null && Model.Any())
+                    {
+                        int miejsce = 1; // Zmienna do numeracji
+                        foreach (var uzytkownik in Model)
+                        {
+                            <tr>
+                                <td>@(miejsce++)</td>
+                                <td>@uzytkownik.Login</td>
+                                <td>@uzytkownik.Punkty</td>
+                            </tr>
+                        }
+                    }
+                    else
                     {
                         <tr>
-                            <td>@(miejsce++)</td>
-                            <td>@uzytkownik.Login</td>
-                            <td>@uzytkownik.Punkty</td>
+                            <td colspan="3">Brak użytkowników do wyświetlenia.</td>
                         </tr>
                     }
-                }
-                else
-                {
-                    <tr>
-                        <td colspan="3">Brak użytkowników do wyświetlenia.</td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-
+                </tbody>
+            </table>
         </div>
+    </main>
 
-    @*     <div id="ligi-prywatne" class="ranking-content"> *@
-    @*         <table> *@
-    @*             <thead> *@
-    @*                 <tr> *@
-    @*                     <th>Pozycja</th> *@
-    @*                     <th>Liga</th> *@
-    @*                     <th>Twoje punkty</th> *@
-    @*                 </tr> *@
-    @*             </thead> *@
-    @*             <tbody> *@
-    @*                 <tr> *@
-    @*                     <td>5</td> *@
-    @*                     <td>Super Liga</td> *@
-    @*                     <td>1500</td> *@
-    @*                 </tr> *@
-    @*                 <tr> *@
-    @*                     <td>12</td> *@
-    @*                     <td>Ekstra Team</td> *@
-    @*                     <td>1400</td> *@
-    @*                 </tr> *@
-    @*                 <tr> *@
-    @*                     <td>8</td> *@
-    @*                     <td>Wyzwanie 2024</td> *@
-    @*                     <td>1450</td> *@
-    @*                 </tr> *@
-    @*             </tbody> *@
-    @*         </table> *@
-    @*     </div> *@
-    @* </div> *@
-     <script src="~/js/ranking.js"></script>
+    <script src="~/js/ranking.js"></script>
 </body>
 </html>

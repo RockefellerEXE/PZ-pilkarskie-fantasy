@@ -1,40 +1,78 @@
-﻿table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 20px 0;
-    font-size: 18px;
-    text-align: left;
+﻿/* Reset & Base */
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    background-color: #f3f3f3;
 }
 
-    table thead tr {
-        background-color: #f2f2f2;
-        border-bottom: 2px solid #ddd;
-    }
-
-    table th, table td {
-        padding: 12px 15px;
-        border: 1px solid #ddd;
-    }
-
-    table tbody tr:nth-child(even) {
-        background-color: #f9f9f9;
-    }
-
-    table tbody tr:hover {
-        background-color: #f1f1f1;
-    }
+.main-content {
+    flex: auto;
+    padding: 20px;
+    background-color: #f3f3f3; /* Tło zgodne z tłem strony */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
 
 h1 {
     margin-bottom: 20px;
 }
 
-select {
-    margin-bottom: 20px;
-    padding: 10px;
-    font-size: 16px;
+/* Tabela Rankingowa */
+.ranking-table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    display: block;
+    margin-top: 20px;
+    max-height: 60vh; /* Ograniczamy wysokość tabeli */
 }
 
-.ranking-content {
-    margin-top: 20px;
-    display: none
+.ranking-table {
+    width: 100%;
+    border-collapse: collapse;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Lekki cień dla tabeli */
+}
+
+    .ranking-table th, .ranking-table td {
+        padding: 12px 15px;
+        text-align: left;
+        border: 1px solid #ddd;
+    }
+
+    .ranking-table th {
+        background-color: #f4f4f4;
+        font-weight: bold;
+    }
+
+    .ranking-table tr:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+
+    .ranking-table tr:hover {
+        background-color: #f1f1f1;
+    }
+
+/* Responsywność */
+@media screen and (max-width: 768px) {
+    .ranking-table {
+        font-size: 14px;
+    }
+
+        .ranking-table th, .ranking-table td {
+            padding: 10px;
+        }
+}
+
+@media screen and (max-width: 480px) {
+    .ranking-table th, .ranking-table td {
+        padding: 8px;
+    }
+
+    .ranking-table {
+        font-size: 12px;
+    }
 }

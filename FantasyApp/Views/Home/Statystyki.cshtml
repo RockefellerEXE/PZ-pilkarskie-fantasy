@@ -14,13 +14,8 @@
     <link href="~/css/statystyki.css" rel="stylesheet" />
     </head>
     <body>
-        <!-- Header -->
-        <header class="header">
-        </header>
-
         <!-- Main Content -->
         <main class="main-content">
-            <h1>Statystyki</h1>
         <form method="get" action="/Home/Statystyki">
             <select name="pozycja" class="dropdown" onchange="this.form.submit()">
                 <optgroup label="Pozycje">
@@ -69,58 +64,64 @@
         </form>
 
             <div>
-            <h1>@ViewBag.Pozycja</h1>
-
-            <table class="zawodnik-table">
-                <thead>
-                    <tr>
-                        @if (ViewBag.Pozycja == "Wszyscy"){
-
-                        <th>Nazwisko</th>
-                        <th>Pozycja</th>
-                        <th>Punkty</th>
-                        }
-                        else
-                        {
-                            <th>Nazwisko</th>
-                            <th>Punkty</th>
-                            <th>Bramki</th>
-                            <th>Asysty</th>
-                            <th>Zolte Kartki</th>
-                            <th>Czerwone Kartki</th>
-                            <th>Karne Spowodowane</th>
-                            <th>Karne Wywalczone</th>
-                            <th>Karne Zmarnowane</th>
-                            <th>Strzały Obronione</th>
-                        }
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var zawodnik in Model.OrderByDescending(z=>z.Punkty))
-                    {
+            <div class="zawodnik-table-wrapper">
+                <table class="zawodnik-table">
+                    <thead>
                         <tr>
                             @if (ViewBag.Pozycja == "Wszyscy")
                             {
-                            <td>@zawodnik.Nazwisko</td>
-                            <td>@zawodnik.Pozycja</td>
-                            <td>@zawodnik.Punkty</td>
+                                <th>Nazwisko</th>
+                                <th>Klub</th>
+                                <th>Pozycja</th>
+                                <th>Punkty</th>
                             }
-                            else {
-                                <td>@zawodnik.Nazwisko</td>
-                                <td>@zawodnik.Punkty</td>
-                                <td>@zawodnik.Bramki</td>
-                                <td>@zawodnik.Asysty</td>
-                                <td>@zawodnik.ZolteKartki</td>
-                                <td>@zawodnik.CzerwoneKartki</td>
-                                <td>@zawodnik.KarneSpowodowane</td>
-                                <td>@zawodnik.KarneWywalczone</td>
-                                <td>@zawodnik.KarneZmarnowane</td>
-                                <td>@zawodnik.StrzalyObronione</td>
+                            else
+                            {
+                                <th>Nazwisko</th>
+                                <th>Klub</th>
+                                <th>Bramki</th>
+                                <th>Asysty</th>
+                                <th>Zolte Kartki</th>
+                                <th>Czerwone Kartki</th>
+                                <th>Karne Spowodowane</th>
+                                <th>Karne Wywalczone</th>
+                                <th>Karne Zmarnowane</th>
+                                <th>Strzały Obronione</th>
+                                <th>Punkty</th>
                             }
                         </tr>
-                    }
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        @foreach (var zawodnik in Model.OrderByDescending(z => z.Punkty))
+                        {
+                            <tr>
+                                @if (ViewBag.Pozycja == "Wszyscy")
+                                {
+                                    <td>@zawodnik.Nazwisko</td>
+                                    <td>@zawodnik.Klub</td>
+                                    <td>@zawodnik.Pozycja</td>
+                                    <td>@zawodnik.Punkty</td>
+                                }
+                                else
+                                {
+                                    <td>@zawodnik.Nazwisko</td>
+                                    <td>@zawodnik.Klub</td>
+                                    <td>@zawodnik.Bramki</td>
+                                    <td>@zawodnik.Asysty</td>
+                                    <td>@zawodnik.ZolteKartki</td>
+                                    <td>@zawodnik.CzerwoneKartki</td>
+                                    <td>@zawodnik.KarneSpowodowane</td>
+                                    <td>@zawodnik.KarneWywalczone</td>
+                                    <td>@zawodnik.KarneZmarnowane</td>
+                                    <td>@zawodnik.StrzalyObronione</td>
+                                    <td>@zawodnik.Punkty</td>
+                                }
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
 
             </div>
         </main>

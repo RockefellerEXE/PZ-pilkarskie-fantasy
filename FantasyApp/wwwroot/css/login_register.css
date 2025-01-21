@@ -1,62 +1,116 @@
 ﻿/* Styl dla kontenera z formularzami */
 .auth-container {
     display: flex;
-    justify-content: space-between;
-    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center; /* Wyśrodkowanie formularzy */
+    gap: 30px; /* Zwiększona odległość między formularzami */
     margin-top: 20px;
 }
 
 /* Styl dla każdego formularza (logowanie i rejestracja) */
 .auth-form {
-    width: 45%;
+    flex: 1 1 calc(50% - 30px); /* Dwa formularze obok siebie na większych ekranach */
+    max-width: calc(50% - 30px); /* Zwiększona przestrzeń między formularzami */
     border: 1px solid #ccc;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
 }
 
-    /* Nagłówki formularzy */
-    .auth-form h3 {
-        margin-bottom: 15px;
-        color: #333;
+/* Na mniejszych ekranach (tablety i telefony) formularze będą wyświetlane jeden pod drugim */
+@media (max-width: 768px) {
+    .auth-form {
+        flex: 1 1 100%;
+        max-width: 100%;
+        margin-bottom: 20px; /* Dodany margines między formularzami na mniejszych ekranach */
     }
+}
 
-    /* Styl dla pól formularza */
-    .auth-form label {
-        display: block;
-        margin-bottom: 5px;
-        font-weight: bold;
-        color: #555;
+/* Nagłówki formularzy */
+.auth-form h3 {
+    margin-bottom: 15px;
+    color: #333;
+}
+
+/* Styl dla pól formularza */
+.auth-form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #555;
+}
+
+.auth-form input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+/* Styl dla przycisków */
+.auth-form button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    border: none;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+    .auth-form button:hover {
+        background-color: #0056b3;
     }
-
-    .auth-form input {
-        width: 100%;
-        padding: 8px;
-        margin-bottom: 15px;
-        border: 1px solid #ddd;
-        border-radius: 4px;
-        font-size: 14px;
-    }
-
-    /* Styl dla przycisków */
-    .auth-form button {
-        width: 100%;
-        padding: 10px;
-        background-color: #007bff;
-        border: none;
-        color: white;
-        border-radius: 4px;
-        cursor: pointer;
-        font-size: 16px;
-    }
-
-        .auth-form button:hover {
-            background-color: #0056b3;
-        }
 
 /* Dodanie marginesu dla błędów */
 .validation-message {
     color: red;
     font-size: 14px;
     margin-bottom: 10px;
+}
+
+/* Dodanie stylów dla responsywności */
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+h2 {
+    text-align: center;
+    margin-top: 20px;
+    color: #333;
+}
+
+.alert {
+    max-width: 600px;
+    margin: 10px auto;
+    padding: 15px;
+    border: 1px solid red;
+    background-color: #ffe5e5;
+    color: red;
+    border-radius: 8px;
+    box-sizing: border-box;
+}
+
+@media (max-width: 480px) {
+    .auth-form button {
+        font-size: 14px;
+        padding: 8px;
+    }
+
+    .auth-form input {
+        font-size: 12px;
+    }
+
+    h2 {
+        font-size: 20px;
+    }
 }

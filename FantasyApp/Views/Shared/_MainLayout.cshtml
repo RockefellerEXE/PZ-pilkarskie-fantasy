@@ -7,6 +7,45 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <title>@ViewBag.Title - Piłkarskie Fantasy</title>
+    <style>
+        /* Styl tła i kontenera strony */
+        body {
+            background-color: #f8f9fa; /* Kolor tła strony */
+            margin: 0;
+            min-height: 100vh; /* Zapewnia minimalną wysokość strony */
+            display: flex;
+            flex-direction: column; /* Ustawia układ kolumnowy */
+        }
+
+        .container-main {
+            flex: 1; /* Sprawia, że główny kontener zajmuje całą dostępną przestrzeń */
+            max-width: 1200px; /* Maksymalna szerokość kontenera */
+            margin: 0 auto; /* Wyśrodkowanie kontenera */
+            padding: 20px; /* Odstęp wewnętrzny */
+        }
+
+        /* Styl menu */
+        .navbar {
+            border-radius: 0; /* Usuń zaokrąglenia paska nawigacyjnego */
+            margin-bottom: 0;
+            position: sticky; /* Sprawia, że navbar jest przyklejony do góry */
+            top: 0; /* Przypina navbar do góry */
+            z-index: 1000; /* Zapewnia, że navbar będzie na wierzchu */
+        }
+
+        .navbar-brand, .nav > li > a {
+            font-size: 16px; /* Rozmiar tekstu w menu */
+        }
+
+        footer {
+            background-color: #222;
+            color: #fff;
+            padding: 20px 0; /* Zwiększenie paddingu dla stopki */
+            margin-top: auto; /* Przypina stopkę do dołu strony */
+            width: 100%; /* Ustala szerokość stopki na 100% */
+            text-align: center; /* Wyrównanie tekstu w stopce */
+        }
+    </style>
 </head>
 <body>
     <nav class="navbar navbar-inverse">
@@ -25,17 +64,17 @@
         </div>
     </nav>
 
-    <div class="container-fluid">
+    <div class="container-main">
         <div class="row content">
             <!-- Główna treść po lewej stronie -->
-            <div class="col-sm-8 col-xs-12" id="main">
+            <div class="col-xs-12" id="main">
                 @RenderBody()
             </div>
         </div>
     </div>
 
     <footer class="container-fluid text-center">
-        @* Zawartość stopki (można dodać odnośniki itp.) *@
+        <p>© 2025 Piłkarskie Fantasy. Wszelkie prawa zastrzeżone.</p>
     </footer>
 
     @RenderSection("Scripts", false)

@@ -7,5 +7,6 @@
 		public string KlubNazwa { get; set; }
 		public string PozycjaWDruzynie { get; set; }
 		public int Punkty { get; set; }
+		public decimal CenaZawodnika { get; set; }
 	}
 }

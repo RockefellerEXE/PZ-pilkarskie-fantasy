@@ -28,36 +28,47 @@ namespace FantasyApp.Controllers
 		{
 			return View();
 		}
-        public IActionResult Aktualnosci(int page = 1)
-        {
-            int pageSize = 10; // Liczba rekordów na stronie
-            int najnowszaKolejka = db.HistoriaCen.Max(h => h.Kolejka); // Znajdź najnowszą kolejkę
+		public IActionResult Aktualnosci(int page = 1)
+		{
+			int pageSize = 6; // Liczba rekordów na stronie
+			int najnowszaKolejka = db.HistoriaCen.Max(h => h.Kolejka); // Znajdź najnowszą kolejkę
 
-            // Pobranie danych z bazy danych tylko dla najnowszej kolejki
-            var zawodnicyHistoria = db.Zawodnicy
-                .Include(z => z.HistoriaCen)
-                .SelectMany(z => z.HistoriaCen, (zawodnik, historia) => new ZawodnikHistoriaCenViewModel
-                {
-                    Nazwisko = zawodnik.Nazwisko,
-                    Cena = zawodnik.Cena,
-                    Kolejka = historia.Kolejka,
-                    CenaPrzed = historia.CenaPrzed
-                })
-                .Where(h => h.Kolejka == najnowszaKolejka) // Filtrowanie dla najnowszej kolejki
-                .Skip((page - 1) * pageSize)
-                .Take(pageSize)
-                .ToList();
+			// Pobranie danych z bazy danych tylko dla najnowszej kolejki
+			var query = db.Zawodnicy
+				.Include(z => z.HistoriaCen)
+				.SelectMany(z => z.HistoriaCen, (zawodnik, historia) => new ZawodnikHistoriaCenViewModel
+				{
+					Nazwisko = zawodnik.Nazwisko,
+					Cena = zawodnik.Cena,
+					Kolejka = historia.Kolejka,
+					CenaPrzed = historia.CenaPrzed
+				})
+				.Where(h => h.Kolejka == najnowszaKolejka); // Filtrowanie dla najnowszej kolejki
 
-            // Obliczanie ilości stron
-            int totalCount = zawodnicyHistoria.Count(); // Liczba rekordów po filtrowaniu
-            int totalPages = (int)Math.Ceiling(totalCount / (double)pageSize);
+			// Obliczanie całkowitej liczby rekordów
+			int totalCount = query.Count(); // Liczba rekordów po filtrowaniu
 
-            // Przekazywanie danych do widoku
-            ViewBag.CurrentPage = page;
-            ViewBag.TotalPages = totalPages;
+			// Obliczanie liczby stron
+			int totalPages = (int)Math.Ceiling(totalCount / (double)pageSize);
 
-            return View(zawodnicyHistoria);
-        }
+			// Sprawdzanie, czy strona jest w zakresie
+			page = Math.Max(1, Math.Min(page, totalPages));
+
+			// Pobranie danych tylko dla aktualnej strony
+			var currentPageData = query
+				.Skip((page - 1) * pageSize) // Przesuwamy o (page - 1) * pageSize
+				.Take(pageSize)              // Pobieramy tylko pageSize rekordów
+				.ToList();                   // Ładujemy tylko dane dla tej strony
+
+			// Przekazywanie danych do widoku
+			ViewBag.CurrentPage = page;
+			ViewBag.TotalPages = totalPages;
+			ViewBag.NajnowszaKolejka = najnowszaKolejka;
+
+			return View(currentPageData);
+		}
+
+
 
 		public IActionResult Budowanie_zespolu(string pozycja = "Wszyscy")
 		{
@@ -96,6 +107,7 @@ namespace FantasyApp.Controllers
 					KlubNazwa = sd.Zawodnik.Klub.Nazwa,
 					PozycjaWDruzynie = sd.PozycjaWDruzynie,
 					Punkty = sd.Zawodnik.Statystyki.Sum(s => s.Punkty),
+					CenaZawodnika = sd.Zawodnik.Cena,
                 })
 				.ToList();
 
@@ -370,6 +382,7 @@ namespace FantasyApp.Controllers
 				Nazwisko = z.Nazwisko,
 				Pozycja = z.Pozycja,
 				Punkty = z.Statystyki.Sum(s => s.Punkty),
+				Klub = z.Klub.Nazwa,
 				Bramki = pozycja == "Wszyscy" ? null : (int?)z.Statystyki.Sum(s => s.Bramki),
 				Asysty = pozycja == "Wszyscy" ? null : (int?)z.Statystyki.Sum(s => s.Asysty),
 				ZolteKartki = pozycja == "Wszyscy" ? null : (int?)z.Statystyki.Sum(s => s.ZolteKartki),

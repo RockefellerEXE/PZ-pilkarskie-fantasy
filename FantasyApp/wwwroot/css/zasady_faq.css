@@ -1,39 +1,117 @@
-﻿.wrapper {
-    display: flex;
-    align-items: center;
-    height: 100vh;
-    padding-top: 20px;
-    flex-direction: column;
+﻿/* Globalne ustawienia */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f9fa;
 }
 
+.wrapper {
+    display: flex;
+    align-items: flex-start; /* Ustawienie wyrównania na górze */
+    justify-content: center;
+    padding-top: 20px;
+    flex-direction: column;
+    height: auto; /* Zmiana wysokości na auto */
+}
+
+/* Styl dla kontenerów zasady i FAQ */
 .container-zasady,
 .container-faq {
-    max-width: 80%;
-    max-height: 60%;
+    width: 100%; /* Ustawiamy szerokość na 100% */
+    max-width: 1200px; /* Maksymalna szerokość */
     background-color: #fff;
     padding: 20px;
     border: 1px solid black;
+    margin-bottom: 20px;
     overflow-y: auto;
+    box-sizing: border-box; /* Uwzględnia padding w szerokości */
+}
+
+/* Styl dla sekcji poszczególnych punktów w Zasadach */
+.container-zasady-item,
+.container-faq-item {
     margin-bottom: 20px;
 }
 
-.container-zasady-item {
-    margin-bottom: 25px;
+/* Nagłówki */
+h1, h2 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
 }
 
-.container-faq-item {
-    margin-bottom: 15px;
+h1 {
+    text-align: center;
 }
 
-th, td, tr {
+/* Styl tabeli */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
     border: 1px solid black;
-}
-
-td {
+    padding: 8px;
     text-align: left;
-    vertical-align: middle;
 }
 
-    td:nth-child(2) {
-        text-align: center;
+th {
+    background-color: #f1f1f1;
+}
+
+td:nth-child(2) {
+    text-align: center;
+}
+
+/* Responsywność: Dostosowanie do mniejszych ekranów */
+@media (max-width: 768px) {
+    .wrapper {
+        padding-top: 10px;
     }
+
+    h1 {
+        font-size: 1.2rem;
+    }
+
+    .container-zasady,
+    .container-faq {
+        padding: 15px;
+        margin: 10px;
+    }
+
+    th, td {
+        padding: 6px;
+    }
+
+    table {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 1.1rem;
+    }
+
+    h2 {
+        font-size: 1rem;
+    }
+
+    .container-zasady,
+    .container-faq {
+        padding: 10px;
+        margin: 5px;
+    }
+
+    th, td {
+        padding: 5px;
+        font-size: 0.8rem;
+    }
+
+    .container-zasady-item,
+    .container-faq-item {
+        margin-bottom: 15px;
+    }
+}

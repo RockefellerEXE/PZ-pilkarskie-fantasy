@@ -1,7 +1,8 @@
 ﻿@{
     ViewData["Title"] = "Home";
 }
-@if (!User.Identity.IsAuthenticated){
+@if (!User.Identity.IsAuthenticated)
+{
     <div class="hero-section">
         <div class="container text-center">
             <img src="~/images/fantasyimage.jpg" alt="Fantasy Legends Logo" class="logo">
@@ -17,28 +18,33 @@
     <div class="features-section">
         <div class="container text-center">
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-4 feature">
                     <h2>16</h2>
                     <p>Zawodników</p>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-4 feature">
                     <h2>100</h2>
                     <p>Milionów</p>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-4 feature">
                     <h2>&infin;</h2>
                     <p>Możliwości</p>
                 </div>
             </div>
         </div>
     </div>
-
-    <footer class="footer bg-light text-center">
-        <div class="container">
-            <p>&copy; 2024 Fantasy Legends. Wszelkie prawa zastrzeżone.</p>
-
+}
+else
+{
+    <div class="logged-in-section">
+        <div class="container text-center">
+            <h1>Witaj ponownie, @User.Identity.Name!</h1>
+            <p>Zarządzaj swoim zespołem, analizuj wyniki i podejmuj strategiczne decyzje.</p>
+            <div class="cta-buttons">
+                <a class="btn btn-primary" href="@Url.Action("Budowanie_zespolu", "Home")">Mój Zespół</a>
+                <a class="btn btn-info" href="@Url.Action("Statystyki", "Home")">Statystyki</a>
+                <a class="btn btn-success" href="@Url.Action("Terminarz", "Home")">Terminarz</a>
+            </div>
         </div>
-    </footer>
-}else{
-    <p>Witamy ponownie</p>
+    </div>
 }
