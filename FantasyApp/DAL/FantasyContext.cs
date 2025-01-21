@@ -17,6 +17,8 @@ namespace FantasyApp.DAL
 		public DbSet<Transfer> Transfery { get; set; }
         public DbSet<HistoriaCen> HistoriaCen { get; set; }
 
+		public DbSet<CzyTransfer> CzyTransfer { get; set; }
+
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -81,26 +83,26 @@ namespace FantasyApp.DAL
             // Dodanie danych początkowych
             modelBuilder.Entity<Klub>().HasData(
 
-				new Klub { KlubId = 1, Nazwa = "Lech Poznań" },
-				new Klub { KlubId = 2, Nazwa = "Raków Częstochowa" },
-				new Klub { KlubId = 3, Nazwa = "Jagiellonia Białystok" },
+                new Klub { KlubId = 1, Nazwa = "Lech Poznań" },
+				new Klub { KlubId = 2, Nazwa = "Jagiellonia Białystok" },
+				new Klub { KlubId = 3, Nazwa = "Raków Częstochowa" },
 				new Klub { KlubId = 4, Nazwa = "Legia Warszawa" },
-				new Klub { KlubId = 5, Nazwa = "Cracovia" },
-				new Klub { KlubId = 6, Nazwa = "Górnik Zabrze" },
-				new Klub { KlubId = 7, Nazwa = "Motor Lublin" },
-				new Klub { KlubId = 8, Nazwa = "Pogoń Szczecin" },
+				new Klub { KlubId = 5, Nazwa = "Pogoń Szczecin" },
+				new Klub { KlubId = 6, Nazwa = "Cracovia" },
+				new Klub { KlubId = 7, Nazwa = "Górnik Zabrze" },
+				new Klub { KlubId = 8, Nazwa = "Motor Lublin" },
 				new Klub { KlubId = 9, Nazwa = "Widzew Łódź" },
 				new Klub { KlubId = 10, Nazwa = "GKS Katowice" },
 				new Klub { KlubId = 11, Nazwa = "Piast Gliwice" },
-				new Klub { KlubId = 12, Nazwa = "Radomiak Radom" },
-				new Klub { KlubId = 13, Nazwa = "Stal Mielec" },
-				new Klub { KlubId = 14, Nazwa = "Zagłębie Lubin" },
-				new Klub { KlubId = 15, Nazwa = "Puszcza Niepołomice" },
-				new Klub { KlubId = 16, Nazwa = "Korona Kielce" },
+				new Klub { KlubId = 12, Nazwa = "Stal Mielec" },
+				new Klub { KlubId = 13, Nazwa = "Zagłębie Lubin" },
+				new Klub { KlubId = 14, Nazwa = "Puszcza Niepołomice" },
+				new Klub { KlubId = 15, Nazwa = "Korona Kielce" },
+				new Klub { KlubId = 16, Nazwa = "Radomiak Radom" },
 				new Klub { KlubId = 17, Nazwa = "Lechia Gdańsk" },
 				new Klub { KlubId = 18, Nazwa = "Śląsk Wrocław" }
 
-			);
+            );
 
 			//modelBuilder.Entity<Uzytkownik>().HasData(
 			//	new Uzytkownik { UzytkownikId = 1, Login = "user1", Punkty = 0 },
@@ -1211,6 +1213,9 @@ namespace FantasyApp.DAL
 				new HistoriaCen { HistoriaCenId = 4, ZawodnikId = 14, Kolejka = 20 , CenaPrzed = 9 },
 				new HistoriaCen { HistoriaCenId = 5, ZawodnikId = 1, Kolejka = 19 , CenaPrzed = 7 }
             );
+			modelBuilder.Entity<CzyTransfer>().HasData(
+				new CzyTransfer { CzyTransferId = 1,czyTransfer = false }
+				);
 		}
 	}
 }

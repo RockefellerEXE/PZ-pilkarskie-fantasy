@@ -3,6 +3,7 @@ using FantasyApp.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FantasyApp.Migrations
 {
     [DbContext(typeof(FantasyContext))]
-    partial class FantasyContextModelSnapshot : ModelSnapshot
+    [Migration("20250121185810_mig2")]
+    partial class mig2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -158,12 +160,12 @@ namespace FantasyApp.Migrations
                         new
                         {
                             KlubId = 2,
-                            Nazwa = "Jagiellonia Białystok"
+                            Nazwa = "Raków Częstochowa"
                         },
                         new
                         {
                             KlubId = 3,
-                            Nazwa = "Raków Częstochowa"
+                            Nazwa = "Jagiellonia Białystok"
                         },
                         new
                         {
@@ -173,22 +175,22 @@ namespace FantasyApp.Migrations
                         new
                         {
                             KlubId = 5,
-                            Nazwa = "Pogoń Szczecin"
-                        },
-                        new
-                        {
-                            KlubId = 6,
                             Nazwa = "Cracovia"
                         },
                         new
                         {
-                            KlubId = 7,
+                            KlubId = 6,
                             Nazwa = "Górnik Zabrze"
                         },
                         new
                         {
-                            KlubId = 8,
+                            KlubId = 7,
                             Nazwa = "Motor Lublin"
+                        },
+                        new
+                        {
+                            KlubId = 8,
+                            Nazwa = "Pogoń Szczecin"
                         },
                         new
                         {
@@ -208,27 +210,27 @@ namespace FantasyApp.Migrations
                         new
                         {
                             KlubId = 12,
-                            Nazwa = "Stal Mielec"
+                            Nazwa = "Radomiak Radom"
                         },
                         new
                         {
                             KlubId = 13,
-                            Nazwa = "Zagłębie Lubin"
+                            Nazwa = "Stal Mielec"
                         },
                         new
                         {
                             KlubId = 14,
-                            Nazwa = "Puszcza Niepołomice"
+                            Nazwa = "Zagłębie Lubin"
                         },
                         new
                         {
                             KlubId = 15,
-                            Nazwa = "Korona Kielce"
+                            Nazwa = "Puszcza Niepołomice"
                         },
                         new
                         {
                             KlubId = 16,
-                            Nazwa = "Radomiak Radom"
+                            Nazwa = "Korona Kielce"
                         },
                         new
                         {

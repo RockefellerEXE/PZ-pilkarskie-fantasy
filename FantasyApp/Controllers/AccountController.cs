@@ -115,7 +115,10 @@ namespace FantasyApp.Controllers
 		{
 			return View();
 		}
-        public IActionResult Ustawienia() { 
+        public async Task<IActionResult> Ustawienia() {
+            var user = await _userManager.GetUserAsync(User);
+            var admin = db.Uzytkownicy.FirstOrDefault(u=>u.UzytkownikId == user.Id);
+            ViewBag.isAdmin = admin.isAdmin;
             return View();
         }
         [HttpPost]

@@ -51,4 +51,26 @@
             </form>
         </div>
     </div>
+    @if (@ViewBag.isAdmin){
+        <h3>Pandel administratora</h3>
+         <form method="post" asp-action="PodliczZawodnikow" asp-controller="Home">
+            <button type="submit">Podlicz punkty zawodników</button>
+         </form>
+        <form method="post" asp-action="PodliczGraczy" asp-controller="Home">
+            <button type="submit">Podlicz punkty graczy</button>
+        </form>
+        <form method="post" asp-action="Lock" asp-controller="Home">
+            <button type="submit">Zablokuj Transfery</button>
+        </form>
+        <form method="post" asp-action="Unlock" asp-controller="Home">
+            <button type="submit">Odblokuj Transfery</button>
+        </form>
+        @*<form method="post" asp-action="" asp-controller="Home">
+            <button  disabled type="submit">Zakończ kolejkę</button>
+        </form>
+        <form method="post" asp-action="" asp-controller="Home">
+            <button disabled type="submit">Rozpocznij kolejkę</button>
+        </form>*@
+
+    }
 </body>

@@ -128,9 +128,11 @@ namespace FantasyApp.Controllers
 		}
 
 		[HttpPost]
-		public IActionResult DodajDoDruzyny(int zawodnikId, string pozycja, string formacjaString="1-4-3-3", bool czytransfer = false)
+		public IActionResult DodajDoDruzyny(int zawodnikId, string pozycja, string formacjaString="1-4-3-3", bool czytransfer = true)
 		{
-			if (!User.Identity.IsAuthenticated)
+			czytransfer = db.CzyTransfer.Select(z => z.czyTransfer).FirstOrDefault();
+
+            if (!User.Identity.IsAuthenticated)
 			{
 				return RedirectToAction("Index", "Home");
 			}
@@ -150,7 +152,11 @@ namespace FantasyApp.Controllers
                 // Znajdź aktualną drużynę użytkownika
             var uzytkownikId = int.Parse(User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier).Value);
 			var druzyna = db.Druzyny.Include(d => d.SkladDruzyny).FirstOrDefault(d => d.UzytkownikId == uzytkownikId);
-
+			if (czytransfer)
+			{
+                TempData["ErrorMessage"] = "Transfery zablokowane.";
+                return RedirectToAction("Budowanie_zespolu", new { pozycja });
+            }
 			if (druzyna == null)
 			{
                 TempData["ErrorMessage"] = "Nie znaleziono drużyny dla użytkownika.";
@@ -228,11 +234,17 @@ namespace FantasyApp.Controllers
         // Akcja w kontrolerze do dodawania zawodników na ławkę
         public IActionResult DodajNaLawke(int zawodnikId, string pozycja, bool czytransfer = false)
         {
+			czytransfer = db.CzyTransfer.Select(z => z.czyTransfer).FirstOrDefault();
+
             if (!User.Identity.IsAuthenticated)
             {
                 return RedirectToAction("Index", "Home");
             }
-
+			if (czytransfer)
+			{
+                TempData["ErrorMessage"] = "Transfery zablokowane.";
+                return RedirectToAction("Budowanie_zespolu", new { pozycja });
+            }
             // Znajdź aktualną drużynę użytkownika
             var uzytkownikId = int.Parse(User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier).Value);
             var druzyna = db.Druzyny.Include(d => d.SkladDruzyny).FirstOrDefault(d => d.UzytkownikId == uzytkownikId);
@@ -304,11 +316,17 @@ namespace FantasyApp.Controllers
         [HttpPost]
 		public IActionResult UsunZDruzyny(int zawodnikId, string pozycja)
 		{
-			if (!User.Identity.IsAuthenticated)
+            bool czytransfer = db.CzyTransfer.Select(z => z.czyTransfer).FirstOrDefault();
+
+            if (!User.Identity.IsAuthenticated)
 			{
 				return RedirectToAction("Index", "Home");
 			}
-
+			if (czytransfer)
+			{
+				TempData["ErrorMessage"] = "Transfery zablokowane.";
+                return RedirectToAction("Budowanie_zespolu", new { pozycja });
+			}
 			var uzytkownikId = int.Parse(User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier).Value);
 			var druzyna = db.Druzyny.FirstOrDefault(d => d.UzytkownikId == uzytkownikId);
 
@@ -395,9 +413,107 @@ namespace FantasyApp.Controllers
 
 			return View(zawodnicyStatystyki);
 		}
+        [HttpPost]
+        public IActionResult PodliczZawodnikow()
+		{
+            IQueryable<StatystykiZawodnikow> query = db.StatystykiZawodnikow.Include(z => z.Zawodnik);
+			var zawodnicyStatystyki = query.Select(z => new StatystykiZawodnikow
+			{
+
+                StatystykiZawodnikowId = z.StatystykiZawodnikowId,
+				ZawodnikId = z.ZawodnikId,
+				Bramki = z.Bramki,
+				Asysty = z.Asysty,
+				ZolteKartki = z.ZolteKartki,
+				CzerwoneKartki = z.CzerwoneKartki,
+				KarneSpowodowane = z.KarneSpowodowane,
+				KarneWywalczone = z.KarneWywalczone,
+				KarneZmarnowane =z.KarneZmarnowane,
+				StrzalyObronione = z.StrzalyObronione,
+				Punkty = 0
+			}).ToList();
+
+            foreach (var item in zawodnicyStatystyki)
+            {
+				string pozycja = db.Zawodnicy.Where(z => z.ZawodnikId == item.ZawodnikId).Select(z => z.Pozycja).ToString();
+				item.Punkty = item.Bramki * (pozycja == "Napastnik" ? 6 : 5) +
+				item.Asysty * (pozycja == "Pomocnik" ? 5 : 4) +
+				item.ZolteKartki * -1 +
+				item.CzerwoneKartki * -4 +
+				item.KarneSpowodowane * -2 +
+				item.KarneWywalczone * 3 +
+				item.KarneZmarnowane * -3 +
+				item.StrzalyObronione/2;
+            }
+			db.StatystykiZawodnikow.UpdateRange(zawodnicyStatystyki);
+			db.SaveChanges();
+            return RedirectToAction("Statystyki", "Home");
+		}
+        [HttpPost]
+        public IActionResult PodliczGraczy()
+		{
+            IQueryable<Uzytkownik> query = db.Uzytkownicy;
+			var users = query.Select(u => new Uzytkownik
+			{
+				UzytkownikId = u.UzytkownikId,
+				Login = u.Login,
+				Punkty = u.Punkty,
+				isAdmin = u.isAdmin
+			});
+            foreach (var user in users)
+            {
+				IQueryable<SkladDruzyny> druzynaQuery = db.SkladDruzyny.Where(z => z.DruzynaId == user.UzytkownikId);
+				var druzyna = druzynaQuery.Select(d => new SkladDruzyny
+				{
+					DruzynaId = d.DruzynaId,
+					ZawodnikId = d.ZawodnikId,
+					PozycjaWDruzynie = d.PozycjaWDruzynie
+				});
+                foreach (var item in druzyna)
+                {
+					int punkt = db.StatystykiZawodnikow.Where(s => s.ZawodnikId == item.ZawodnikId).Sum(s=>s.Punkty);
+					user.Punkty += (item.PozycjaWDruzynie != "Ławka" ? punkt : punkt / 2);
+                }
+				db.Uzytkownicy.Update(user);
+            }
+			db.SaveChanges();
+            
 
 
+            return RedirectToAction("Ranking", "Home");
 
+        }
+
+        public IActionResult Lock()
+        {
+            var query = db.CzyTransfer;
+			var czyTransfer = query.Select(t => new CzyTransfer
+			{
+				CzyTransferId = 1,
+				czyTransfer = true
+			});
+
+            db.CzyTransfer.UpdateRange(czyTransfer);
+            db.SaveChanges();
+
+            return RedirectToAction("Budowanie_zespolu", "Home", new {pozycja = "Wszyscy"});
+
+        }
+        public IActionResult Unlock()
+        {
+            var query = db.CzyTransfer;
+            var czyTransfer = query.Select(t => new CzyTransfer
+            {
+                CzyTransferId = 1,
+                czyTransfer = false
+            });
+
+            db.CzyTransfer.UpdateRange(czyTransfer);
+            db.SaveChanges();
+
+			return RedirectToAction("Budowanie_zespolu", "Home", new { pozycja = "Wszyscy" });
+
+        }
 
         public IActionResult Terminarz()
 		{
